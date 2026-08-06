@@ -161,9 +161,22 @@ The business model is subscription-based. Providers earn recurring revenue throu
 - GET /api/provider/apis
 
 ### Consumer
-- GET /api/consumer/dashboard
-- GET /api/consumer/subscriptions
+- GET /api/consumer/profile
+- PUT /api/consumer/profile
+- GET /api/consumer/marketplace/apis
+- GET /api/consumer/marketplace/apis/{id}
+- GET /api/consumer/marketplace/apis/{apiId}/plans
 - POST /api/consumer/subscriptions
+- POST /api/consumer/dev/subscriptions/{subscriptionId}/activate
+- GET /api/consumer/api-keys
+- POST /api/consumer/subscriptions/{subscriptionId}/api-key/regenerate
+- DELETE /api/consumer/api-keys/{id}
+- GET /api/consumer/subscriptions
+- GET /api/consumer/subscriptions/{id}
+- PATCH /api/consumer/subscriptions/{id}/cancel
+- GET /api/consumer/subscriptions/{subscriptionId}/documentation
+- GET /api/consumer/usage
+- GET /api/consumer/dashboard
 
 ### Admin
 - GET /api/admin/dashboard

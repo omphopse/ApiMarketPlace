@@ -11,18 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class DashboardController {
 
-    @GetMapping("/provider/dashboard")
-    @PreAuthorize("hasRole('PROVIDER')")
-    public ResponseEntity<Map<String, String>> providerDashboard() {
-        return ResponseEntity.ok(Map.of("message", "Provider Dashboard"));
-    }
-
-    @GetMapping("/consumer/dashboard")
-    @PreAuthorize("hasRole('CONSUMER')")
-    public ResponseEntity<Map<String, String>> consumerDashboard() {
-        return ResponseEntity.ok(Map.of("message", "Consumer Dashboard"));
-    }
-
     @GetMapping("/admin/dashboard")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, String>> adminDashboard() {
