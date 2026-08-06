@@ -1,19 +1,20 @@
 package com.marketplace.startup;
 
 import com.marketplace.constants.AppConstants;
+import com.marketplace.entity.ApprovalStatus;
 import com.marketplace.entity.Category;
 import com.marketplace.entity.Role;
 import com.marketplace.entity.User;
 import com.marketplace.repository.CategoryRepository;
 import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.UserRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -39,6 +40,7 @@ public class DefaultAdminInitializer implements ApplicationRunner {
                     .password(passwordEncoder.encode(AppConstants.DEFAULT_ADMIN_PASSWORD))
                     .enabled(true)
                     .role(adminRole)
+                    .approvalStatus(ApprovalStatus.APPROVED)
                     .build();
             userRepository.save(admin);
         }

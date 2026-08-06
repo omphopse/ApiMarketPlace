@@ -31,6 +31,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
         return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI());
     }
+    
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(
+            IllegalArgumentException ex) {
+
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
 
     @ExceptionHandler(UnauthorizedResourceAccessException.class)
     public ResponseEntity<ErrorResponse> handleUnauthorizedResourceAccess(UnauthorizedResourceAccessException ex, HttpServletRequest request) {

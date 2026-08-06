@@ -341,7 +341,7 @@ public class ConsumerServiceImpl implements ConsumerService {
             Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
             return buildUsageSummary(subscription);
         }
-        return UsageSummaryResponse.builder().totalRequests(0L).successfulRequests(0L).failedRequests(0L).requestLimit(0).remainingRequests(0).build();
+        return UsageSummaryResponse.builder().totalRequests(0L).successfulRequests(0L).failedRequests(0L).requestLimit(0).remainingRequests(0L).build();
     }
 
     @Override
