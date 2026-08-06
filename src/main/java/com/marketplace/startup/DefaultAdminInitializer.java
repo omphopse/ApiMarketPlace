@@ -1,6 +1,7 @@
 package com.marketplace.startup;
 
 import com.marketplace.constants.AppConstants;
+import com.marketplace.entity.ApprovalStatus;
 import com.marketplace.entity.Role;
 import com.marketplace.entity.User;
 import com.marketplace.repository.RoleRepository;
@@ -34,6 +35,7 @@ public class DefaultAdminInitializer implements ApplicationRunner {
                     .password(passwordEncoder.encode(AppConstants.DEFAULT_ADMIN_PASSWORD))
                     .enabled(true)
                     .role(adminRole)
+                    .approvalStatus(ApprovalStatus.APPROVED)
                     .build();
             userRepository.save(admin);
         }

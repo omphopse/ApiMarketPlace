@@ -10,6 +10,7 @@ import com.marketplace.entity.Category;
 import com.marketplace.exception.ResourceNotFoundException;
 import com.marketplace.mapper.CategoryMapper;
 import com.marketplace.repository.CategoryRepository;
+import com.marketplace.service.AuditLogService;
 import com.marketplace.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService{
 	
 	private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
+    private final AuditLogService auditLogService;
 
     @Override
     public CategoryResponse createCategory(CategoryRequest request) {
@@ -31,6 +33,11 @@ public class CategoryServiceImpl implements CategoryService{
         Category category = categoryMapper.toEntity(request);
 
         Category savedCategory = categoryRepository.save(category);
+
+        auditLogService.saveLog(
+                "CREATE_CATEGORY",
+                "Category",
+                "Created category : " + savedCategory.getName());
 
         return categoryMapper.toResponse(savedCategory);
     }
@@ -72,6 +79,11 @@ public class CategoryServiceImpl implements CategoryService{
         category.setDescription(request.getDescription());
 
         Category updatedCategory = categoryRepository.save(category);
+        
+        auditLogService.saveLog(
+                "UPDATE_CATEGORY",
+                "Category",
+                "Updated category : " + updatedCategory.getName());
 
         return categoryMapper.toResponse(updatedCategory);
     }
@@ -82,7 +94,12 @@ public class CategoryServiceImpl implements CategoryService{
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Category not found with id: " + id));
-
+        
+        auditLogService.saveLog(
+                "DELETE_CATEGORY",
+                "Category",
+                "Deleted category : " + category.getName());
+        
         categoryRepository.delete(category);
     }
 

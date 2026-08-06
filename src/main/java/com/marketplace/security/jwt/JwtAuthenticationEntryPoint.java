@@ -6,16 +6,24 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+    private final ObjectMapper objectMapper;
+
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+    public void commence(HttpServletRequest request,
+                         HttpServletResponse response,
+                         AuthenticationException authException)
             throws IOException {
+
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
@@ -29,6 +37,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                 .build();
 
         response.setHeader("WWW-Authenticate", "Bearer");
-        new ObjectMapper().writeValue(response.getOutputStream(), body);
+
+        objectMapper.writeValue(response.getOutputStream(), body);
     }
 }

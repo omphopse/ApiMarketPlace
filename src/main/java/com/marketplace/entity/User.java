@@ -56,6 +56,7 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
     
+    @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;

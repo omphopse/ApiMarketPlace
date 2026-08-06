@@ -15,6 +15,7 @@ import com.marketplace.mapper.UserMapper;
 import com.marketplace.repository.CategoryRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.AdminService;
+import com.marketplace.service.AuditLogService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +28,8 @@ public class AdminServiceImpl implements AdminService {
     private final UserMapper userMapper;
     
     private final CategoryRepository categoryRepository ;
+    
+    private final AuditLogService auditLogService;
 
     @Override
     public List<UserResponse> getAllUsers() {
@@ -58,6 +61,11 @@ public class AdminServiceImpl implements AdminService {
         user.setEnabled(enabled);
 
         User updatedUser = userRepository.save(user);
+        
+        auditLogService.saveLog(
+                enabled ? "ENABLE_USER" : "DISABLE_USER",
+                "User",
+                "Changed status of : " + updatedUser.getEmail());
 
         return userMapper.toResponse(updatedUser);
     }
@@ -90,6 +98,11 @@ public class AdminServiceImpl implements AdminService {
         }
 
         userRepository.delete(user);
+        
+        auditLogService.saveLog(
+                "DELETE_USER",
+                "User",
+                "Deleted user : " + user.getEmail());
     }
     
     @Override
@@ -136,10 +149,19 @@ public class AdminServiceImpl implements AdminService {
         if (!AppConstants.ROLE_PROVIDER.equals(user.getRole().getName())) {
             throw new IllegalArgumentException("User is not a provider.");
         }
+        
+        if (user.getApprovalStatus() == ApprovalStatus.APPROVED) {
+            throw new IllegalArgumentException("Provider is already approved.");
+        }
 
         user.setApprovalStatus(ApprovalStatus.APPROVED);
 
         User updatedUser = userRepository.save(user);
+        
+        auditLogService.saveLog(
+                "APPROVE_PROVIDER",
+                "Provider",
+                "Approved provider : " + user.getEmail());
 
         return userMapper.toResponse(updatedUser);
     }
@@ -162,6 +184,11 @@ public class AdminServiceImpl implements AdminService {
         user.setApprovalStatus(ApprovalStatus.REJECTED);
 
         User updatedUser = userRepository.save(user);
+        
+        auditLogService.saveLog(
+                "REJECT_PROVIDER",
+                "Provider",
+                "Rejected provider : " + user.getEmail());
 
         return userMapper.toResponse(updatedUser);
     }
