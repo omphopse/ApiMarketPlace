@@ -11,15 +11,12 @@ public interface UserRepository extends MongoRepository<User, Long> {
     Optional<User> findByEmail(String email);
     boolean existsByEmail(String email);
 
-    @Query(value = "{ 'role.name': ?0 }", count = true)
-    long countByRole_Name(String roleName);
+    long countByRole_Id(Long roleId);
 
-    @Query(value = "{ 'role.name': ?0, 'approvalStatus': ?1 }", count = true)
-    long countByRole_NameAndApprovalStatus(String roleName, ApprovalStatus approvalStatus);
+    long countByRole_IdAndApprovalStatus(Long roleId, ApprovalStatus approvalStatus);
 
-    @Query("{ $or: [ { 'fullName': { $regex: ?0, $options: 'i' } }, { 'email': { $regex: ?0, $options: 'i' } }, { 'role.name': { $regex: ?0, $options: 'i' } } ] }")
+    @Query("{ $or: [ { 'fullName': { $regex: ?0, $options: 'i' } }, { 'email': { $regex: ?0, $options: 'i' } } ] }")
     List<User> searchUsers(String keyword);
 
-    @Query("{ 'role.name': ?0, 'approvalStatus': ?1 }")
-    List<User> findByRole_NameAndApprovalStatus(String roleName, ApprovalStatus approvalStatus);
+    List<User> findByRole_IdAndApprovalStatus(Long roleId, ApprovalStatus approvalStatus);
 }

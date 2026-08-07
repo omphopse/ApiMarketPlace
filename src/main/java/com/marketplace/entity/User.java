@@ -39,7 +39,7 @@ public class User {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @DocumentReference(lazy = true)
+    @DocumentReference(lazy = false)
     private Role role;
 
     @Builder.Default

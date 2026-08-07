@@ -1,0 +1,1 @@
+{\email\:\admin@marketplace.com\,\password\:\Admin@123\}  ; echo TEST1 ; curl.exe -s -i -H \Content-Type:" "application/json\ -d @login1.json http://localhost:8082/api/auth/login ; echo ; echo TEST2 ; curl.exe -s -i -H \Content-Type:" "application/json\ -d @login2.json http://localhost:8082/api/auth/login

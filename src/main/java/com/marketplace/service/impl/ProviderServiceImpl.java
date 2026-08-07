@@ -71,7 +71,7 @@ public class ProviderServiceImpl implements ProviderService {
     @Transactional
     public ProviderProfileDto getProfile(Long userId) {
         ProviderProfile profile = providerProfileRepository.findByUserId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Provider profile not found"));
+                .orElseGet(() -> createDefaultProfile(userId));
         return providerMapper.toDto(profile);
     }
 
@@ -102,6 +102,20 @@ public class ProviderServiceImpl implements ProviderService {
 
         providerProfileRepository.save(profile);
         return providerMapper.toDto(profile);
+    }
+
+    private ProviderProfile createDefaultProfile(Long userId) {
+        ProviderProfile profile = ProviderProfile.builder()
+                .userId(userId)
+                .companyName("")
+                .website("")
+                .description("")
+                .supportEmail("")
+                .contactNumber("")
+                .country("")
+                .logo("")
+                .build();
+        return providerProfileRepository.save(profile);
     }
 
     @Override

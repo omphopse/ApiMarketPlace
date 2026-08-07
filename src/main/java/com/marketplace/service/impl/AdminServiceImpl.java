@@ -9,10 +9,12 @@ import com.marketplace.dto.AnalyticsResponse;
 import com.marketplace.dto.DashboardResponse;
 import com.marketplace.dto.UserResponse;
 import com.marketplace.entity.ApprovalStatus;
+import com.marketplace.entity.Role;
 import com.marketplace.entity.User;
 import com.marketplace.exception.ResourceNotFoundException;
 import com.marketplace.mapper.UserMapper;
 import com.marketplace.repository.CategoryRepository;
+import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.AdminService;
 import com.marketplace.service.AuditLogService;
@@ -29,6 +31,8 @@ public class AdminServiceImpl implements AdminService {
     
     private final CategoryRepository categoryRepository ;
     
+    private final RoleRepository roleRepository;
+
     private final AuditLogService auditLogService;
 
     @Override
@@ -108,15 +112,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public DashboardResponse getDashboard() {
 
+        Role providerRole = getRoleByName(AppConstants.ROLE_PROVIDER);
+        Role consumerRole = getRoleByName(AppConstants.ROLE_CONSUMER);
+
         DashboardResponse response = new DashboardResponse();
 
         response.setTotalUsers(userRepository.count());
 
         response.setTotalProviders(
-                userRepository.countByRole_Name(AppConstants.ROLE_PROVIDER));
+                userRepository.countByRole_Id(providerRole.getId()));
 
         response.setTotalConsumers(
-                userRepository.countByRole_Name(AppConstants.ROLE_CONSUMER));
+                userRepository.countByRole_Id(consumerRole.getId()));
 
         response.setTotalApis(0);
 
@@ -129,16 +136,22 @@ public class AdminServiceImpl implements AdminService {
     
     @Override
     public List<UserResponse> getPendingProviders() {
+        Role providerRole = getRoleByName(AppConstants.ROLE_PROVIDER);
 
         return userRepository
-                .findByRole_NameAndApprovalStatus(
-                        AppConstants.ROLE_PROVIDER,
+                .findByRole_IdAndApprovalStatus(
+                        providerRole.getId(),
                         ApprovalStatus.PENDING)
                 .stream()
                 .map(userMapper::toResponse)
                 .toList();
     }
     
+    private Role getRoleByName(String roleName) {
+        return roleRepository.findByName(roleName)
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + roleName));
+    }
+
     @Override
     public UserResponse approveProvider(Long id) {
 
@@ -195,29 +208,31 @@ public class AdminServiceImpl implements AdminService {
     
     @Override
     public AnalyticsResponse getAnalytics() {
+        Role providerRole = getRoleByName(AppConstants.ROLE_PROVIDER);
+        Role consumerRole = getRoleByName(AppConstants.ROLE_CONSUMER);
 
         return AnalyticsResponse.builder()
                 .totalUsers(userRepository.count())
 
                 .totalProviders(
-                        userRepository.countByRole_Name(AppConstants.ROLE_PROVIDER))
+                        userRepository.countByRole_Id(providerRole.getId()))
 
                 .totalConsumers(
-                        userRepository.countByRole_Name(AppConstants.ROLE_CONSUMER))
+                        userRepository.countByRole_Id(consumerRole.getId()))
 
                 .pendingProviders(
-                        userRepository.countByRole_NameAndApprovalStatus(
-                                AppConstants.ROLE_PROVIDER,
+                        userRepository.countByRole_IdAndApprovalStatus(
+                                providerRole.getId(),
                                 ApprovalStatus.PENDING))
 
                 .approvedProviders(
-                        userRepository.countByRole_NameAndApprovalStatus(
-                                AppConstants.ROLE_PROVIDER,
+                        userRepository.countByRole_IdAndApprovalStatus(
+                                providerRole.getId(),
                                 ApprovalStatus.APPROVED))
 
                 .rejectedProviders(
-                        userRepository.countByRole_NameAndApprovalStatus(
-                                AppConstants.ROLE_PROVIDER,
+                        userRepository.countByRole_IdAndApprovalStatus(
+                                providerRole.getId(),
                                 ApprovalStatus.REJECTED))
 
                 .totalCategories(categoryRepository.count())

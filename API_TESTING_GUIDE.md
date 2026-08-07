@@ -99,6 +99,8 @@ Response body:
 }
 ```
 
+Note: when a provider registers with `role = "PROVIDER"`, the application now creates an empty provider profile record automatically. Providers can then immediately call `/api/provider/profile` or update their profile without sending `id` or `userId`.
+
 ### Login
 POST /api/auth/login
 
@@ -216,6 +218,21 @@ Requires ROLE_PROVIDER.
 | POST | /api/provider/upload | Upload a provider logo/image |
 
 #### Provider request payloads
+
+PUT /api/provider/profile
+```json
+{
+  "companyName": "Example Provider",
+  "website": "https://provider.example.com",
+  "description": "Provider description",
+  "supportEmail": "support@provider.example.com",
+  "contactNumber": "+1-555-0100",
+  "country": "USA",
+  "logo": "https://example.com/logo.png"
+}
+```
+
+Note: `id` and `userId` are managed by the server and should not be included in this request.
 
 POST /api/provider/apis
 ```json

@@ -11,6 +11,7 @@ import com.marketplace.exception.EmailAlreadyExistsException;
 import com.marketplace.exception.InvalidCredentialsException;
 import com.marketplace.exception.ResourceNotFoundException;
 import com.marketplace.mapper.UserMapper;
+import com.marketplace.repository.ProviderProfileRepository;
 import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.security.jwt.JwtUtil;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthServiceImpl implements AuthService {
     private final AtomicLong idGenerator = new AtomicLong(1L);
     private final UserRepository userRepository;
+    private final ProviderProfileRepository providerProfileRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
@@ -52,6 +54,19 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
+        if (AppConstants.ROLE_PROVIDER.equals(user.getRole().getName())) {
+            providerProfileRepository.save(com.marketplace.entity.ProviderProfile.builder()
+                    .id(user.getId())
+                    .userId(user.getId())
+                    .companyName("")
+                    .website("")
+                    .description("")
+                    .supportEmail("")
+                    .contactNumber("")
+                    .country("")
+                    .logo("")
+                    .build());
+        }
         return generateLoginResponse(user);
     }
 
