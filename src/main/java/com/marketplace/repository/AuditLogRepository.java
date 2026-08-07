@@ -1,9 +1,7 @@
 package com.marketplace.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.marketplace.entity.AuditLog;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
-
+public interface AuditLogRepository extends MongoRepository<AuditLog, Long> {
 }

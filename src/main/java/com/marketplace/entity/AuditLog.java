@@ -1,22 +1,22 @@
 package com.marketplace.entity;
 
 import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import jakarta.persistence.*;
-import lombok.*;
-
-@Entity
-@Table(name = "audit_logs")
+@Document(collection = "audit_logs")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class AuditLog {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @MongoId(FieldType.INT64)
     private Long id;
 
     private String adminEmail;
@@ -25,9 +25,8 @@ public class AuditLog {
 
     private String module;
 
-    @Column(length = 500)
     private String description;
 
-    @CreationTimestamp
+    @CreatedDate
     private LocalDateTime createdAt;
 }

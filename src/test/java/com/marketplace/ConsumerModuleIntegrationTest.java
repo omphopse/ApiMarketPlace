@@ -66,6 +66,7 @@ class ConsumerModuleIntegrationTest {
         String consumerToken = registerAndGetToken("consumer@example.com", "Consumer One", "CONSUMER");
 
         Api approvedApi = apiRepository.save(Api.builder()
+                .id(1001L)
                 .providerId(1L)
                 .name("Weather API")
                 .description("Real-time weather data")
@@ -80,6 +81,7 @@ class ConsumerModuleIntegrationTest {
                 .build());
 
         Api pendingApi = apiRepository.save(Api.builder()
+                .id(1002L)
                 .providerId(1L)
                 .name("Pending API")
                 .description("Should not be visible")
@@ -94,6 +96,7 @@ class ConsumerModuleIntegrationTest {
                 .build());
 
         SubscriptionPlan plan = subscriptionPlanRepository.save(SubscriptionPlan.builder()
+                .id(2001L)
                 .apiId(approvedApi.getId())
                 .planName("Starter")
                 .price(java.math.BigDecimal.valueOf(499.00))
@@ -124,6 +127,7 @@ class ConsumerModuleIntegrationTest {
         String consumerTwoToken = registerAndGetToken("consumer-b@example.com", "Consumer B", "CONSUMER");
 
         Api approvedApi = apiRepository.save(Api.builder()
+                .id(1003L)
                 .providerId(1L)
                 .name("Analytics API")
                 .description("Analytics data")
@@ -138,6 +142,7 @@ class ConsumerModuleIntegrationTest {
                 .build());
 
         SubscriptionPlan plan = subscriptionPlanRepository.save(SubscriptionPlan.builder()
+                .id(2002L)
                 .apiId(approvedApi.getId())
                 .planName("Pro")
                 .price(java.math.BigDecimal.valueOf(199.00))

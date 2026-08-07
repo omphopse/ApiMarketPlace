@@ -1,16 +1,5 @@
 package com.marketplace.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -18,54 +7,45 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Entity
-@Table(name = "subscriptions")
+@Document(collection = "subscriptions")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Subscription {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @MongoId(FieldType.INT64)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "consumer_id", nullable = false)
+    @DocumentReference(lazy = true)
     private User consumer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "api_id", nullable = false)
+    @DocumentReference(lazy = true)
     private Api api;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subscription_plan_id", nullable = false)
+    @DocumentReference(lazy = true)
     private SubscriptionPlan subscriptionPlan;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
     private SubscriptionStatus status;
 
-    @Column(precision = 12, scale = 2)
     private BigDecimal price;
 
-    @Column(nullable = false)
     private boolean autoRenew;
 
-    @Column
     private LocalDateTime startedAt;
 
-    @Column
     private LocalDateTime expiresAt;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    @Column(nullable = false)
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 }

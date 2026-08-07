@@ -49,7 +49,7 @@ import com.marketplace.repository.SubscriptionRepository;
 import com.marketplace.repository.UsageLogRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.ConsumerService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -57,14 +57,15 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -75,6 +76,7 @@ import org.springframework.util.StringUtils;
 public class ConsumerServiceImpl implements ConsumerService {
     private static final String API_KEY_PREFIX = "amp_live_";
     private static final int MAX_PAGE_SIZE = 100;
+    private final AtomicLong idGenerator = new AtomicLong(1L);
 
     private final ConsumerProfileRepository consumerProfileRepository;
     private final UserRepository userRepository;
@@ -117,8 +119,8 @@ public class ConsumerServiceImpl implements ConsumerService {
     public PagedResponse<ApiMarketplaceCardResponse> browseMarketplace(int page, int size, String search, Long categoryId, String pricing, String sort) {
         size = validateSize(size);
         Pageable pageable = PageRequest.of(page, size);
-        Specification<Api> spec = buildMarketplaceSpecification(search, categoryId, pricing);
-        Page<Api> result = apiRepository.findAll(spec, pageable);
+        List<Api> filteredApis = filterMarketplaceApis(search, categoryId, pricing);
+        Page<Api> result = toPage(filteredApis, pageable);
         return toPagedResponse(result, this::toMarketplaceCard);
     }
 
@@ -175,6 +177,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         }
 
         Subscription subscription = Subscription.builder()
+                .id(nextId())
                 .consumer(consumer)
                 .api(api)
                 .subscriptionPlan(plan)
@@ -378,7 +381,10 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     private ConsumerProfile createDefaultProfile(User user) {
-        ConsumerProfile profile = ConsumerProfile.builder().user(user).build();
+        ConsumerProfile profile = ConsumerProfile.builder()
+                .id(nextId())
+                .user(user)
+                .build();
         return consumerProfileRepository.save(profile);
     }
 
@@ -481,6 +487,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         String rawKey = API_KEY_PREFIX + randomPart;
         String hash = hashKey(rawKey);
         ApiKey apiKey = ApiKey.builder()
+                .id(nextId())
                 .subscription(subscription)
                 .consumer(subscription.getConsumer())
                 .api(subscription.getApi())
@@ -518,6 +525,10 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
+    private Long nextId() {
+        return idGenerator.getAndIncrement();
+    }
+
     private int validateSize(int size) {
         if (size <= 0) size = 12;
         if (size > MAX_PAGE_SIZE) size = MAX_PAGE_SIZE;
@@ -536,19 +547,39 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .build();
     }
 
-    private Specification<Api> buildMarketplaceSpecification(String search, Long categoryId, String pricing) {
-        Specification<Api> spec = (root, query, cb) -> cb.equal(root.get("deleted"), false);
-        spec = spec.and((root, query, cb) -> cb.equal(root.get("status"), ApiStatus.APPROVED));
-        if (StringUtils.hasText(search)) {
-            String pattern = "%" + search.toLowerCase() + "%";
-            spec = spec.and((root, query, cb) -> cb.or(
-                    cb.like(cb.lower(root.get("name")), pattern),
-                    cb.like(cb.lower(root.get("description")), pattern)
-            ));
+    private List<Api> filterMarketplaceApis(String search, Long categoryId, String pricing) {
+        return apiRepository.findAll().stream()
+                .filter(api -> !api.isDeleted())
+                .filter(api -> api.getStatus() == ApiStatus.APPROVED)
+                .filter(api -> matchesSearch(api, search))
+                .filter(api -> categoryId == null || Objects.equals(api.getCategoryId(), categoryId))
+                .filter(api -> matchesPricing(api, pricing))
+                .collect(Collectors.toList());
+    }
+
+    private boolean matchesSearch(Api api, String search) {
+        if (!StringUtils.hasText(search)) {
+            return true;
         }
-        if (categoryId != null) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("categoryId"), categoryId));
+        String keyword = search.toLowerCase();
+        return (api.getName() != null && api.getName().toLowerCase().contains(keyword))
+                || (api.getDescription() != null && api.getDescription().toLowerCase().contains(keyword));
+    }
+
+    private boolean matchesPricing(Api api, String pricing) {
+        if (!StringUtils.hasText(pricing)) {
+            return true;
         }
-        return spec;
+        return switch (pricing.toLowerCase()) {
+            case "free" -> true;
+            default -> true;
+        };
+    }
+
+    private Page<Api> toPage(List<Api> apis, Pageable pageable) {
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), apis.size());
+        List<Api> pageContent = start >= apis.size() ? List.of() : apis.subList(start, end);
+        return new PageImpl<>(pageContent, pageable, apis.size());
     }
 }

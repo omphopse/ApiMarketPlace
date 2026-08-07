@@ -2,8 +2,8 @@ package com.marketplace.repository;
 
 import com.marketplace.entity.ConsumerProfile;
 import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ConsumerProfileRepository extends JpaRepository<ConsumerProfile, Long> {
+public interface ConsumerProfileRepository extends MongoRepository<ConsumerProfile, Long> {
     Optional<ConsumerProfile> findByUserId(Long userId);
 }

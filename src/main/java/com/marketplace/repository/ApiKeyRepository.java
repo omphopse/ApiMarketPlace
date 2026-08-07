@@ -5,9 +5,9 @@ import com.marketplace.entity.Subscription;
 import com.marketplace.entity.User;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
+public interface ApiKeyRepository extends MongoRepository<ApiKey, Long> {
     List<ApiKey> findByConsumerOrderByCreatedAtDesc(User consumer);
     Optional<ApiKey> findBySubscriptionAndConsumer(Subscription subscription, User consumer);
     Optional<ApiKey> findByIdAndConsumer(Long id, User consumer);

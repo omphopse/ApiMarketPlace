@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface SubscriptionRepository extends JpaRepository<Subscription, Long>, JpaSpecificationExecutor<Subscription> {
+public interface SubscriptionRepository extends MongoRepository<Subscription, Long> {
     boolean existsByConsumerAndApiAndStatusIn(User consumer, Api api, List<SubscriptionStatus> statuses);
     Optional<Subscription> findByIdAndConsumer(Long id, User consumer);
     Page<Subscription> findByConsumerOrderByCreatedAtDesc(User consumer, Pageable pageable);

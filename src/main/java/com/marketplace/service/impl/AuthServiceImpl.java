@@ -15,6 +15,7 @@ import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.security.jwt.JwtUtil;
 import com.marketplace.service.AuthService;
+import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
+    private final AtomicLong idGenerator = new AtomicLong(1L);
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -41,6 +43,7 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
 
         User user = User.builder()
+                .id(idGenerator.getAndIncrement())
                 .fullName(request.getFullName().trim())
                 .email(request.getEmail().trim().toLowerCase())
                 .password(passwordEncoder.encode(request.getPassword()))

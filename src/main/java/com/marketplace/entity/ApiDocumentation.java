@@ -1,61 +1,46 @@
 package com.marketplace.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Entity
-@Table(name = "api_documentation")
+@Document(collection = "api_documentation")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class ApiDocumentation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @MongoId(FieldType.INT64)
     private Long id;
 
-    @Column(nullable = false)
     private Long apiId;
 
-    @Column(length = 2000)
     private String authenticationGuide;
 
-    @Column(length = 500)
     private String baseEndpoint;
 
-    @Column(length = 2000)
     private String headers;
 
-    @Column(length = 2000)
     private String requestExample;
 
-    @Column(length = 2000)
     private String responseExample;
 
-    @Column(length = 2000)
     private String errorCodes;
 
-    @Column(length = 5000)
     private String markdown;
 
-    @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    @Column(nullable = false)
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 }

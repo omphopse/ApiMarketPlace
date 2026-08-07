@@ -29,8 +29,9 @@ import com.marketplace.repository.ProviderProfileRepository;
 import com.marketplace.repository.SubscriptionPlanRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.ProviderService;
-import jakarta.transaction.Transactional;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,6 +52,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @RequiredArgsConstructor
 public class ProviderServiceImpl implements ProviderService {
+    private final AtomicLong idGenerator = new AtomicLong(1L);
     private final ProviderProfileRepository providerProfileRepository;
     private final ApiRepository apiRepository;
     private final CategoryRepository categoryRepository;
@@ -155,6 +157,7 @@ public class ProviderServiceImpl implements ProviderService {
         validateCategory(request.getCategoryId());
         validateUrl(request.getBaseUrl());
         Api api = Api.builder()
+                .id(nextId())
                 .providerId(userId)
                 .name(request.getName())
                 .description(request.getDescription())
@@ -342,6 +345,10 @@ public class ProviderServiceImpl implements ProviderService {
                 .orElseThrow(() -> new ResourceNotFoundException("API not found for provider"));
     }
 
+    private Long nextId() {
+        return idGenerator.getAndIncrement();
+    }
+
     private void savePlans(Api api, List<SubscriptionPlanDto> plans) {
         if (plans == null) {
             return;
@@ -349,6 +356,9 @@ public class ProviderServiceImpl implements ProviderService {
         List<SubscriptionPlan> entities = plans.stream()
                 .map(subscriptionPlanMapper::toEntity)
                 .peek(plan -> {
+                    if (plan.getId() == null) {
+                        plan.setId(nextId());
+                    }
                     plan.setApiId(api.getId());
                     plan.setActive(true);
                     if (plan.getPrice() == null) {
@@ -377,6 +387,9 @@ public class ProviderServiceImpl implements ProviderService {
                 })
                 .orElseGet(() -> {
                     ApiDocumentation newDoc = apiDocumentationMapper.toEntity(documentationDto);
+                    if (newDoc.getId() == null) {
+                        newDoc.setId(nextId());
+                    }
                     newDoc.setApiId(api.getId());
                     return newDoc;
                 });
