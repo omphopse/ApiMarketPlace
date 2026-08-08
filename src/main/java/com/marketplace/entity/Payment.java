@@ -53,4 +53,8 @@ public class Payment {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+    
+    private String refundId;
+
+    private LocalDateTime refundedAt;
 }

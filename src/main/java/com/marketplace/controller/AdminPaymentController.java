@@ -6,10 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marketplace.dto.PaymentResponse;
+import com.marketplace.dto.RefundResponse;
 import com.marketplace.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,5 +37,13 @@ public class AdminPaymentController {
 
         return ResponseEntity.ok(
                 paymentService.getPaymentByIdForAdmin(id));
+    }
+    
+    @PostMapping("/{id}/refund")
+    public ResponseEntity<RefundResponse> refundPayment(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                paymentService.refundPayment(id));
     }
 }

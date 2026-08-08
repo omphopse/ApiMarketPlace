@@ -5,6 +5,7 @@ import java.util.List;
 import com.marketplace.dto.PaymentRequest;
 import com.marketplace.dto.PaymentResponse;
 import com.marketplace.dto.PaymentVerificationRequest;
+import com.marketplace.dto.RefundResponse;
 import com.marketplace.dto.RevenueResponse;
 
 public interface PaymentService {
@@ -23,4 +24,6 @@ public interface PaymentService {
     PaymentResponse getPaymentByIdForAdmin(Long id);
     
     RevenueResponse getRevenue();
+    
+    RefundResponse refundPayment(Long paymentId);
 }

@@ -1,6 +1,7 @@
 package com.marketplace.service.impl;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import com.marketplace.constants.AppConstants;
 import com.marketplace.dto.PaymentRequest;
 import com.marketplace.dto.PaymentResponse;
 import com.marketplace.dto.PaymentVerificationRequest;
+import com.marketplace.dto.RefundResponse;
 import com.marketplace.dto.RevenueResponse;
 import com.marketplace.entity.Payment;
 import com.marketplace.entity.PaymentStatus;
@@ -20,6 +22,8 @@ import com.marketplace.exception.ResourceNotFoundException;
 import com.marketplace.mapper.PaymentMapper;
 import com.marketplace.repository.PaymentRepository;
 import com.marketplace.repository.UserRepository;
+import com.marketplace.service.AuditLogService;
+import com.marketplace.service.ConsumerService;
 import com.marketplace.service.PaymentService;
 import com.marketplace.service.SequenceGeneratorService;
 
@@ -28,6 +32,7 @@ import org.json.JSONObject;
 import com.razorpay.Order;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
+import com.razorpay.Refund;
 import com.razorpay.Utils;
 
 import lombok.RequiredArgsConstructor;
@@ -37,11 +42,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-    private final PaymentRepository paymentRepository;
-    private final UserRepository userRepository;
-    private final PaymentMapper paymentMapper;
-    private final SequenceGeneratorService sequenceGeneratorService;
-    private final RazorpayClient razorpayClient;
+	private final PaymentRepository paymentRepository;
+	private final UserRepository userRepository;
+	private final PaymentMapper paymentMapper;
+	private final SequenceGeneratorService sequenceGeneratorService;
+	private final RazorpayClient razorpayClient;
+	private final ConsumerService consumerService;
+	private final AuditLogService auditLogService;
 
     @Value("${razorpay.key.secret}")
     private String razorpayKeySecret;
@@ -116,6 +123,12 @@ public class PaymentServiceImpl implements PaymentService {
             // 10. Save payment in MongoDB
             Payment savedPayment =
                     paymentRepository.save(payment);
+            
+            auditLogService.saveLog(
+                    "PAYMENT_CREATED",
+                    "Payment",
+                    "Payment created for order: "
+                            + savedPayment.getRazorpayOrderId());
 
             // 11. Return response
             return paymentMapper.toResponse(savedPayment);
@@ -195,6 +208,12 @@ public class PaymentServiceImpl implements PaymentService {
 
                 paymentRepository.save(payment);
 
+                auditLogService.saveLog(
+                        "PAYMENT_FAILED",
+                        "Payment",
+                        "Invalid payment signature for order: "
+                                + payment.getRazorpayOrderId());
+
                 throw new IllegalArgumentException(
                         "Invalid payment signature.");
             }
@@ -206,11 +225,24 @@ public class PaymentServiceImpl implements PaymentService {
             payment.setTransactionId(
                     request.getRazorpayPaymentId());
 
-            // 10. Save updated payment
             Payment updatedPayment =
                     paymentRepository.save(payment);
+            
+            auditLogService.saveLog(
+                    "PAYMENT_SUCCESS",
+                    "Payment",
+                    "Payment successful. Transaction: "
+                            + payment.getTransactionId());
+            
+            if (payment.getSubscriptionId() == null) {
+                throw new IllegalArgumentException(
+                        "Subscription ID is missing for this payment.");
+            }
+            
+            // Activate subscription after successful payment
+            consumerService.activateSubscription(
+                    payment.getSubscriptionId());
 
-            // 11. Return response
             return paymentMapper.toResponse(
                     updatedPayment);
 
@@ -328,4 +360,84 @@ public class PaymentServiceImpl implements PaymentService {
                 .build();
     }
 
+    @Override
+    public RefundResponse refundPayment(Long paymentId) {
+
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Payment not found with id: " + paymentId));
+
+        // 1. Only successful payments can be refunded
+        if (payment.getPaymentStatus() != PaymentStatus.SUCCESS) {
+
+            throw new IllegalArgumentException(
+                    "Only successful payments can be refunded.");
+        }
+
+        // 2. Make sure a payment ID exists
+        if (payment.getTransactionId() == null ||
+                payment.getTransactionId().isBlank()) {
+
+            throw new IllegalArgumentException(
+                    "Razorpay payment ID is missing.");
+        }
+
+        try {
+
+            // 3. Create refund request
+            JSONObject refundRequest = new JSONObject();
+
+            long amountInPaise = payment.getAmount()
+                    .multiply(BigDecimal.valueOf(100))
+                    .longValueExact();
+
+            refundRequest.put("amount", amountInPaise);
+
+            // 4. Call Razorpay refund API
+            Refund razorpayRefund =
+                    razorpayClient.payments
+                            .refund(
+                                    payment.getTransactionId(),
+                                    refundRequest
+                            );
+
+            // 5. Get Razorpay refund ID
+            String refundId =
+                    razorpayRefund.get("id");
+
+            // 6. Update MongoDB
+            payment.setPaymentStatus(
+                    PaymentStatus.REFUNDED);
+
+            payment.setRefundId(refundId);
+
+            payment.setRefundedAt(
+                    LocalDateTime.now());
+
+            paymentRepository.save(payment);
+
+            auditLogService.saveLog(
+                    "PAYMENT_REFUNDED",
+                    "Payment",
+                    "Payment refunded. Refund ID: "
+                            + refundId);
+
+            // 7. Return response
+            return RefundResponse.builder()
+                    .paymentId(payment.getId())
+                    .refundId(refundId)
+                    .refundAmount(payment.getAmount())
+                    .currency(payment.getCurrency())
+                    .status("REFUNDED")
+                    .refundedAt(payment.getRefundedAt())
+                    .build();
+
+        } catch (RazorpayException e) {
+
+            throw new RuntimeException(
+                    "Unable to process refund.",
+                    e);
+        }
+    }
 }

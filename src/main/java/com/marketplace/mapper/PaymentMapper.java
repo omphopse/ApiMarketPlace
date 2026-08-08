@@ -23,6 +23,8 @@ public class PaymentMapper {
     	        .paymentMethod(payment.getPaymentMethod())
     	        .razorpayOrderId(payment.getRazorpayOrderId())
     	        .transactionId(payment.getTransactionId())
+    	        .refundId(payment.getRefundId())
+    	        .refundedAt(payment.getRefundedAt())
     	        .createdAt(payment.getCreatedAt())
     	        .updatedAt(payment.getUpdatedAt())
     	        .build();

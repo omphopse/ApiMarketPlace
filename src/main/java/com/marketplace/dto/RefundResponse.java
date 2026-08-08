@@ -12,16 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RevenueResponse {
+public class RefundResponse {
 
-    private BigDecimal totalRevenue;
+    private Long paymentId;
 
-    private long totalPayments;
+    private String refundId;
 
-    private long successfulPayments;
+    private BigDecimal refundAmount;
 
-    private long pendingPayments;
+    private String currency;
 
-    private long failedPayments;
+    private String status;
 
+    private LocalDateTime refundedAt;
 }
