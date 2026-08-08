@@ -27,5 +27,7 @@ public interface AdminService {
     UserResponse rejectProvider(Long id);
     
     AnalyticsResponse getAnalytics();
+    
+
 
 }

@@ -7,9 +7,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.marketplace.dto.AnalyticsResponse;
+import com.marketplace.dto.RevenueResponse;
 import com.marketplace.dto.UserResponse;
 import com.marketplace.dto.UserStatusRequest;
 import com.marketplace.service.AdminService;
+import com.marketplace.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 
     private final AdminService adminService;
+    
+    private final PaymentService paymentService;
 
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
@@ -84,5 +88,12 @@ public class AdminController {
 
         return ResponseEntity.ok(adminService.getAnalytics());
 
+    }
+    
+    @GetMapping("/revenue")
+    public ResponseEntity<RevenueResponse> getRevenue() {
+
+        return ResponseEntity.ok(
+                paymentService.getRevenue());
     }
 }

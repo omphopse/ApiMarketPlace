@@ -1,5 +1,6 @@
 package com.marketplace.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -7,13 +8,17 @@ import org.springframework.stereotype.Service;
 import com.marketplace.constants.AppConstants;
 import com.marketplace.dto.AnalyticsResponse;
 import com.marketplace.dto.DashboardResponse;
+import com.marketplace.dto.RevenueResponse;
 import com.marketplace.dto.UserResponse;
 import com.marketplace.entity.ApprovalStatus;
+import com.marketplace.entity.Payment;
+import com.marketplace.entity.PaymentStatus;
 import com.marketplace.entity.Role;
 import com.marketplace.entity.User;
 import com.marketplace.exception.ResourceNotFoundException;
 import com.marketplace.mapper.UserMapper;
 import com.marketplace.repository.CategoryRepository;
+import com.marketplace.repository.PaymentRepository;
 import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.AdminService;
@@ -34,7 +39,8 @@ public class AdminServiceImpl implements AdminService {
     private final RoleRepository roleRepository;
 
     private final AuditLogService auditLogService;
-
+    
+    
     @Override
     public List<UserResponse> getAllUsers() {
 
@@ -239,5 +245,6 @@ public class AdminServiceImpl implements AdminService {
 
                 .build();
     }
-
+    
+    
 }

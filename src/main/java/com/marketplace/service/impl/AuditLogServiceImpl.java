@@ -22,8 +22,6 @@ public class AuditLogServiceImpl implements AuditLogService {
 
     private final AuditLogRepository auditLogRepository;
     private final AuditLogMapper auditLogMapper;
-    private final UserRepository userRepository;
-
     @Override
     public void saveLog(String action, String module, String description) {
 
