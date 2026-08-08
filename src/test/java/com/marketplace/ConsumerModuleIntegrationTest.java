@@ -66,12 +66,12 @@ class ConsumerModuleIntegrationTest {
         String consumerToken = registerAndGetToken("consumer@example.com", "Consumer One", "CONSUMER");
 
         Api approvedApi = apiRepository.save(Api.builder()
-                .id(1001L)
-                .providerId(1L)
+                .id("1001")
+                .providerId("1")
                 .name("Weather API")
                 .description("Real-time weather data")
                 .baseUrl("https://example.com/weather")
-                .categoryId(1L)
+                .categoryId("1")
                 .logo("/logos/weather.png")
                 .version("v1")
                 .authenticationType("API_KEY")
@@ -81,12 +81,12 @@ class ConsumerModuleIntegrationTest {
                 .build());
 
         Api pendingApi = apiRepository.save(Api.builder()
-                .id(1002L)
-                .providerId(1L)
+                .id("1002")
+                .providerId("1")
                 .name("Pending API")
                 .description("Should not be visible")
                 .baseUrl("https://example.com/pending")
-                .categoryId(1L)
+                .categoryId("1")
                 .logo("/logos/pending.png")
                 .version("v1")
                 .authenticationType("API_KEY")
@@ -96,7 +96,7 @@ class ConsumerModuleIntegrationTest {
                 .build());
 
         SubscriptionPlan plan = subscriptionPlanRepository.save(SubscriptionPlan.builder()
-                .id(2001L)
+                .id("2001")
                 .apiId(approvedApi.getId())
                 .planName("Starter")
                 .price(java.math.BigDecimal.valueOf(499.00))
@@ -110,7 +110,7 @@ class ConsumerModuleIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.content", hasSize(1)))
                 .andExpect(jsonPath("$.content[0].name").value("Weather API"))
-                .andExpect(jsonPath("$.content[0].id").value(approvedApi.getId().intValue()));
+                .andExpect(jsonPath("$.content[0].id").value(approvedApi.getId()));
 
         mockMvc.perform(post("/api/consumer/subscriptions")
                         .header("Authorization", "Bearer " + consumerToken)
@@ -127,12 +127,12 @@ class ConsumerModuleIntegrationTest {
         String consumerTwoToken = registerAndGetToken("consumer-b@example.com", "Consumer B", "CONSUMER");
 
         Api approvedApi = apiRepository.save(Api.builder()
-                .id(1003L)
-                .providerId(1L)
+                .id("1003")
+                .providerId("1")
                 .name("Analytics API")
                 .description("Analytics data")
                 .baseUrl("https://example.com/analytics")
-                .categoryId(1L)
+                .categoryId("1")
                 .logo("/logos/analytics.png")
                 .version("v1")
                 .authenticationType("API_KEY")
@@ -142,7 +142,7 @@ class ConsumerModuleIntegrationTest {
                 .build());
 
         SubscriptionPlan plan = subscriptionPlanRepository.save(SubscriptionPlan.builder()
-                .id(2002L)
+                .id("2002")
                 .apiId(approvedApi.getId())
                 .planName("Pro")
                 .price(java.math.BigDecimal.valueOf(199.00))
@@ -160,7 +160,7 @@ class ConsumerModuleIntegrationTest {
                 .getResponse()
                 .getContentAsString();
 
-        Long subscriptionId = objectMapper.readTree(body).get("subscriptionId").asLong();
+        String subscriptionId = objectMapper.readTree(body).get("subscriptionId").asText();
 
         mockMvc.perform(get("/api/consumer/subscriptions/{id}", subscriptionId)
                         .header("Authorization", "Bearer " + consumerTwoToken))
@@ -187,13 +187,13 @@ class ConsumerModuleIntegrationTest {
     }
 
     static class CreateSubscriptionRequest {
-        public Long apiId;
-        public Long planId;
+        public String apiId;
+        public String planId;
 
         public CreateSubscriptionRequest() {
         }
 
-        public CreateSubscriptionRequest(Long apiId, Long planId) {
+        public CreateSubscriptionRequest(String apiId, String planId) {
             this.apiId = apiId;
             this.planId = planId;
         }

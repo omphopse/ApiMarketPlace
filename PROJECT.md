@@ -59,11 +59,13 @@ The business model is subscription-based. Providers earn recurring revenue throu
 
 ### Future Modules
 - Payments and invoices
-- Notifications and alerts
 - Usage logs and audit trails
 - Reviews and ratings
 - Categories and search filters
 - Billing integration and webhook support
+
+### Email Notifications
+Spring Mail with Gmail SMTP is configured through `MAIL_USERNAME`, `MAIL_PASSWORD`, and `MAIL_ENABLED`. Notification templates are stored under `src/main/resources/templates/email/`. MongoDB Atlas and JWT values must be provided through environment variables; credentials are never stored in source.
 
 ## 4. Module Breakdown
 

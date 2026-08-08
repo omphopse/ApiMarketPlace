@@ -52,7 +52,7 @@ public class AuditLogServiceImpl implements AuditLogService {
     }
 
     @Override
-    public AuditLogResponse getLogById(Long id) {
+    public AuditLogResponse getLogById(String id) {
 
         AuditLog auditLog = auditLogRepository.findById(id)
                 .orElseThrow(() ->

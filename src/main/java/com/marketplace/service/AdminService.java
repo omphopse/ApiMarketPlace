@@ -3,6 +3,7 @@ package com.marketplace.service;
 import java.util.List;
 
 import com.marketplace.dto.AnalyticsResponse;
+import com.marketplace.dto.ApiSummaryDto;
 import com.marketplace.dto.DashboardResponse;
 import com.marketplace.dto.UserResponse;
 
@@ -12,19 +13,29 @@ public interface AdminService {
     
     List<UserResponse> getAllUsers();
     
-    UserResponse getUserById(Long id);
+    UserResponse getUserById(String id);
     
-    UserResponse updateUserStatus(Long id, boolean enabled);
+    UserResponse updateUserStatus(String id, boolean enabled);
     
     List<UserResponse> searchUsers(String keyword);
     
-    void deleteUser(Long id);
+    void deleteUser(String id);
     
     List<UserResponse> getPendingProviders();
     
-    UserResponse approveProvider(Long id);
+    UserResponse approveProvider(String id);
     
-    UserResponse rejectProvider(Long id);
+    UserResponse rejectProvider(String id);
+
+    List<ApiSummaryDto> getAllApis();
+
+    List<ApiSummaryDto> getPendingApis();
+
+    ApiSummaryDto getApi(String id);
+
+    ApiSummaryDto approveApi(String id);
+
+    ApiSummaryDto rejectApi(String id);
     
     AnalyticsResponse getAnalytics();
 

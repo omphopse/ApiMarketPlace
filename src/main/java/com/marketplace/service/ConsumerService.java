@@ -21,18 +21,18 @@ import java.util.List;
 public interface ConsumerService {
     ConsumerProfileResponse getProfile();
     ConsumerProfileResponse updateProfile(ConsumerProfileUpdateRequest request);
-    PagedResponse<ApiMarketplaceCardResponse> browseMarketplace(int page, int size, String search, Long categoryId, String pricing, String sort);
-    ApiMarketplaceDetailsResponse getMarketplaceApi(Long apiId);
-    List<SubscriptionPlanResponse> getApiPlans(Long apiId);
+    PagedResponse<ApiMarketplaceCardResponse> browseMarketplace(int page, int size, String search, String categoryId, String pricing, String sort);
+    ApiMarketplaceDetailsResponse getMarketplaceApi(String apiId);
+    List<SubscriptionPlanResponse> getApiPlans(String apiId);
     SubscriptionResponse createSubscription(CreateSubscriptionRequest request);
-    SubscriptionActivationResponse activateSubscription(Long subscriptionId);
+    SubscriptionActivationResponse activateSubscription(String subscriptionId);
     List<ApiKeyResponse> getApiKeys();
-    ApiKeyCreatedResponse regenerateApiKey(Long subscriptionId);
-    void revokeApiKey(Long apiKeyId);
+    ApiKeyCreatedResponse regenerateApiKey(String subscriptionId);
+    void revokeApiKey(String apiKeyId);
     PagedResponse<SubscriptionResponse> getSubscriptions(int page, int size, String status, String search);
-    SubscriptionDetailsResponse getSubscription(Long subscriptionId);
-    void cancelSubscription(Long subscriptionId);
-    ApiDocumentationResponse getSubscriptionDocumentation(Long subscriptionId);
-    UsageSummaryResponse getUsageSummary(Long subscriptionId);
+    SubscriptionDetailsResponse getSubscription(String subscriptionId);
+    void cancelSubscription(String subscriptionId);
+    ApiDocumentationResponse getSubscriptionDocumentation(String subscriptionId);
+    UsageSummaryResponse getUsageSummary(String subscriptionId);
     ConsumerDashboardResponse getDashboard();
 }

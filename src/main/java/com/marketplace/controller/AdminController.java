@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.marketplace.dto.AnalyticsResponse;
+import com.marketplace.dto.ApiSummaryDto;
 import com.marketplace.dto.UserResponse;
 import com.marketplace.dto.UserStatusRequest;
 import com.marketplace.service.AdminService;
@@ -27,7 +28,7 @@ public class AdminController {
     }
     
     @GetMapping("/users/{id}")
-    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> getUserById(@PathVariable String id) {
 
         return ResponseEntity.ok(adminService.getUserById(id));
 
@@ -35,7 +36,7 @@ public class AdminController {
     
     @PutMapping("/users/{id}/status")
     public ResponseEntity<UserResponse> updateUserStatus(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody UserStatusRequest request) {
 
         return ResponseEntity.ok(
@@ -52,7 +53,7 @@ public class AdminController {
     }
     
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
 
         adminService.deleteUser(id);
 
@@ -68,15 +69,40 @@ public class AdminController {
     }
     
     @PutMapping("/providers/{id}/approve")
-    public ResponseEntity<UserResponse> approveProvider(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> approveProvider(@PathVariable String id) {
 
         return ResponseEntity.ok(adminService.approveProvider(id));
     }
     
     @PutMapping("/providers/{id}/reject")
-    public ResponseEntity<UserResponse> rejectProvider(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> rejectProvider(@PathVariable String id) {
 
         return ResponseEntity.ok(adminService.rejectProvider(id));
+    }
+
+    @GetMapping("/apis")
+    public ResponseEntity<List<ApiSummaryDto>> getAllApis() {
+        return ResponseEntity.ok(adminService.getAllApis());
+    }
+
+    @GetMapping("/apis/pending")
+    public ResponseEntity<List<ApiSummaryDto>> getPendingApis() {
+        return ResponseEntity.ok(adminService.getPendingApis());
+    }
+
+    @GetMapping("/apis/{id}")
+    public ResponseEntity<ApiSummaryDto> getApi(@PathVariable String id) {
+        return ResponseEntity.ok(adminService.getApi(id));
+    }
+
+    @PutMapping("/apis/{id}/approve")
+    public ResponseEntity<ApiSummaryDto> approveApi(@PathVariable String id) {
+        return ResponseEntity.ok(adminService.approveApi(id));
+    }
+
+    @PutMapping("/apis/{id}/reject")
+    public ResponseEntity<ApiSummaryDto> rejectApi(@PathVariable String id) {
+        return ResponseEntity.ok(adminService.rejectApi(id));
     }
     
     @GetMapping("/analytics")

@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ApiResponse {
 
-    private Long id;
+    private String id;
 
     private String name;
 

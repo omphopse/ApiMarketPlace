@@ -12,25 +12,25 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ProviderService {
-    ProviderProfileDto getProfile(Long userId);
-    ProviderProfileDto saveProfile(Long userId, ProviderProfileDto dto);
-    DashboardDto getDashboard(Long userId);
-    List<ApiSummaryDto> getApis(Long userId);
-    ApiDetailsDto getApi(Long userId, Long apiId);
-    ApiDetailsDto createApi(Long userId, ApiRequestDto request);
-    ApiDetailsDto updateApi(Long userId, Long apiId, ApiRequestDto request);
-    void deleteApi(Long userId, Long apiId);
-    ApiDetailsDto submitApi(Long userId, Long apiId);
-    ApiDetailsDto archiveApi(Long userId, Long apiId);
+    ProviderProfileDto getProfile(String userId);
+    ProviderProfileDto saveProfile(String userId, ProviderProfileDto dto);
+    DashboardDto getDashboard(String userId);
+    List<ApiSummaryDto> getApis(String userId);
+    ApiDetailsDto getApi(String userId, String apiId);
+    ApiDetailsDto createApi(String userId, ApiRequestDto request);
+    ApiDetailsDto updateApi(String userId, String apiId, ApiRequestDto request);
+    void deleteApi(String userId, String apiId);
+    ApiDetailsDto submitApi(String userId, String apiId);
+    ApiDetailsDto archiveApi(String userId, String apiId);
 
-    SubscriptionPlanDto createPlan(Long userId, Long apiId, SubscriptionPlanDto planDto);
-    SubscriptionPlanDto updatePlan(Long userId, Long planId, SubscriptionPlanDto planDto);
-    void deletePlan(Long userId, Long planId);
-    List<SubscriptionPlanDto> getPlans(Long userId, Long apiId);
+    SubscriptionPlanDto createPlan(String userId, String apiId, SubscriptionPlanDto planDto);
+    SubscriptionPlanDto updatePlan(String userId, String planId, SubscriptionPlanDto planDto);
+    void deletePlan(String userId, String planId);
+    List<SubscriptionPlanDto> getPlans(String userId, String apiId);
 
-    ApiDocumentationDto createDocumentation(Long userId, Long apiId, ApiDocumentationDto documentationDto);
-    ApiDocumentationDto updateDocumentation(Long userId, Long apiId, ApiDocumentationDto documentationDto);
-    ApiDocumentationDto getDocumentation(Long userId, Long apiId);
+    ApiDocumentationDto createDocumentation(String userId, String apiId, ApiDocumentationDto documentationDto);
+    ApiDocumentationDto updateDocumentation(String userId, String apiId, ApiDocumentationDto documentationDto);
+    ApiDocumentationDto getDocumentation(String userId, String apiId);
 
     List<CategoryDto> getCategories();
     String uploadImage(MultipartFile file);

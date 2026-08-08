@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface CategoryRepository extends MongoRepository<Category, Long> {
+public interface CategoryRepository extends MongoRepository<Category, String> {
     List<Category> findByActiveTrueOrderByNameAsc();
     Optional<Category> findByName(String name);
     boolean existsByName(String name);

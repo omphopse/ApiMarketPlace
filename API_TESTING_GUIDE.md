@@ -46,7 +46,7 @@ The backend uses the H2 in-memory database by default, as configured in src/main
 - spring.h2.console.enabled=true
 
 JWT settings:
-- jwt.secret=marketplace-secret-key-1234567890-abcdefghijklmnopqrstuvwxyz
+- `JWT_SECRET` must be supplied through the environment; do not document or commit its value.
 - jwt.expiration-ms=86400000
 
 ## Authentication & Authorization
@@ -237,31 +237,25 @@ Note: `id` and `userId` are managed by the server and should not be included in 
 POST /api/provider/apis
 ```json
 {
-  "name": "Example API",
-  "description": "API description",
-  "baseUrl": "https://api.example.com/v1",
-  "categoryId": 1,
-  "logo": "https://example.com/logo.png",
-  "version": "1.0.0",
-  "authenticationType": "Bearer",
-  "rateLimit": 1000,
-  "plans": [
-    {
-      "planName": "Free",
-      "price": 0,
-      "billingCycle": "FREE",
-      "requestLimit": 1000,
-      "active": true
-    }
+  "name":"Example API",
+  "description":"API description",
+  "baseUrl":"https://api.example.com/v1",
+  "categoryId":"6a775ec51025ce4315d9a7b0",
+  "logo":"https://example.com/logo.png",
+  "version":"1.0.0",
+  "authenticationType":"Bearer",
+  "rateLimit":1000,
+  "plans":[
+    {"planName":"Free","price":0,"billingCycle":"FREE","requestLimit":1000,"active":true}
   ],
-  "documentation": {
-    "authenticationGuide": "Use Bearer token",
-    "baseEndpoint": "https://api.example.com/v1",
-    "headers": "Authorization: Bearer <token>",
-    "requestExample": "{ \"example\": \"payload\" }",
-    "responseExample": "{ \"result\": \"ok\" }",
-    "errorCodes": "400: Bad Request, 401: Unauthorized",
-    "markdown": "# API Docs"
+  "documentation":{
+    "authenticationGuide":"Use Bearer token",
+    "baseEndpoint":"https://api.example.com/v1",
+    "headers":"Authorization: Bearer <token>",
+    "requestExample":"{ \"example\": \"payload\" }",
+    "responseExample":"{ \"result\": \"ok\" }",
+    "errorCodes":"400: Bad Request, 401: Unauthorized",
+    "markdown":"# API Docs"
   }
 }
 ```

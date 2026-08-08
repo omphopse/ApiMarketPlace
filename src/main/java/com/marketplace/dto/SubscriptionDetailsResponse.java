@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubscriptionDetailsResponse {
-    private Long subscriptionId;
+    private String subscriptionId;
     private String apiName;
     private String planName;
     private String status;
@@ -26,7 +26,7 @@ public class SubscriptionDetailsResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ApiKeyMetadata {
-        private Long id;
+        private String id;
         private String keyPrefix;
         private String status;
         private LocalDateTime createdAt;

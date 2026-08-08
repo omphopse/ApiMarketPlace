@@ -14,9 +14,10 @@ $env:MONGODB_DATABASE="api_marketplace"
 ```
 
 ## Local Development
-- Place secrets in a local environment file or shell session.
+- Place secrets in a local properties file or shell session.
 - Do not commit credentials to the repository.
-- The repository already contains a local MongoDB env file and ignores it from version control.
+- The project supports a root-level `mongodb.properties` file with Atlas settings.
+- `mongodb.properties` is ignored from version control and is loaded automatically if present.
 
 ## Running the Backend
 ```powershell
@@ -51,5 +52,9 @@ Recommended indexes include:
 
 ## Troubleshooting
 - If startup fails, verify that the MONGODB_URI and MONGODB_DATABASE environment variables are set.
+
+## Email configuration
+
+Email delivery is independent of MongoDB business operations. Configure `MAIL_USERNAME`, `MAIL_PASSWORD`, and `MAIL_ENABLED` as environment variables; never put credentials in this file or in committed properties files.
 - If Atlas rejects the connection, validate the IP allowlist and database user credentials.
 - If the app starts but data is missing, ensure the initial admin seeding logic runs successfully.

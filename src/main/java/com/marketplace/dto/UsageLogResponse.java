@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsageLogResponse {
-    private Long id;
+    private String id;
     private String endpoint;
     private String httpMethod;
     private int statusCode;

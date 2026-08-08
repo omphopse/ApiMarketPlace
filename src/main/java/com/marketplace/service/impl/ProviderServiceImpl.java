@@ -29,8 +29,10 @@ import com.marketplace.repository.ProviderProfileRepository;
 import com.marketplace.repository.SubscriptionPlanRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.ProviderService;
+import com.marketplace.notification.NotificationService;
+import com.marketplace.notification.email.EmailEventType;
+import com.marketplace.notification.email.NotificationRequest;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.nio.file.Files;
@@ -43,6 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -52,7 +55,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 @RequiredArgsConstructor
 public class ProviderServiceImpl implements ProviderService {
-    private final AtomicLong idGenerator = new AtomicLong(1L);
     private final ProviderProfileRepository providerProfileRepository;
     private final ApiRepository apiRepository;
     private final CategoryRepository categoryRepository;
@@ -63,21 +65,22 @@ public class ProviderServiceImpl implements ProviderService {
     private final SubscriptionPlanMapper subscriptionPlanMapper;
     private final ApiDocumentationMapper apiDocumentationMapper;
     private final ApiMapper apiMapper;
+    private final NotificationService notificationService;
 
     @Value("${uploads.path:uploads}")
     private String uploadsPath;
 
     @Override
     @Transactional
-    public ProviderProfileDto getProfile(Long userId) {
+    public ProviderProfileDto getProfile(String userId) {
         ProviderProfile profile = providerProfileRepository.findByUserId(userId)
                 .orElseGet(() -> createDefaultProfile(userId));
-        return providerMapper.toDto(profile);
+        return providerProfileToDto(profile);
     }
 
     @Override
     @Transactional
-    public ProviderProfileDto saveProfile(Long userId, ProviderProfileDto dto) {
+    public ProviderProfileDto saveProfile(String userId, ProviderProfileDto dto) {
         ProviderProfile profile = providerProfileRepository.findByUserId(userId)
                 .map(existing -> {
                     existing.setCompanyName(dto.getCompanyName());
@@ -101,10 +104,25 @@ public class ProviderServiceImpl implements ProviderService {
                         .build());
 
         providerProfileRepository.save(profile);
-        return providerMapper.toDto(profile);
+        return providerProfileToDto(profile);
     }
 
-    private ProviderProfile createDefaultProfile(Long userId) {
+    private ProviderProfileDto providerProfileToDto(ProviderProfile profile) {
+        if (profile == null) return null;
+        return ProviderProfileDto.builder()
+                .id(profile.getId())
+                .userId(profile.getUserId())
+                .companyName(profile.getCompanyName())
+                .website(profile.getWebsite())
+                .description(profile.getDescription())
+                .supportEmail(profile.getSupportEmail())
+                .contactNumber(profile.getContactNumber())
+                .country(profile.getCountry())
+                .logo(profile.getLogo())
+                .build();
+    }
+
+    private ProviderProfile createDefaultProfile(String userId) {
         ProviderProfile profile = ProviderProfile.builder()
                 .userId(userId)
                 .companyName("")
@@ -120,7 +138,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public DashboardDto getDashboard(Long userId) {
+    public DashboardDto getDashboard(String userId) {
         long totalApis = apiRepository.countByProviderIdAndDeletedFalse(userId);
         long approvedApis = apiRepository.countByProviderIdAndStatusAndDeletedFalse(userId, ApiStatus.APPROVED);
         long pendingApis = apiRepository.countByProviderIdAndStatusAndDeletedFalse(userId, ApiStatus.PENDING);
@@ -128,8 +146,8 @@ public class ProviderServiceImpl implements ProviderService {
         long archivedApis = apiRepository.countByProviderIdAndStatusAndDeletedFalse(userId, ApiStatus.ARCHIVED);
 
         List<ApiSummaryDto> recentApis = apiRepository.findTop5ByProviderIdAndDeletedFalseOrderByCreatedAtDesc(userId).stream()
-                .map(apiMapper::toSummaryDto)
-                .collect(Collectors.toList());
+            .map(this::apiToSummaryDto)
+            .collect(Collectors.toList());
 
         return DashboardDto.builder()
                 .totalApis(totalApis)
@@ -145,33 +163,80 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public List<ApiSummaryDto> getApis(Long userId) {
+    public List<ApiSummaryDto> getApis(String userId) {
         return apiRepository.findByProviderIdAndDeletedFalseOrderByCreatedAtDesc(userId).stream()
-                .map(apiMapper::toSummaryDto)
+                .map(this::apiToSummaryDto)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    @Transactional
-    public ApiDetailsDto getApi(Long userId, Long apiId) {
-        Api api = findApiForProvider(userId, apiId);
-        ApiDetailsDto details = apiMapper.toDetailsDto(api);
-        details.setPlans(subscriptionPlanRepository.findByApiId(api.getId()).stream()
-                .sorted(Comparator.comparing(SubscriptionPlan::getId))
-                .map(subscriptionPlanMapper::toDto)
-                .collect(Collectors.toList()));
-        apiDocumentationRepository.findByApiId(api.getId()).ifPresent(doc -> details.setDocumentation(apiDocumentationMapper.toDto(doc)));
-        details.setCategoryId(api.getCategoryId());
-        return details;
+    private ApiSummaryDto apiToSummaryDto(Api api) {
+        if (api == null) return null;
+        String categoryName = null;
+        if (api.getCategoryId() != null) {
+            categoryName = categoryRepository.findById(api.getCategoryId()).map(Category::getName).orElse(null);
+        }
+        return ApiSummaryDto.builder()
+                .id(api.getId())
+                .name(api.getName())
+                .description(api.getDescription())
+                .categoryName(categoryName)
+                .logo(api.getLogo())
+                .version(api.getVersion())
+                .status(api.getStatus() != null ? api.getStatus().name() : null)
+                .rateLimit(api.getRateLimit())
+                .authenticationType(api.getAuthenticationType())
+                .build();
     }
 
     @Override
     @Transactional
-    public ApiDetailsDto createApi(Long userId, ApiRequestDto request) {
+    public ApiDetailsDto getApi(String userId, String apiId) {
+        Api api = findApiForProvider(userId, apiId);
+        ApiDetailsDto details = apiToDetailsDto(api);
+        return details;
+    }
+
+        private ApiDetailsDto apiToDetailsDto(Api api) {
+        if (api == null) return null;
+        List<SubscriptionPlanDto> plans = subscriptionPlanRepository.findByApiId(api.getId()).stream()
+            .sorted(Comparator.comparing(SubscriptionPlan::getId))
+            .map(subscriptionPlanMapper::toDto)
+            .collect(Collectors.toList());
+
+        ApiDocumentationDto documentation = apiDocumentationRepository.findFirstByApiId(api.getId())
+            .map(apiDocumentationMapper::toDto)
+            .orElse(null);
+
+        String categoryName = null;
+        if (api.getCategoryId() != null) {
+            categoryName = categoryRepository.findById(api.getCategoryId()).map(Category::getName).orElse(null);
+        }
+
+        return ApiDetailsDto.builder()
+            .id(api.getId())
+            .providerId(api.getProviderId())
+            .name(api.getName())
+            .description(api.getDescription())
+            .baseUrl(api.getBaseUrl())
+            .categoryId(api.getCategoryId())
+            .categoryName(categoryName)
+            .logo(api.getLogo())
+            .version(api.getVersion())
+            .authenticationType(api.getAuthenticationType())
+            .rateLimit(api.getRateLimit())
+            .status(api.getStatus() != null ? api.getStatus().name() : null)
+            .plans(plans)
+            .documentation(documentation)
+            .build();
+        }
+
+    @Override
+    @Transactional
+    public ApiDetailsDto createApi(String userId, ApiRequestDto request) {
         validateCategory(request.getCategoryId());
         validateUrl(request.getBaseUrl());
         Api api = Api.builder()
-                .id(nextId())
+                
                 .providerId(userId)
                 .name(request.getName())
                 .description(request.getDescription())
@@ -194,7 +259,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public ApiDetailsDto updateApi(Long userId, Long apiId, ApiRequestDto request) {
+    public ApiDetailsDto updateApi(String userId, String apiId, ApiRequestDto request) {
         Api api = findApiForProvider(userId, apiId);
         validateCategory(request.getCategoryId());
         validateUrl(request.getBaseUrl());
@@ -217,7 +282,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public void deleteApi(Long userId, Long apiId) {
+    public void deleteApi(String userId, String apiId) {
         Api api = findApiForProvider(userId, apiId);
         api.setDeleted(true);
         apiRepository.save(api);
@@ -225,16 +290,19 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public ApiDetailsDto submitApi(Long userId, Long apiId) {
+    public ApiDetailsDto submitApi(String userId, String apiId) {
         Api api = findApiForProvider(userId, apiId);
         api.setStatus(ApiStatus.PENDING);
         apiRepository.save(api);
+        userRepository.findById(userId).ifPresent(provider -> notificationService.notify(new NotificationRequest(
+            EmailEventType.API_SUBMITTED, provider.getEmail(), provider.getFullName(), api.getId(),
+            Map.of("userName", provider.getFullName(), "apiName", api.getName(), "status", api.getStatus().name()))));
         return getApi(userId, apiId);
     }
 
     @Override
     @Transactional
-    public ApiDetailsDto archiveApi(Long userId, Long apiId) {
+    public ApiDetailsDto archiveApi(String userId, String apiId) {
         Api api = findApiForProvider(userId, apiId);
         api.setStatus(ApiStatus.ARCHIVED);
         apiRepository.save(api);
@@ -243,19 +311,21 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public SubscriptionPlanDto createPlan(Long userId, Long apiId, SubscriptionPlanDto planDto) {
+    public SubscriptionPlanDto createPlan(String userId, String apiId, SubscriptionPlanDto planDto) {
         Api api = findApiForProvider(userId, apiId);
         SubscriptionPlan plan = subscriptionPlanMapper.toEntity(planDto);
         plan.setApiId(api.getId());
         plan.setActive(true);
         plan.setPrice(planDto.getPrice() == null ? BigDecimal.ZERO : planDto.getPrice());
-        subscriptionPlanRepository.save(plan);
-        return subscriptionPlanMapper.toDto(plan);
+        SubscriptionPlan saved = subscriptionPlanRepository.save(plan);
+        return subscriptionPlanRepository.findById(saved.getId())
+                .map(subscriptionPlanMapper::toDto)
+                .orElseThrow(() -> new RuntimeException("Failed to save subscription plan"));
     }
 
     @Override
     @Transactional
-    public SubscriptionPlanDto updatePlan(Long userId, Long planId, SubscriptionPlanDto planDto) {
+    public SubscriptionPlanDto updatePlan(String userId, String planId, SubscriptionPlanDto planDto) {
         SubscriptionPlan plan = subscriptionPlanRepository.findById(planId)
                 .orElseThrow(() -> new ResourceNotFoundException("Subscription plan not found"));
         Api api = findApiForProvider(userId, plan.getApiId());
@@ -271,7 +341,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public void deletePlan(Long userId, Long planId) {
+    public void deletePlan(String userId, String planId) {
         SubscriptionPlan plan = subscriptionPlanRepository.findById(planId)
                 .orElseThrow(() -> new ResourceNotFoundException("Subscription plan not found"));
         findApiForProvider(userId, plan.getApiId());
@@ -280,7 +350,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public List<SubscriptionPlanDto> getPlans(Long userId, Long apiId) {
+    public List<SubscriptionPlanDto> getPlans(String userId, String apiId) {
         findApiForProvider(userId, apiId);
         return subscriptionPlanRepository.findByApiId(apiId).stream()
                 .map(subscriptionPlanMapper::toDto)
@@ -289,19 +359,29 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public ApiDocumentationDto createDocumentation(Long userId, Long apiId, ApiDocumentationDto documentationDto) {
+    public ApiDocumentationDto createDocumentation(String userId, String apiId, ApiDocumentationDto documentationDto) {
         findApiForProvider(userId, apiId);
-        ApiDocumentation documentation = apiDocumentationMapper.toEntity(documentationDto);
+        ApiDocumentation documentation = apiDocumentationRepository.findFirstByApiId(apiId)
+            .orElseGet(ApiDocumentation::new);
+        documentation.setAuthenticationGuide(documentationDto.getAuthenticationGuide());
+        documentation.setBaseEndpoint(documentationDto.getBaseEndpoint());
+        documentation.setHeaders(documentationDto.getHeaders());
+        documentation.setRequestExample(documentationDto.getRequestExample());
+        documentation.setResponseExample(documentationDto.getResponseExample());
+        documentation.setErrorCodes(documentationDto.getErrorCodes());
+        documentation.setMarkdown(documentationDto.getMarkdown());
         documentation.setApiId(apiId);
-        apiDocumentationRepository.save(documentation);
-        return apiDocumentationMapper.toDto(documentation);
+        ApiDocumentation saved = apiDocumentationRepository.save(documentation);
+        return apiDocumentationRepository.findById(saved.getId())
+                .map(apiDocumentationMapper::toDto)
+                .orElseThrow(() -> new RuntimeException("Failed to save API documentation"));
     }
 
     @Override
     @Transactional
-    public ApiDocumentationDto updateDocumentation(Long userId, Long apiId, ApiDocumentationDto documentationDto) {
+    public ApiDocumentationDto updateDocumentation(String userId, String apiId, ApiDocumentationDto documentationDto) {
         findApiForProvider(userId, apiId);
-        ApiDocumentation documentation = apiDocumentationRepository.findByApiId(apiId)
+        ApiDocumentation documentation = apiDocumentationRepository.findFirstByApiId(apiId)
                 .orElseThrow(() -> new ResourceNotFoundException("API documentation not found"));
 
         documentation.setAuthenticationGuide(documentationDto.getAuthenticationGuide());
@@ -317,9 +397,9 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     @Transactional
-    public ApiDocumentationDto getDocumentation(Long userId, Long apiId) {
+    public ApiDocumentationDto getDocumentation(String userId, String apiId) {
         findApiForProvider(userId, apiId);
-        return apiDocumentationRepository.findByApiId(apiId)
+        return apiDocumentationRepository.findFirstByApiId(apiId)
                 .map(apiDocumentationMapper::toDto)
                 .orElseThrow(() -> new ResourceNotFoundException("API documentation not found"));
     }
@@ -354,13 +434,9 @@ public class ProviderServiceImpl implements ProviderService {
         }
     }
 
-    private Api findApiForProvider(Long userId, Long apiId) {
+    private Api findApiForProvider(String userId, String apiId) {
         return apiRepository.findByIdAndProviderIdAndDeletedFalse(apiId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("API not found for provider"));
-    }
-
-    private Long nextId() {
-        return idGenerator.getAndIncrement();
     }
 
     private void savePlans(Api api, List<SubscriptionPlanDto> plans) {
@@ -370,9 +446,6 @@ public class ProviderServiceImpl implements ProviderService {
         List<SubscriptionPlan> entities = plans.stream()
                 .map(subscriptionPlanMapper::toEntity)
                 .peek(plan -> {
-                    if (plan.getId() == null) {
-                        plan.setId(nextId());
-                    }
                     plan.setApiId(api.getId());
                     plan.setActive(true);
                     if (plan.getPrice() == null) {
@@ -388,7 +461,7 @@ public class ProviderServiceImpl implements ProviderService {
         if (documentationDto == null) {
             return;
         }
-        ApiDocumentation documentation = apiDocumentationRepository.findByApiId(api.getId())
+        ApiDocumentation documentation = apiDocumentationRepository.findFirstByApiId(api.getId())
                 .map(existing -> {
                     existing.setAuthenticationGuide(documentationDto.getAuthenticationGuide());
                     existing.setBaseEndpoint(documentationDto.getBaseEndpoint());
@@ -401,16 +474,13 @@ public class ProviderServiceImpl implements ProviderService {
                 })
                 .orElseGet(() -> {
                     ApiDocumentation newDoc = apiDocumentationMapper.toEntity(documentationDto);
-                    if (newDoc.getId() == null) {
-                        newDoc.setId(nextId());
-                    }
                     newDoc.setApiId(api.getId());
                     return newDoc;
                 });
         apiDocumentationRepository.save(documentation);
     }
 
-    private void validateCategory(Long categoryId) {
+    private void validateCategory(String categoryId) {
         if (categoryId == null || categoryRepository.findById(categoryId).isEmpty()) {
             throw new ResourceNotFoundException("Category not found");
         }

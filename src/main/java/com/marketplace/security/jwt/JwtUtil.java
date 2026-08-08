@@ -5,18 +5,27 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.function.Function;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
-    @Value("${jwt.secret:marketplace-secret-key-1234567890-abcdefghijklmnopqrstuvwxyz}")
+    @Value("${jwt.secret:change-me-use-a-random-secret-of-at-least-32-bytes}")
     private String secret;
 
     @Value("${jwt.expiration-ms:86400000}")
     private long expirationMs;
+
+    @PostConstruct
+    void validateSecret() {
+        if (secret.getBytes(StandardCharsets.UTF_8).length < 32) {
+            throw new IllegalStateException("JWT_SECRET must be at least 32 bytes long");
+        }
+    }
 
     public String generateToken(String username, String role) {
         return Jwts.builder()
@@ -58,7 +67,8 @@ public class JwtUtil {
     }
 
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(java.util.Base64.getEncoder().encodeToString(secret.getBytes()));
+        byte[] keyBytes = Decoders.BASE64.decode(java.util.Base64.getEncoder()
+            .encodeToString(secret.getBytes(StandardCharsets.UTF_8)));
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

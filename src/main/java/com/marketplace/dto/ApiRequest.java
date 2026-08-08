@@ -9,7 +9,7 @@ public class ApiRequest {
 
     private String description;
 
-    private Long categoryId;
+    private String categoryId;
 
     private String version;
 

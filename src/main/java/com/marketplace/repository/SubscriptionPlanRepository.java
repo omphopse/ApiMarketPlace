@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface SubscriptionPlanRepository extends MongoRepository<SubscriptionPlan, Long> {
-    List<SubscriptionPlan> findByApiId(Long apiId);
-    Optional<SubscriptionPlan> findByIdAndApiId(Long id, Long apiId);
+public interface SubscriptionPlanRepository extends MongoRepository<SubscriptionPlan, String> {
+    List<SubscriptionPlan> findByApiId(String apiId);
+    Optional<SubscriptionPlan> findByIdAndApiId(String id, String apiId);
 }

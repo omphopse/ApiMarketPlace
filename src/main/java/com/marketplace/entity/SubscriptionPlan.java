@@ -8,9 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "subscription_plans")
 @Getter
@@ -19,10 +18,10 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @AllArgsConstructor
 @Builder
 public class SubscriptionPlan {
-    @MongoId(FieldType.INT64)
-    private Long id;
+    @Id
+    private String id;
 
-    private Long apiId;
+    private String apiId;
 
     private String planName;
 

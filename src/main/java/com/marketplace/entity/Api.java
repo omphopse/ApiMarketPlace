@@ -9,9 +9,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "apis")
 @Getter
@@ -20,10 +19,10 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @AllArgsConstructor
 @Builder
 public class Api {
-    @MongoId(FieldType.INT64)
-    private Long id;
+    @Id
+    private String id;
 
-    private Long providerId;
+    private String providerId;
 
     @Indexed
     private String name;
@@ -32,7 +31,7 @@ public class Api {
 
     private String baseUrl;
 
-    private Long categoryId;
+    private String categoryId;
 
     private String logo;
 

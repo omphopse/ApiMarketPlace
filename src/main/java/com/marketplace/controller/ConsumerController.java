@@ -63,21 +63,21 @@ public class ConsumerController {
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "12") @Positive int size,
             @RequestParam(required = false) String search,
-            @RequestParam(required = false) Long category,
+            @RequestParam(required = false) String categoryId,
             @RequestParam(required = false) String pricing,
             @RequestParam(required = false, defaultValue = "NEWEST") String sort) {
-        return ResponseEntity.ok(consumerService.browseMarketplace(page, size, search, category, pricing, sort));
+        return ResponseEntity.ok(consumerService.browseMarketplace(page, size, search, categoryId, pricing, sort));
     }
 
     @Operation(summary = "Get marketplace API details")
     @GetMapping("/marketplace/apis/{id}")
-    public ResponseEntity<ApiMarketplaceDetailsResponse> getMarketplaceApi(@PathVariable Long id) {
+    public ResponseEntity<ApiMarketplaceDetailsResponse> getMarketplaceApi(@PathVariable String id) {
         return ResponseEntity.ok(consumerService.getMarketplaceApi(id));
     }
 
     @Operation(summary = "List subscription plans for a marketplace API")
     @GetMapping("/marketplace/apis/{apiId}/plans")
-    public ResponseEntity<List<SubscriptionPlanResponse>> getApiPlans(@PathVariable Long apiId) {
+    public ResponseEntity<List<SubscriptionPlanResponse>> getApiPlans(@PathVariable String apiId) {
         return ResponseEntity.ok(consumerService.getApiPlans(apiId));
     }
 
@@ -90,7 +90,7 @@ public class ConsumerController {
     @Operation(summary = "Activate a subscription (development/testing path)")
     @PostMapping("/dev/subscriptions/{subscriptionId}/activate")
     @PreAuthorize("hasRole('CONSUMER')")
-    public ResponseEntity<SubscriptionActivationResponse> activateSubscription(@PathVariable Long subscriptionId) {
+    public ResponseEntity<SubscriptionActivationResponse> activateSubscription(@PathVariable String subscriptionId) {
         return ResponseEntity.ok(consumerService.activateSubscription(subscriptionId));
     }
 
@@ -102,13 +102,13 @@ public class ConsumerController {
 
     @Operation(summary = "Regenerate an API key for a subscription")
     @PostMapping("/subscriptions/{subscriptionId}/api-key/regenerate")
-    public ResponseEntity<ApiKeyCreatedResponse> regenerateApiKey(@PathVariable Long subscriptionId) {
+    public ResponseEntity<ApiKeyCreatedResponse> regenerateApiKey(@PathVariable String subscriptionId) {
         return ResponseEntity.ok(consumerService.regenerateApiKey(subscriptionId));
     }
 
     @Operation(summary = "Revoke a consumer API key")
     @DeleteMapping("/api-keys/{id}")
-    public ResponseEntity<Void> revokeApiKey(@PathVariable("id") Long apiKeyId) {
+    public ResponseEntity<Void> revokeApiKey(@PathVariable("id") String apiKeyId) {
         consumerService.revokeApiKey(apiKeyId);
         return ResponseEntity.noContent().build();
     }
@@ -125,26 +125,26 @@ public class ConsumerController {
 
     @Operation(summary = "Get a subscription detail")
     @GetMapping("/subscriptions/{id}")
-    public ResponseEntity<SubscriptionDetailsResponse> getSubscription(@PathVariable Long id) {
+    public ResponseEntity<SubscriptionDetailsResponse> getSubscription(@PathVariable String id) {
         return ResponseEntity.ok(consumerService.getSubscription(id));
     }
 
     @Operation(summary = "Cancel an active subscription")
     @PatchMapping("/subscriptions/{id}/cancel")
-    public ResponseEntity<Void> cancelSubscription(@PathVariable Long id) {
+    public ResponseEntity<Void> cancelSubscription(@PathVariable String id) {
         consumerService.cancelSubscription(id);
         return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Get API documentation for a subscription")
     @GetMapping("/subscriptions/{subscriptionId}/documentation")
-    public ResponseEntity<ApiDocumentationResponse> getSubscriptionDocumentation(@PathVariable Long subscriptionId) {
+    public ResponseEntity<ApiDocumentationResponse> getSubscriptionDocumentation(@PathVariable String subscriptionId) {
         return ResponseEntity.ok(consumerService.getSubscriptionDocumentation(subscriptionId));
     }
 
     @Operation(summary = "View usage summary")
     @GetMapping("/usage")
-    public ResponseEntity<UsageSummaryResponse> getUsage(@RequestParam(required = false) Long subscriptionId) {
+    public ResponseEntity<UsageSummaryResponse> getUsage(@RequestParam(required = false) String subscriptionId) {
         return ResponseEntity.ok(consumerService.getUsageSummary(subscriptionId));
     }
 

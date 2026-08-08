@@ -6,18 +6,27 @@ import org.springframework.stereotype.Service;
 
 import com.marketplace.constants.AppConstants;
 import com.marketplace.dto.AnalyticsResponse;
+import com.marketplace.dto.ApiSummaryDto;
 import com.marketplace.dto.DashboardResponse;
 import com.marketplace.dto.UserResponse;
 import com.marketplace.entity.ApprovalStatus;
+import com.marketplace.entity.Api;
+import com.marketplace.entity.ApiStatus;
+import com.marketplace.entity.Category;
 import com.marketplace.entity.Role;
 import com.marketplace.entity.User;
 import com.marketplace.exception.ResourceNotFoundException;
 import com.marketplace.mapper.UserMapper;
+import com.marketplace.repository.ApiRepository;
 import com.marketplace.repository.CategoryRepository;
 import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.AdminService;
 import com.marketplace.service.AuditLogService;
+import com.marketplace.notification.NotificationService;
+import com.marketplace.notification.email.EmailEventType;
+import com.marketplace.notification.email.NotificationRequest;
+import java.util.Map;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +35,8 @@ import lombok.RequiredArgsConstructor;
 public class AdminServiceImpl implements AdminService {
 
     private final UserRepository userRepository;
+
+        private final ApiRepository apiRepository;
     
     private final UserMapper userMapper;
     
@@ -34,6 +45,7 @@ public class AdminServiceImpl implements AdminService {
     private final RoleRepository roleRepository;
 
     private final AuditLogService auditLogService;
+        private final NotificationService notificationService;
 
     @Override
     public List<UserResponse> getAllUsers() {
@@ -45,7 +57,7 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public UserResponse getUserById(Long id) {
+    public UserResponse getUserById(String id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
@@ -56,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public UserResponse updateUserStatus(Long id, boolean enabled) {
+    public UserResponse updateUserStatus(String id, boolean enabled) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
@@ -91,7 +103,7 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(String id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
@@ -153,7 +165,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public UserResponse approveProvider(Long id) {
+    public UserResponse approveProvider(String id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
@@ -180,7 +192,7 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public UserResponse rejectProvider(Long id) {
+    public UserResponse rejectProvider(String id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
@@ -205,6 +217,82 @@ public class AdminServiceImpl implements AdminService {
 
         return userMapper.toResponse(updatedUser);
     }
+
+        @Override
+        public List<ApiSummaryDto> getAllApis() {
+                return apiRepository.findByDeletedFalseOrderByCreatedAtDesc()
+                                .stream()
+                                .map(this::toApiSummary)
+                                .toList();
+        }
+
+        @Override
+        public List<ApiSummaryDto> getPendingApis() {
+                return apiRepository.findByStatusAndDeletedFalseOrderByCreatedAtDesc(ApiStatus.PENDING)
+                                .stream()
+                                .map(this::toApiSummary)
+                                .toList();
+        }
+
+        @Override
+        public ApiSummaryDto getApi(String id) {
+                return toApiSummary(getReviewableApi(id));
+        }
+
+        @Override
+        public ApiSummaryDto approveApi(String id) {
+                Api api = getReviewableApi(id);
+                if (api.getStatus() != ApiStatus.PENDING && api.getStatus() != ApiStatus.REJECTED) {
+                        throw new IllegalArgumentException("Only pending or rejected APIs can be approved.");
+                }
+                api.setStatus(ApiStatus.APPROVED);
+                Api updatedApi = apiRepository.save(api);
+                auditLogService.saveLog("APPROVE_API", "API", "Approved API: " + updatedApi.getName());
+                notifyProvider(updatedApi, EmailEventType.API_APPROVED);
+                return toApiSummary(updatedApi);
+        }
+
+        @Override
+        public ApiSummaryDto rejectApi(String id) {
+                Api api = getReviewableApi(id);
+                if (api.getStatus() != ApiStatus.PENDING) {
+                        throw new IllegalArgumentException("Only pending APIs can be rejected.");
+                }
+                api.setStatus(ApiStatus.REJECTED);
+                Api updatedApi = apiRepository.save(api);
+                auditLogService.saveLog("REJECT_API", "API", "Rejected API: " + updatedApi.getName());
+                notifyProvider(updatedApi, EmailEventType.API_REJECTED);
+                return toApiSummary(updatedApi);
+        }
+
+        private void notifyProvider(Api api, EmailEventType eventType) {
+                userRepository.findById(api.getProviderId()).ifPresent(provider -> notificationService.notify(
+                        new NotificationRequest(eventType, provider.getEmail(), provider.getFullName(), api.getId(),
+                                Map.of("userName", provider.getFullName(), "apiName", api.getName(),
+                                        "status", api.getStatus().name()))));
+        }
+
+        private Api getReviewableApi(String id) {
+                return apiRepository.findByIdAndDeletedFalse(id)
+                                .orElseThrow(() -> new ResourceNotFoundException("API not found with id: " + id));
+        }
+
+        private ApiSummaryDto toApiSummary(Api api) {
+                String categoryName = api.getCategoryId() == null
+                                ? null
+                                : categoryRepository.findById(api.getCategoryId()).map(Category::getName).orElse(null);
+                return ApiSummaryDto.builder()
+                                .id(api.getId())
+                                .name(api.getName())
+                                .description(api.getDescription())
+                                .categoryName(categoryName)
+                                .logo(api.getLogo())
+                                .version(api.getVersion())
+                                .status(api.getStatus() == null ? null : api.getStatus().name())
+                                .rateLimit(api.getRateLimit())
+                                .authenticationType(api.getAuthenticationType())
+                                .build();
+        }
     
     @Override
     public AnalyticsResponse getAnalytics() {

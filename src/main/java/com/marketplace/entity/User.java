@@ -9,10 +9,9 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "users")
 @Getter
@@ -21,8 +20,8 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @AllArgsConstructor
 @Builder
 public class User {
-    @MongoId(FieldType.INT64)
-    private Long id;
+    @Id
+    private String id;
 
     private String fullName;
 
@@ -44,4 +43,6 @@ public class User {
 
     @Builder.Default
     private ApprovalStatus approvalStatus = ApprovalStatus.PENDING;
+
+    private LocalDateTime firstLoginAt;
 }

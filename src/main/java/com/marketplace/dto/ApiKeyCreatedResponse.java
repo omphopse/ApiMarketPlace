@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiKeyCreatedResponse {
-    private Long subscriptionId;
+    private String subscriptionId;
     private String apiKey;
 }

@@ -49,6 +49,9 @@ import com.marketplace.repository.SubscriptionRepository;
 import com.marketplace.repository.UsageLogRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.ConsumerService;
+import com.marketplace.notification.NotificationService;
+import com.marketplace.notification.email.EmailEventType;
+import com.marketplace.notification.email.NotificationRequest;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -57,10 +60,10 @@ import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -76,7 +79,6 @@ import org.springframework.util.StringUtils;
 public class ConsumerServiceImpl implements ConsumerService {
     private static final String API_KEY_PREFIX = "amp_live_";
     private static final int MAX_PAGE_SIZE = 100;
-    private final AtomicLong idGenerator = new AtomicLong(1L);
 
     private final ConsumerProfileRepository consumerProfileRepository;
     private final UserRepository userRepository;
@@ -87,6 +89,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     private final ApiKeyRepository apiKeyRepository;
     private final ApiDocumentationRepository apiDocumentationRepository;
     private final UsageLogRepository usageLogRepository;
+    private final NotificationService notificationService;
 
     @Override
     @Transactional
@@ -116,7 +119,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
-    public PagedResponse<ApiMarketplaceCardResponse> browseMarketplace(int page, int size, String search, Long categoryId, String pricing, String sort) {
+    public PagedResponse<ApiMarketplaceCardResponse> browseMarketplace(int page, int size, String search, String categoryId, String pricing, String sort) {
         size = validateSize(size);
         Pageable pageable = PageRequest.of(page, size);
         List<Api> filteredApis = filterMarketplaceApis(search, categoryId, pricing);
@@ -126,7 +129,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
-    public ApiMarketplaceDetailsResponse getMarketplaceApi(Long apiId) {
+    public ApiMarketplaceDetailsResponse getMarketplaceApi(String apiId) {
         Api api = apiRepository.findByIdAndDeletedFalse(apiId)
                 .filter(a -> a.getStatus() == ApiStatus.APPROVED)
                 .orElseThrow(() -> new ApiNotAvailableException("API is not available"));
@@ -139,13 +142,13 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .category(category != null ? CategoryResponse.builder().id(category.getId()).name(category.getName()).build() : null)
                 .provider(new ApiMarketplaceDetailsResponse.ProviderSummary(api.getProviderId() != null ? String.valueOf(api.getProviderId()) : null, null))
                 .version(api.getVersion())
-                .documentationAvailable(apiDocumentationRepository.findByApiId(api.getId()).isPresent())
+                .documentationAvailable(apiDocumentationRepository.findFirstByApiId(api.getId()).isPresent())
                 .build();
     }
 
     @Override
     @Transactional
-    public List<SubscriptionPlanResponse> getApiPlans(Long apiId) {
+    public List<SubscriptionPlanResponse> getApiPlans(String apiId) {
         Api api = apiRepository.findByIdAndDeletedFalse(apiId)
                 .filter(a -> a.getStatus() == ApiStatus.APPROVED)
                 .orElseThrow(() -> new ApiNotAvailableException("API is not available"));
@@ -177,7 +180,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         }
 
         Subscription subscription = Subscription.builder()
-                .id(nextId())
+                
                 .consumer(consumer)
                 .api(api)
                 .subscriptionPlan(plan)
@@ -186,12 +189,16 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .autoRenew(false)
                 .build();
         subscriptionRepository.save(subscription);
+        notificationService.notify(new NotificationRequest(EmailEventType.SUBSCRIPTION_PURCHASED, consumer.getEmail(),
+            consumer.getFullName(), subscription.getId(), Map.of("userName", consumer.getFullName(),
+            "apiName", api.getName(), "planName", plan.getPlanName(), "price", plan.getPrice().toPlainString(),
+            "status", subscription.getStatus().name())));
         return toSubscriptionResponse(subscription);
     }
 
     @Override
     @Transactional
-    public SubscriptionActivationResponse activateSubscription(Long subscriptionId) {
+    public SubscriptionActivationResponse activateSubscription(String subscriptionId) {
         User consumer = getCurrentUser();
         Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
         if (subscription.getStatus() != SubscriptionStatus.PENDING) {
@@ -210,6 +217,9 @@ public class ConsumerServiceImpl implements ConsumerService {
         subscriptionRepository.save(subscription);
 
         String rawKey = generateApiKey(subscription);
+        notificationService.notify(new NotificationRequest(EmailEventType.API_KEY_CREATED, consumer.getEmail(),
+            consumer.getFullName(), subscription.getId(), Map.of("userName", consumer.getFullName(),
+            "apiName", subscription.getApi().getName())));
         return SubscriptionActivationResponse.builder()
                 .subscriptionId(subscription.getId())
                 .status(subscription.getStatus().name())
@@ -228,7 +238,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
-    public ApiKeyCreatedResponse regenerateApiKey(Long subscriptionId) {
+    public ApiKeyCreatedResponse regenerateApiKey(String subscriptionId) {
         User consumer = getCurrentUser();
         Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
         if (subscription.getStatus() != SubscriptionStatus.ACTIVE) {
@@ -242,6 +252,9 @@ public class ConsumerServiceImpl implements ConsumerService {
         });
 
         String rawKey = generateApiKey(subscription);
+        notificationService.notify(new NotificationRequest(EmailEventType.API_KEY_REGENERATED, consumer.getEmail(),
+            consumer.getFullName(), subscription.getId(), Map.of("userName", consumer.getFullName(),
+            "apiName", subscription.getApi().getName())));
         return ApiKeyCreatedResponse.builder()
                 .subscriptionId(subscription.getId())
                 .apiKey(rawKey)
@@ -250,13 +263,16 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
-    public void revokeApiKey(Long apiKeyId) {
+    public void revokeApiKey(String apiKeyId) {
         User consumer = getCurrentUser();
         ApiKey apiKey = apiKeyRepository.findByIdAndConsumer(apiKeyId, consumer)
                 .orElseThrow(() -> new ApiKeyNotFoundException("API key not found"));
         apiKey.setStatus(ApiKeyStatus.REVOKED);
         apiKey.setRevokedAt(LocalDateTime.now());
         apiKeyRepository.save(apiKey);
+        notificationService.notify(new NotificationRequest(EmailEventType.API_KEY_REVOKED, consumer.getEmail(),
+            consumer.getFullName(), apiKey.getId(), Map.of("userName", consumer.getFullName(),
+            "apiName", apiKey.getApi().getName())));
     }
 
     @Override
@@ -276,7 +292,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
-    public SubscriptionDetailsResponse getSubscription(Long subscriptionId) {
+    public SubscriptionDetailsResponse getSubscription(String subscriptionId) {
         User consumer = getCurrentUser();
         Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
         ApiKey apiKey = apiKeyRepository.findBySubscriptionAndConsumer(subscription, consumer).orElse(null);
@@ -289,13 +305,13 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .expiresAt(subscription.getExpiresAt())
                 .usageSummary(buildUsageSummary(subscription))
                 .apiKeyMetadata(apiKey != null ? new SubscriptionDetailsResponse.ApiKeyMetadata(apiKey.getId(), apiKey.getKeyPrefix(), apiKey.getStatus().name(), apiKey.getCreatedAt(), apiKey.getLastUsedAt()) : null)
-                .documentationAvailable(apiDocumentationRepository.findByApiId(subscription.getApi().getId()).isPresent())
+                .documentationAvailable(apiDocumentationRepository.findFirstByApiId(subscription.getApi().getId()).isPresent())
                 .build();
     }
 
     @Override
     @Transactional
-    public void cancelSubscription(Long subscriptionId) {
+    public void cancelSubscription(String subscriptionId) {
         User consumer = getCurrentUser();
         Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
         if (subscription.getStatus() == SubscriptionStatus.CANCELLED) {
@@ -304,6 +320,9 @@ public class ConsumerServiceImpl implements ConsumerService {
         subscription.setStatus(SubscriptionStatus.CANCELLED);
         subscription.setExpiresAt(LocalDateTime.now());
         subscriptionRepository.save(subscription);
+        notificationService.notify(new NotificationRequest(EmailEventType.SUBSCRIPTION_CANCELLED, consumer.getEmail(),
+            consumer.getFullName(), subscription.getId(), Map.of("userName", consumer.getFullName(),
+            "apiName", subscription.getApi().getName(), "planName", subscription.getSubscriptionPlan().getPlanName())));
         apiKeyRepository.findBySubscription(subscription).forEach(apiKey -> {
             apiKey.setStatus(ApiKeyStatus.REVOKED);
             apiKey.setRevokedAt(LocalDateTime.now());
@@ -313,7 +332,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
-    public ApiDocumentationResponse getSubscriptionDocumentation(Long subscriptionId) {
+    public ApiDocumentationResponse getSubscriptionDocumentation(String subscriptionId) {
         User consumer = getCurrentUser();
         Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
         if (subscription.getStatus() != SubscriptionStatus.ACTIVE) {
@@ -322,10 +341,11 @@ public class ConsumerServiceImpl implements ConsumerService {
         if (subscription.getExpiresAt() != null && subscription.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new InvalidSubscriptionStateException("Subscription has expired");
         }
-        ApiDocumentation documentation = apiDocumentationRepository.findByApiId(subscription.getApi().getId())
+        ApiDocumentation documentation = apiDocumentationRepository.findFirstByApiId(subscription.getApi().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("API documentation not found"));
         return ApiDocumentationResponse.builder()
-                .apiName(subscription.getApi().getName())
+                .id(documentation.getId())
+                .apiId(documentation.getApiId())
                 .baseEndpoint(documentation.getBaseEndpoint())
                 .authenticationGuide(documentation.getAuthenticationGuide())
                 .headers(documentation.getHeaders())
@@ -333,12 +353,14 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .responseExample(documentation.getResponseExample())
                 .errorCodes(documentation.getErrorCodes())
                 .markdown(documentation.getMarkdown())
+                .createdAt(documentation.getCreatedAt())
+                .updatedAt(documentation.getUpdatedAt())
                 .build();
     }
 
     @Override
     @Transactional
-    public UsageSummaryResponse getUsageSummary(Long subscriptionId) {
+    public UsageSummaryResponse getUsageSummary(String subscriptionId) {
         User consumer = getCurrentUser();
         if (subscriptionId != null) {
             Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
@@ -371,7 +393,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .build();
     }
 
-    private Subscription getSubscriptionForCurrentConsumer(Long subscriptionId, User consumer) {
+    private Subscription getSubscriptionForCurrentConsumer(String subscriptionId, User consumer) {
         Subscription subscription = subscriptionRepository.findById(subscriptionId)
                 .orElseThrow(() -> new SubscriptionNotFoundException("Subscription not found"));
         if (!Objects.equals(subscription.getConsumer().getId(), consumer.getId())) {
@@ -382,7 +404,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     private ConsumerProfile createDefaultProfile(User user) {
         ConsumerProfile profile = ConsumerProfile.builder()
-                .id(nextId())
+                
                 .user(user)
                 .build();
         return consumerProfileRepository.save(profile);
@@ -418,13 +440,14 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     private SubscriptionPlanResponse toPlanResponse(SubscriptionPlan plan) {
         return SubscriptionPlanResponse.builder()
-                .planId(plan.getId())
+                .id(plan.getId())
+                .apiId(plan.getApiId())
                 .planName(plan.getPlanName())
                 .price(plan.getPrice())
-                .billingCycle(plan.getBillingCycle().name())
+                .billingCycle(plan.getBillingCycle())
                 .requestLimit(plan.getRequestLimit())
-                .description(plan.getPlanName())
                 .active(plan.isActive())
+                .createdAt(plan.getCreatedAt())
                 .build();
     }
 
@@ -487,7 +510,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         String rawKey = API_KEY_PREFIX + randomPart;
         String hash = hashKey(rawKey);
         ApiKey apiKey = ApiKey.builder()
-                .id(nextId())
+                
                 .subscription(subscription)
                 .consumer(subscription.getConsumer())
                 .api(subscription.getApi())
@@ -525,10 +548,6 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
-    private Long nextId() {
-        return idGenerator.getAndIncrement();
-    }
-
     private int validateSize(int size) {
         if (size <= 0) size = 12;
         if (size > MAX_PAGE_SIZE) size = MAX_PAGE_SIZE;
@@ -547,7 +566,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .build();
     }
 
-    private List<Api> filterMarketplaceApis(String search, Long categoryId, String pricing) {
+    private List<Api> filterMarketplaceApis(String search, String categoryId, String pricing) {
         return apiRepository.findAll().stream()
                 .filter(api -> !api.isDeleted())
                 .filter(api -> api.getStatus() == ApiStatus.APPROVED)

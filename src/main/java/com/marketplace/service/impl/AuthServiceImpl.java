@@ -16,22 +16,31 @@ import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.security.jwt.JwtUtil;
 import com.marketplace.service.AuthService;
-import java.util.concurrent.atomic.AtomicLong;
+import com.marketplace.notification.NotificationService;
+import com.marketplace.notification.email.EmailEventType;
+import com.marketplace.notification.email.NotificationRequest;
+import java.util.Map;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final AtomicLong idGenerator = new AtomicLong(1L);
     private final UserRepository userRepository;
     private final ProviderProfileRepository providerProfileRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final UserMapper userMapper;
+    private final NotificationService notificationService;
+    private final MongoTemplate mongoTemplate;
 
     @Override
     @Transactional
@@ -45,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
 
         User user = User.builder()
-                .id(idGenerator.getAndIncrement())
+                
                 .fullName(request.getFullName().trim())
                 .email(request.getEmail().trim().toLowerCase())
                 .password(passwordEncoder.encode(request.getPassword()))
@@ -67,11 +76,13 @@ public class AuthServiceImpl implements AuthService {
                     .logo("")
                     .build());
         }
+        notificationService.notify(new NotificationRequest(EmailEventType.USER_REGISTERED, user.getEmail(),
+            user.getFullName(), user.getId(), Map.of("userName", user.getFullName(), "role", user.getRole().getName())));
         return generateLoginResponse(user);
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail().trim().toLowerCase())
                 .orElseThrow(() -> new InvalidCredentialsException("Invalid email or password"));
@@ -80,6 +91,13 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
+        long firstLoginUpdated = mongoTemplate.updateFirst(
+            Query.query(Criteria.where("_id").is(user.getId()).and("firstLoginAt").is(null)),
+            new Update().set("firstLoginAt", LocalDateTime.now()), User.class).getModifiedCount();
+        if (firstLoginUpdated == 1) {
+            notificationService.notify(new NotificationRequest(EmailEventType.FIRST_LOGIN, user.getEmail(),
+                user.getFullName(), user.getId(), Map.of("userName", user.getFullName())));
+        }
         return generateLoginResponse(user);
     }
 

@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiDetailsDto {
-    private Long id;
-    private Long providerId;
+    private String id;
+    private String providerId;
     private String name;
     private String description;
     private String baseUrl;
-    private Long categoryId;
+    private String categoryId;
     private String categoryName;
     private String logo;
     private String version;

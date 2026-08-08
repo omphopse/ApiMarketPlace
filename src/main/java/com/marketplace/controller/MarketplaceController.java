@@ -27,19 +27,19 @@ public class MarketplaceController {
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "12") @Positive int size,
             @RequestParam(required = false) String search,
-            @RequestParam(required = false) Long category,
+            @RequestParam(required = false) String categoryId,
             @RequestParam(required = false) String pricing,
             @RequestParam(required = false, defaultValue = "NEWEST") String sort) {
-        return ResponseEntity.ok(consumerService.browseMarketplace(page, size, search, category, pricing, sort));
+        return ResponseEntity.ok(consumerService.browseMarketplace(page, size, search, categoryId, pricing, sort));
     }
 
     @GetMapping("/apis/{id}")
-    public ResponseEntity<ApiMarketplaceDetailsResponse> getMarketplaceApi(@PathVariable Long id) {
+    public ResponseEntity<ApiMarketplaceDetailsResponse> getMarketplaceApi(@PathVariable String id) {
         return ResponseEntity.ok(consumerService.getMarketplaceApi(id));
     }
 
     @GetMapping("/apis/{apiId}/plans")
-    public ResponseEntity<List<SubscriptionPlanResponse>> getApiPlans(@PathVariable Long apiId) {
+    public ResponseEntity<List<SubscriptionPlanResponse>> getApiPlans(@PathVariable String apiId) {
         return ResponseEntity.ok(consumerService.getApiPlans(apiId));
     }
 }

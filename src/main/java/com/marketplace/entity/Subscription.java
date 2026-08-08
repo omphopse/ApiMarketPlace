@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Document(collection = "subscriptions")
 @Getter
@@ -21,8 +20,8 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @AllArgsConstructor
 @Builder
 public class Subscription {
-    @MongoId(FieldType.INT64)
-    private Long id;
+    @Id
+    private String id;
 
     @DocumentReference(lazy = true)
     private User consumer;
@@ -42,6 +41,10 @@ public class Subscription {
     private LocalDateTime startedAt;
 
     private LocalDateTime expiresAt;
+
+    private boolean expirationWarning3DaysSent;
+
+    private boolean expirationEmailSent;
 
     @CreatedDate
     private LocalDateTime createdAt;

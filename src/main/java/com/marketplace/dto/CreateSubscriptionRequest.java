@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateSubscriptionRequest {
     @NotNull(message = "API ID is required")
-    private Long apiId;
+    private String apiId;
 
     @NotNull(message = "Plan ID is required")
-    private Long planId;
+    private String planId;
 }

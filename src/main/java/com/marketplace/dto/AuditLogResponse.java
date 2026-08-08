@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class AuditLogResponse {
 
-    private Long id;
+    private String id;
 
     private String adminEmail;
 

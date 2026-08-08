@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubscriptionResponse {
-    private Long subscriptionId;
+    private String subscriptionId;
     private ApiSummary api;
     private PlanSummary plan;
     private String status;
@@ -23,7 +23,7 @@ public class SubscriptionResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ApiSummary {
-        private Long id;
+        private String id;
         private String name;
     }
 
@@ -32,7 +32,7 @@ public class SubscriptionResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class PlanSummary {
-        private Long id;
+        private String id;
         private String name;
         private BigDecimal price;
         private String billingCycle;

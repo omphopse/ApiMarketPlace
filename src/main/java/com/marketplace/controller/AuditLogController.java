@@ -27,7 +27,7 @@ public class AuditLogController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AuditLogResponse> getLogById(
-            @PathVariable Long id) {
+            @PathVariable String id) {
 
         return ResponseEntity.ok(auditLogService.getLogById(id));
     }

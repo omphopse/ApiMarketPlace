@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 public class ProviderProfileDto {
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long id;
+    private String id;
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long userId;
+    private String userId;
 
     @NotBlank(message = "Company name is required")
     @Size(max = 150, message = "Company name must be at most 150 characters")

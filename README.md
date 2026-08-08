@@ -54,3 +54,9 @@ npm run dev
 ```
 
 The frontend will be available at http://localhost:3000.
+
+## Email notifications
+
+The backend uses Gmail SMTP through Spring Mail. Copy `.env.example` to your local environment and set `MAIL_USERNAME`, `MAIL_PASSWORD` (a Gmail App Password), and `MAIL_ENABLED=true`. Never commit either credential. See [EMAIL_NOTIFICATION_GUIDE.md](EMAIL_NOTIFICATION_GUIDE.md) for supported events and testing.
+
+MongoDB Atlas and JWT settings are also environment-backed; see `MONGODB_SETUP.md`.

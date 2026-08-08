@@ -8,7 +8,7 @@ public interface AuditLogService {
 
     List<AuditLogResponse> getAllLogs();
 
-    AuditLogResponse getLogById(Long id);
+    AuditLogResponse getLogById(String id);
 
     void saveLog(String action, String module, String description);
 

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiMarketplaceCardResponse {
-    private Long id;
+    private String id;
     private String name;
     private String shortDescription;
     private String logoUrl;

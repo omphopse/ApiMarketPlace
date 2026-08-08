@@ -27,7 +27,7 @@ public class ApiRequestDto {
     private String baseUrl;
 
     @NotNull(message = "Category is required")
-    private Long categoryId;
+    private String categoryId;
 
     @Size(max = 255, message = "Logo URL must be at most 255 characters")
     private String logo;

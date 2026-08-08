@@ -202,6 +202,11 @@ If you later want to connect to MySQL instead of H2, these are the environment v
 | `SPRING_DATASOURCE_URL` | MySQL JDBC URL | No | `jdbc:mysql://localhost:3306/api_marketplace` |
 | `SPRING_DATASOURCE_USERNAME` | MySQL username | No | `apiuser` |
 | `SPRING_DATASOURCE_PASSWORD` | MySQL password | No | `password` |
+| `MONGODB_URI` | MongoDB Atlas connection string | No | `mongodb+srv://<user>:<password>@cluster0.example.mongodb.net` |
+| `MONGODB_DATABASE` | MongoDB Atlas database name | No | `api_marketplace` |
+
+### Local MongoDB Atlas credentials file
+The project supports a root-level `mongodb.properties` file with Atlas settings. If present, Spring Boot will import it automatically, so you can keep credentials local and out of source control.
 
 ### Actual configured values in code
 The default config is in `application.properties`:
@@ -216,8 +221,9 @@ The default config is in `application.properties`:
 
 # 9. .env File
 
-This project does not include a `.env` file and does not automatically load one.
-Do not assume Spring Boot will read `.env` here.
+This project does not include a generic `.env` file and does not automatically load one.
+However, the repository supports a root-level `mongodb.properties` file for MongoDB Atlas credentials. If `mongodb.properties` exists, Spring Boot loads it automatically via `spring.config.import`.
+Do not commit `mongodb.properties` to source control.
 Use the Maven wrapper and `application.properties` for the default local run.
 
 ---
