@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApiKeyResponse {
     private String id;
+    private String subscriptionId;
     private String apiName;
     private String keyPrefix;
     private String maskedKey;

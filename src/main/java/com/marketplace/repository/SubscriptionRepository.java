@@ -18,5 +18,8 @@ public interface SubscriptionRepository extends MongoRepository<Subscription, St
     Page<Subscription> findByConsumerAndStatusOrderByCreatedAtDesc(User consumer, SubscriptionStatus status, Pageable pageable);
     long countByConsumer(User consumer);
     long countByConsumerAndStatus(User consumer, SubscriptionStatus status);
+    long countByApi_IdAndStatus(String apiId, SubscriptionStatus status);
+    Page<Subscription> findByApi_Id(String apiId, Pageable pageable);
+    List<Subscription> findByApi_IdAndStatus(String apiId, SubscriptionStatus status);
     List<Subscription> findByStatusAndExpiresAtBetween(SubscriptionStatus status, LocalDateTime from, LocalDateTime to);
 }

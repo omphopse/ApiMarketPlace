@@ -1,0 +1,33 @@
+Compiled from "RazorpayClient.java"
+public class com.razorpay.RazorpayClient {
+  public com.razorpay.PaymentClient payments;
+  public com.razorpay.RefundClient refunds;
+  public com.razorpay.OrderClient orders;
+  public com.razorpay.InvoiceClient invoices;
+  public com.razorpay.CardClient cards;
+  public com.razorpay.CustomerClient customers;
+  public com.razorpay.TransferClient transfers;
+  public com.razorpay.SubscriptionClient subscriptions;
+  public com.razorpay.AddonClient addons;
+  public com.razorpay.PlanClient plans;
+  public com.razorpay.SettlementClient settlement;
+  public com.razorpay.QrCodeClient qrCode;
+  public com.razorpay.PaymentLinkClient paymentLink;
+  public com.razorpay.ItemClient items;
+  public com.razorpay.FundAccountClient fundAccount;
+  public com.razorpay.VirtualAccountClient virtualAccounts;
+  public com.razorpay.TokenClient token;
+  public com.razorpay.IinClient iin;
+  public com.razorpay.AccountClient account;
+  public com.razorpay.StakeholderClient stakeholder;
+  public com.razorpay.ProductClient product;
+  public com.razorpay.WebhookClient webhook;
+  public com.razorpay.DisputeClient dispute;
+  public com.razorpay.TncMap tncMap;
+  public com.razorpay.DocumentClient document;
+  public com.razorpay.BankAccountClient bankAccount;
+  public com.razorpay.RazorpayClient(java.lang.String, java.lang.String) throws com.razorpay.RazorpayException;
+  public com.razorpay.RazorpayClient(java.lang.String) throws com.razorpay.RazorpayException;
+  public com.razorpay.RazorpayClient(java.lang.String, java.lang.String, java.lang.Boolean) throws com.razorpay.RazorpayException;
+  public com.razorpay.RazorpayClient addHeaders(java.util.Map<java.lang.String, java.lang.String>);
+}

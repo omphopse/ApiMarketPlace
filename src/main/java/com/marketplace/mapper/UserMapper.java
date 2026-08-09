@@ -13,6 +13,7 @@ public class UserMapper {
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .role(roleName)
+                .status(user.isEnabled() ? "ACTIVE" : "SUSPENDED")
                 .build();
     }
 }

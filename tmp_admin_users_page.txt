@@ -1,0 +1,91 @@
+import { useEffect, useMemo, useState } from 'react';
+import { Box, Button, Card, Chip, Grid, MenuItem, Stack, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import DashboardLayout from '../layouts/DashboardLayout';
+import PageHeader from '../components/PageHeader';
+import AppCard from '../components/AppCard';
+import LoadingState from '../components/LoadingState';
+import ErrorState from '../components/ErrorState';
+import EmptyState from '../components/EmptyState';
+import { adminService } from '../services/adminService';
+
+const AdminUsersPage = () => {
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [users, setUsers] = useState([]);
+  const [filters, setFilters] = useState({ search: '', role: 'ALL', status: 'ALL' });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const normalizeRole = (role) => String(role || '').replace(/^ROLE_/, '').toUpperCase();
+
+  const loadUsers = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      const response = await adminService.getUsers(filters);
+      setUsers(response || []);
+    } catch (err) {
+      setError(err.message || 'Unable to load users.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => { loadUsers(); }, 250);
+    return () => clearTimeout(timeout);
+  }, [filters.search, filters.role, filters.status]);
+
+  const visibleUsers = useMemo(() => users.filter((user) => {
+    if (filters.role !== 'ALL' && normalizeRole(user.role) !== filters.role) return false;
+    if (filters.status !== 'ALL' && user.status !== filters.status) return false;
+    return true;
+  }), [users, filters.role, filters.status]);
+
+  const summary = useMemo(() => ({
+    total: visibleUsers.length,
+    active: visibleUsers.filter((user) => user.status === 'ACTIVE').length,
+    suspended: visibleUsers.filter((user) => user.status === 'SUSPENDED').length,
+    admins: visibleUsers.filter((user) => normalizeRole(user.role) === 'ADMIN').length
+  }), [visibleUsers]);
+
+  if (loading) return <DashboardLayout role="ADMIN" title="User administration" subtitle="Manage users and account health."><LoadingState title="Loading users" description="Fetching the account list." /></DashboardLayout>;
+  if (error) return <DashboardLayout role="ADMIN" title="User administration" subtitle="Manage users and account health."><ErrorState message={error} retryLabel="Try again" onRetry={loadUsers} /></DashboardLayout>;
+
+  return (
+    <DashboardLayout role="ADMIN" title="User administration" subtitle="Manage accounts, roles and access.">
+      <PageHeader title="Users" subtitle="Oversee global account management and status." action={<Button variant="contained" onClick={() => navigate('/admin/settings')}>Settings</Button>} />
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        {[
+          { label: 'Total Users', value: summary.total },
+          { label: 'Active Users', value: summary.active },
+          { label: 'Suspended', value: summary.suspended },
+          { label: 'Admins', value: summary.admins }
+        ].map((item) => <Grid item xs={12} sm={6} md={3} key={item.label}><Card sx={{ p: 2.5, borderRadius: 3 }}><Typography variant="caption" color="text.secondary">{item.label}</Typography><Typography variant="h5" fontWeight={700}>{item.value}</Typography></Card></Grid>)}
+      </Grid>
+      <AppCard title="Account directory" subtitle="Search and manage users.">
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ mb: 3 }}>
+          <TextField
+            label="Search"
+            value={filters.search}
+            onChange={(event) => setFilters({ ...filters, search: event.target.value })}
+            onKeyDown={(event) => { if (event.key === 'Enter') event.preventDefault(); }}
+            fullWidth
+            size="small"
+          />
+          <TextField select label="Role" value={filters.role} onChange={(event) => setFilters({ ...filters, role: event.target.value })} size="small" sx={{ minWidth: 180 }}>
+            {['ALL', 'ADMIN', 'PROVIDER', 'CONSUMER'].map((role) => <MenuItem key={role} value={role}>{role}</MenuItem>)}
+          </TextField>
+          <TextField select label="Status" value={filters.status} onChange={(event) => setFilters({ ...filters, status: event.target.value })} size="small" sx={{ minWidth: 180 }}>
+            {['ALL', 'ACTIVE', 'SUSPENDED'].map((status) => <MenuItem key={status} value={status}>{status}</MenuItem>)}
+          </TextField>
+        </Stack>
+        {visibleUsers.length === 0 ? <EmptyState title="No users found" description="Try adjusting the current filters." /> : isMobile ? <Stack spacing={2}>{visibleUsers.map((user) => <Card key={user.id} sx={{ p: 2.5, borderRadius: 3 }}><Typography fontWeight={700}>{user.fullName || user.email}</Typography><Typography variant="body2" color="text.secondary">{user.email}</Typography><Stack direction="row" spacing={1} sx={{ mt: 1 }}><Chip label={user.role} size="small" /><Chip label={user.status || 'UNKNOWN'} size="small" /></Stack><Button size="small" variant="contained" sx={{ mt: 2 }} onClick={() => navigate(`/admin/users/${user.id}`)}>View</Button></Card>)}</Stack> : <Box sx={{ overflowX: 'auto' }}><Box component="table" sx={{ width: '100%', borderCollapse: 'collapse' }}><Box component="thead"><Box component="tr"><Box component="th" sx={{ textAlign: 'left', py: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>User</Box><Box component="th" sx={{ textAlign: 'left', py: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>Email</Box><Box component="th" sx={{ textAlign: 'left', py: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>Role</Box><Box component="th" sx={{ textAlign: 'left', py: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>Status</Box><Box component="th" sx={{ textAlign: 'left', py: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>Joined</Box><Box component="th" sx={{ textAlign: 'left', py: 1.5, borderBottom: '1px solid', borderColor: 'divider' }}>Actions</Box></Box></Box><Box component="tbody">{visibleUsers.map((user) => <Box component="tr" key={user.id}><Box component="td" sx={{ py: 1.2, borderBottom: '1px solid', borderColor: 'divider' }}>{user.fullName || user.email}</Box><Box component="td" sx={{ py: 1.2, borderBottom: '1px solid', borderColor: 'divider' }}>{user.email}</Box><Box component="td" sx={{ py: 1.2, borderBottom: '1px solid', borderColor: 'divider' }}>{user.role}</Box><Box component="td" sx={{ py: 1.2, borderBottom: '1px solid', borderColor: 'divider' }}>{user.status || 'UNKNOWN'}</Box><Box component="td" sx={{ py: 1.2, borderBottom: '1px solid', borderColor: 'divider' }}>{user.joinedAt}</Box><Box component="td" sx={{ py: 1.2, borderBottom: '1px solid', borderColor: 'divider' }}><Button size="small" onClick={() => navigate(`/admin/users/${user.id}`)}>View</Button></Box></Box>)}</Box></Box></Box>}
+      </AppCard>
+    </DashboardLayout>
+  );
+};
+
+export default AdminUsersPage;

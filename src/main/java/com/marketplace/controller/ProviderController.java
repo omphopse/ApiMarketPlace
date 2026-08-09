@@ -6,7 +6,9 @@ import com.marketplace.dto.ApiDocumentationDto;
 import com.marketplace.dto.ApiSummaryDto;
 import com.marketplace.dto.CategoryDto;
 import com.marketplace.dto.DashboardDto;
+import com.marketplace.dto.PagedResponse;
 import com.marketplace.dto.ProviderProfileDto;
+import com.marketplace.dto.ProviderSubscriberResponse;
 import com.marketplace.dto.SubscriptionPlanDto;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.ProviderService;
@@ -62,9 +64,13 @@ public class ProviderController {
     }
 
     @GetMapping("/apis")
-    public ResponseEntity<List<ApiSummaryDto>> getApis() {
+    public ResponseEntity<List<ApiSummaryDto>> getApis(
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "ALL") String status,
+            @RequestParam(required = false) String category,
+            @RequestParam(defaultValue = "NEWEST") String sort) {
         String userId = getCurrentUserId();
-        return ResponseEntity.ok(providerService.getApis(userId));
+        return ResponseEntity.ok(providerService.getApis(userId, search, status, category, sort));
     }
 
     @GetMapping("/apis/{id}")
@@ -102,6 +108,15 @@ public class ProviderController {
     public ResponseEntity<ApiDetailsDto> archiveApi(@PathVariable String id) {
         String userId = getCurrentUserId();
         return ResponseEntity.ok(providerService.archiveApi(userId, id));
+    }
+
+    @GetMapping("/apis/{id}/subscribers")
+    public ResponseEntity<PagedResponse<ProviderSubscriberResponse>> getSubscribers(
+            @PathVariable String id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        String userId = getCurrentUserId();
+        return ResponseEntity.ok(providerService.getSubscribers(userId, id, page, size));
     }
 
     @PostMapping("/apis/{id}/plans")

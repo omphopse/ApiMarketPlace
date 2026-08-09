@@ -17,4 +17,5 @@ public class UsageLogResponse {
     private int statusCode;
     private long responseTimeMs;
     private LocalDateTime timestamp;
+    private String apiName;
 }

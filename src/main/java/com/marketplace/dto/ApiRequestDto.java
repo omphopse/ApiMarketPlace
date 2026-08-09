@@ -43,6 +43,19 @@ public class ApiRequestDto {
     @NotNull(message = "Rate limit is required")
     private Integer rateLimit;
 
+    @Size(max = 160, message = "Short description must be at most 160 characters")
+    private String shortDescription;
+
+    @Size(max = 1000, message = "Full description must be at most 1000 characters")
+    private String fullDescription;
+
+    @Size(max = 500, message = "Support URL must be at most 500 characters")
+    private String supportUrl;
+
+    private Integer timeout;
+
+    private List<String> tags;
+
     private List<SubscriptionPlanDto> plans;
     private ApiDocumentationDto documentation;
 }

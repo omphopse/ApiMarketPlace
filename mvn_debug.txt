@@ -1,0 +1,1639 @@
+Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
+Maven home: C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0
+Java version: 25.0.2, vendor: Eclipse Adoptium, runtime: C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot
+Default locale: en_US, platform encoding: UTF-8
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+[DEBUG] Created new class realm maven.api
+[DEBUG] Importing foreign packages into class realm maven.api
+[DEBUG]   Imported: javax.annotation.* < plexus.core
+[DEBUG]   Imported: javax.annotation.security.* < plexus.core
+[DEBUG]   Imported: javax.inject.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.artifact < plexus.core
+[DEBUG]   Imported: org.apache.maven.classrealm < plexus.core
+[DEBUG]   Imported: org.apache.maven.cli < plexus.core
+[DEBUG]   Imported: org.apache.maven.configuration < plexus.core
+[DEBUG]   Imported: org.apache.maven.exception < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution.scope < plexus.core
+[DEBUG]   Imported: org.apache.maven.graph < plexus.core
+[DEBUG]   Imported: org.apache.maven.lifecycle < plexus.core
+[DEBUG]   Imported: org.apache.maven.model < plexus.core
+[DEBUG]   Imported: org.apache.maven.monitor < plexus.core
+[DEBUG]   Imported: org.apache.maven.plugin < plexus.core
+[DEBUG]   Imported: org.apache.maven.profiles < plexus.core
+[DEBUG]   Imported: org.apache.maven.project < plexus.core
+[DEBUG]   Imported: org.apache.maven.reporting < plexus.core
+[DEBUG]   Imported: org.apache.maven.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.rtinfo < plexus.core
+[DEBUG]   Imported: org.apache.maven.settings < plexus.core
+[DEBUG]   Imported: org.apache.maven.toolchain < plexus.core
+[DEBUG]   Imported: org.apache.maven.usability < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authentication < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authorization < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.events < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.observers < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.proxy < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.resource < plexus.core
+[DEBUG]   Imported: org.codehaus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.* < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.component < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.configuration < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.container < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.context < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.lifecycle < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.logging < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.personality < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.Xpp3Dom < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParser < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParserException < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlSerializer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.* < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.artifact < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.collection < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.deployment < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.graph < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.installation < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.internal.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.metadata < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.repository < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.resolution < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.spi < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.transfer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.util < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.version < plexus.core
+[DEBUG]   Imported: org.fusesource.jansi.* < plexus.core
+[DEBUG]   Imported: org.slf4j.* < plexus.core
+[DEBUG]   Imported: org.slf4j.event.* < plexus.core
+[DEBUG]   Imported: org.slf4j.helpers.* < plexus.core
+[DEBUG]   Imported: org.slf4j.spi.* < plexus.core
+[DEBUG] Populating class realm maven.api
+[DEBUG] Created adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gaecv, file-gav, file-hgaecv, file-hgav, file-static, gaecv, gav, static]
+[INFO] Error stacktraces are turned on.
+[DEBUG] Message scheme: color
+[DEBUG] Message styles: debug info warning error success failure strong mojo project
+[DEBUG] Reading global settings from C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0\conf\settings.xml
+[DEBUG] Reading user settings from C:\Users\ASUS\.m2\settings.xml
+[DEBUG] Reading global toolchains from C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0\conf\toolchains.xml
+[DEBUG] Reading user toolchains from C:\Users\ASUS\.m2\toolchains.xml
+[DEBUG] Using local repository at C:\Users\ASUS\.m2\repository
+[DEBUG] Using manager EnhancedLocalRepositoryManager with priority 10.0 for C:\Users\ASUS\.m2\repository
+[INFO] Scanning for projects...
+[DEBUG] Creating adapter using nameMapper 'gaecv' and factory 'rwlock-local'
+[DEBUG] Extension realms for project com.example:ApiMarketplace:jar:0.0.1-SNAPSHOT: (none)
+[DEBUG] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project org.springframework.boot:spring-boot-starter-parent:pom:3.3.3: (none)
+[DEBUG] Looking up lifecycle mappings for packaging pom from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project org.springframework.boot:spring-boot-dependencies:pom:3.3.3: (none)
+[DEBUG] Looking up lifecycle mappings for packaging pom from ClassRealm[plexus.core, parent: null]
+[DEBUG] === REACTOR BUILD PLAN ================================================
+[DEBUG] Project: com.example:ApiMarketplace:jar:0.0.1-SNAPSHOT
+[DEBUG] Tasks:   [clean, compile]
+[DEBUG] Style:   Regular
+[DEBUG] =======================================================================
+[INFO] 
+[INFO] ---------------------< com.example:ApiMarketplace >---------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] === PROJECT BUILD PLAN ================================================
+[DEBUG] Project:       com.example:ApiMarketplace:0.0.1-SNAPSHOT
+[DEBUG] Dependencies (collect): []
+[DEBUG] Dependencies (resolve): [compile]
+[DEBUG] Repositories (dependencies): [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] Repositories (plugins)     : [central (https://repo.maven.apache.org/maven2, default, releases)]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-clean-plugin:3.3.2:clean (default-clean)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <directory default-value="${project.build.directory}"/>
+  <excludeDefaultDirectories default-value="false">${maven.clean.excludeDefaultDirectories}</excludeDefaultDirectories>
+  <failOnError default-value="true">${maven.clean.failOnError}</failOnError>
+  <fast default-value="false">${maven.clean.fast}</fast>
+  <fastDir>${maven.clean.fastDir}</fastDir>
+  <fastMode default-value="background">${maven.clean.fastMode}</fastMode>
+  <followSymLinks default-value="false">${maven.clean.followSymLinks}</followSymLinks>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <reportDirectory default-value="${project.build.outputDirectory}"/>
+  <retryOnError default-value="true">${maven.clean.retryOnError}</retryOnError>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.clean.skip}</skip>
+  <testOutputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <verbose>${maven.clean.verbose}</verbose>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources (default-resources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <addDefaultExcludes default-value="true"/>
+  <buildFilters default-value="${project.build.filters}"/>
+  <delimiters>
+    <delimiter>@</delimiter>
+  </delimiters>
+  <encoding default-value="${project.build.sourceEncoding}"/>
+  <escapeWindowsPaths default-value="true"/>
+  <fileNameFiltering default-value="false"/>
+  <includeEmptyDirs default-value="false"/>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <overwrite default-value="false"/>
+  <project default-value="${project}"/>
+  <propertiesEncoding>UTF-8</propertiesEncoding>
+  <resources default-value="${project.resources}"/>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.resources.skip}</skip>
+  <supportMultiLineFiltering default-value="false"/>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true">false</useDefaultDelimiters>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <annotationProcessorPaths>
+    <path>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>1.5.5.Final</version>
+    </path>
+    <path>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.46</version>
+    </path>
+    <path>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok-mapstruct-binding</artifactId>
+      <version>0.2.0</version>
+    </path>
+  </annotationProcessorPaths>
+  <annotationProcessorPathsUseDepMgmt default-value="false"/>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.compileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <createMissingPackageInfoClass default-value="true">${maven.compiler.createMissingPackageInfoClass}</createMissingPackageInfoClass>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debugFileName default-value="javac"/>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <enablePreview default-value="false">${maven.compiler.enablePreview}</enablePreview>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <fileExtensions default-value="class,jar"/>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <forceLegacyJavacApi default-value="false">${maven.compiler.forceLegacyJavacApi}</forceLegacyJavacApi>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedSourcesDirectory default-value="${project.build.directory}/generated-sources/annotations"/>
+  <implicit>${maven.compiler.implicit}</implicit>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.outputDirectory}">${maven.compiler.outputDirectory}</outputDirectory>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <parameters default-value="false">true</parameters>
+  <proc>${maven.compiler.proc}</proc>
+  <project default-value="${project}"/>
+  <projectArtifact default-value="${project.artifact}"/>
+  <release>21</release>
+  <session default-value="${session}"/>
+  <showCompilationChanges default-value="false">${maven.compiler.showCompilationChanges}</showCompilationChanges>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="true">${maven.compiler.showWarnings}</showWarnings>
+  <skipMain>${maven.main.skip}</skipMain>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.8">21</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.8">21</target>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] =======================================================================
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for vaadin-snapshots (http://oss.sonatype.org/content/repositories/vaadin-snapshots/).
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for vaadin-releases (http://oss.sonatype.org/content/repositories/vaadin-releases/).
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=11264100, ConflictMarker.markTime=1203000, ConflictMarker.nodeCount=306, ConflictIdSorter.graphTime=6891400, ConflictIdSorter.topsortTime=2175300, ConflictIdSorter.conflictIdCount=133, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=51598900, ConflictResolver.conflictItemCount=266, DfDependencyCollector.collectTime=3130301900, DfDependencyCollector.transformTime=84046900}
+[DEBUG] com.example:ApiMarketplace:jar:0.0.1-SNAPSHOT
+[DEBUG]    org.springframework.boot:spring-boot-starter-data-mongodb:jar:3.3.3:compile
+[DEBUG]       org.springframework.boot:spring-boot-starter:jar:3.3.3:compile (version managed from 3.3.3)
+[DEBUG]          org.springframework.boot:spring-boot-starter-logging:jar:3.3.3:compile (version managed from 3.3.3)
+[DEBUG]             ch.qos.logback:logback-classic:jar:1.5.7:compile (version managed from 1.5.7)
+[DEBUG]                ch.qos.logback:logback-core:jar:1.5.7:compile (version managed from 1.5.7)
+[DEBUG]             org.apache.logging.log4j:log4j-to-slf4j:jar:2.23.1:compile (version managed from 2.23.1)
+[DEBUG]                org.apache.logging.log4j:log4j-api:jar:2.23.1:compile (version managed from 2.23.1)
+[DEBUG]             org.slf4j:jul-to-slf4j:jar:2.0.16:compile (version managed from 2.0.16)
+[DEBUG]          jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile (version managed from 2.1.1)
+[DEBUG]          org.yaml:snakeyaml:jar:2.2:compile (version managed from 2.2)
+[DEBUG]       org.springframework.data:spring-data-mongodb:jar:4.3.3:compile (version managed from 4.3.3)
+[DEBUG]          org.springframework:spring-tx:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]          org.springframework:spring-context:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]          org.springframework:spring-beans:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]          org.springframework:spring-expression:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]          org.springframework.data:spring-data-commons:jar:3.3.3:compile (version managed from 3.3.3)
+[DEBUG]          org.slf4j:slf4j-api:jar:2.0.16:compile (version managed from 2.0.2)
+[DEBUG]    org.mongodb:mongodb-driver-sync:jar:5.9.0:compile
+[DEBUG]    org.mongodb:mongodb-driver-core:jar:5.9.0:compile
+[DEBUG]       org.mongodb:bson-record-codec:jar:5.0.1:runtime (version managed from 5.9.0)
+[DEBUG]    org.mongodb:bson:jar:5.9.0:compile
+[DEBUG]    de.flapdoodle.embed:de.flapdoodle.embed.mongo:jar:5.0.0:test
+[DEBUG]       de.flapdoodle.embed:de.flapdoodle.embed.process:jar:5.0.0:test
+[DEBUG]          de.flapdoodle.commons:de.flapdoodle.commons.net:jar:1.4.1:test
+[DEBUG]             de.flapdoodle.commons:de.flapdoodle.commons.checks:jar:1.4.1:test
+[DEBUG]             de.flapdoodle.commons:de.flapdoodle.commons.types:jar:1.4.1:test
+[DEBUG]          de.flapdoodle.commons:de.flapdoodle.commons.hash:jar:1.4.1:test
+[DEBUG]          de.flapdoodle.commons:de.flapdoodle.commons.reverse:jar:1.4.1:test
+[DEBUG]             de.flapdoodle.commons:de.flapdoodle.commons.graph:jar:1.4.1:test
+[DEBUG]                org.jgrapht:jgrapht-core:jar:1.4.0:test
+[DEBUG]                   org.jheaps:jheaps:jar:0.11:test
+[DEBUG]             de.flapdoodle.commons:de.flapdoodle.commons.reflection:jar:1.4.1:test
+[DEBUG]          org.apache.commons:commons-lang3:jar:3.14.0:compile (version managed from 3.18.0)
+[DEBUG]          org.apache.commons:commons-compress:jar:1.28.0:test
+[DEBUG]             commons-io:commons-io:jar:2.20.0:test
+[DEBUG]          net.java.dev.jna:jna:jar:5.19.1:test
+[DEBUG]          net.java.dev.jna:jna-platform:jar:5.19.1:test
+[DEBUG]          de.flapdoodle:de.flapdoodle.os-api:jar:1.7.1:test
+[DEBUG]       de.flapdoodle.embed:de.flapdoodle.embed.mongo.packageresolver:jar:5.0.0:test
+[DEBUG]          de.flapdoodle:de.flapdoodle.os:jar:1.11.1:test
+[DEBUG]    org.springframework.boot:spring-boot-starter-security:jar:3.3.3:compile
+[DEBUG]       org.springframework:spring-aop:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]       org.springframework.security:spring-security-config:jar:6.3.3:compile (version managed from 6.3.3)
+[DEBUG]          org.springframework.security:spring-security-core:jar:6.3.3:compile (version managed from 6.3.3)
+[DEBUG]             org.springframework.security:spring-security-crypto:jar:6.3.3:compile (version managed from 6.3.3)
+[DEBUG]       org.springframework.security:spring-security-web:jar:6.3.3:compile (version managed from 6.3.3)
+[DEBUG]    org.springframework.boot:spring-boot-starter-validation:jar:3.3.3:compile
+[DEBUG]       org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.28:compile (version managed from 10.1.28)
+[DEBUG]       org.hibernate.validator:hibernate-validator:jar:8.0.1.Final:compile (version managed from 8.0.1.Final)
+[DEBUG]          jakarta.validation:jakarta.validation-api:jar:3.0.2:compile (version managed from 3.0.2)
+[DEBUG]          org.jboss.logging:jboss-logging:jar:3.5.3.Final:compile (version managed from 3.4.3.Final)
+[DEBUG]          com.fasterxml:classmate:jar:1.7.0:compile (version managed from 1.5.1)
+[DEBUG]    org.springframework.boot:spring-boot-starter-web:jar:3.3.3:compile
+[DEBUG]       org.springframework.boot:spring-boot-starter-json:jar:3.3.3:compile (version managed from 3.3.3)
+[DEBUG]          com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.17.2:compile (version managed from 2.17.2)
+[DEBUG]          com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.17.2:compile (version managed from 2.17.2)
+[DEBUG]          com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.17.2:compile (version managed from 2.17.2)
+[DEBUG]       org.springframework.boot:spring-boot-starter-tomcat:jar:3.3.3:compile (version managed from 3.3.3)
+[DEBUG]          org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.28:compile (version managed from 10.1.28)
+[DEBUG]          org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.28:compile (version managed from 10.1.28)
+[DEBUG]       org.springframework:spring-web:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]          io.micrometer:micrometer-observation:jar:1.13.3:compile (version managed from 1.12.9)
+[DEBUG]             io.micrometer:micrometer-commons:jar:1.13.3:compile (version managed from 1.13.3)
+[DEBUG]       org.springframework:spring-webmvc:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]    org.springframework.boot:spring-boot-starter-mail:jar:3.3.3:compile
+[DEBUG]       org.springframework:spring-context-support:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]       org.eclipse.angus:jakarta.mail:jar:2.0.3:compile (version managed from 2.0.3)
+[DEBUG]          jakarta.activation:jakarta.activation-api:jar:2.1.3:compile (version managed from 2.1.3)
+[DEBUG]          org.eclipse.angus:angus-activation:jar:2.0.2:runtime (version managed from 2.0.2)
+[DEBUG]    org.springframework.boot:spring-boot-starter-test:jar:3.3.3:test
+[DEBUG]       org.springframework.boot:spring-boot-test:jar:3.3.3:test (version managed from 3.3.3)
+[DEBUG]       org.springframework.boot:spring-boot-test-autoconfigure:jar:3.3.3:test (version managed from 3.3.3)
+[DEBUG]       com.jayway.jsonpath:json-path:jar:2.9.0:test (version managed from 2.9.0)
+[DEBUG]       jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.2:compile (version managed from 4.0.2)
+[DEBUG]       net.minidev:json-smart:jar:2.5.1:test (version managed from 2.5.1)
+[DEBUG]          net.minidev:accessors-smart:jar:2.5.1:test
+[DEBUG]             org.ow2.asm:asm:jar:9.6:test
+[DEBUG]       org.assertj:assertj-core:jar:3.25.3:test (version managed from 3.25.3)
+[DEBUG]          net.bytebuddy:byte-buddy:jar:1.14.19:test (version managed from 1.14.11)
+[DEBUG]       org.awaitility:awaitility:jar:4.2.2:test (version managed from 4.2.2)
+[DEBUG]       org.hamcrest:hamcrest:jar:2.2:test (version managed from 2.2)
+[DEBUG]       org.junit.jupiter:junit-jupiter:jar:5.10.3:test (version managed from 5.10.3)
+[DEBUG]          org.junit.jupiter:junit-jupiter-api:jar:5.10.3:test (version managed from 5.10.3)
+[DEBUG]             org.opentest4j:opentest4j:jar:1.3.0:test
+[DEBUG]             org.junit.platform:junit-platform-commons:jar:1.10.3:test (version managed from 1.10.3)
+[DEBUG]             org.apiguardian:apiguardian-api:jar:1.1.2:test
+[DEBUG]          org.junit.jupiter:junit-jupiter-params:jar:5.10.3:test (version managed from 5.10.3)
+[DEBUG]          org.junit.jupiter:junit-jupiter-engine:jar:5.10.3:test (version managed from 5.10.3)
+[DEBUG]             org.junit.platform:junit-platform-engine:jar:1.10.3:test (version managed from 1.10.3)
+[DEBUG]       org.mockito:mockito-core:jar:5.11.0:test (version managed from 5.11.0)
+[DEBUG]          net.bytebuddy:byte-buddy-agent:jar:1.14.19:test (version managed from 1.14.12)
+[DEBUG]          org.objenesis:objenesis:jar:3.3:test
+[DEBUG]       org.mockito:mockito-junit-jupiter:jar:5.11.0:test (version managed from 5.11.0)
+[DEBUG]       org.skyscreamer:jsonassert:jar:1.5.3:test (version managed from 1.5.3)
+[DEBUG]          com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1:test
+[DEBUG]       org.springframework:spring-core:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]          org.springframework:spring-jcl:jar:6.1.12:compile (version managed from 6.1.12)
+[DEBUG]       org.springframework:spring-test:jar:6.1.12:test (version managed from 6.1.12)
+[DEBUG]       org.xmlunit:xmlunit-core:jar:2.9.1:test (version managed from 2.9.1)
+[DEBUG]    org.springframework.boot:spring-boot-devtools:jar:3.3.3:runtime (optional)
+[DEBUG]       org.springframework.boot:spring-boot:jar:3.3.3:compile (version managed from 3.3.3)
+[DEBUG]       org.springframework.boot:spring-boot-autoconfigure:jar:3.3.3:compile (version managed from 3.3.3)
+[DEBUG]    com.h2database:h2:jar:2.2.224:runtime
+[DEBUG]    org.projectlombok:lombok:jar:1.18.46:compile (optional)
+[DEBUG]    org.mapstruct:mapstruct:jar:1.5.5.Final:compile
+[DEBUG]    org.mapstruct:mapstruct-processor:jar:1.5.5.Final:provided
+[DEBUG]    io.jsonwebtoken:jjwt-api:jar:0.12.6:compile
+[DEBUG]    io.jsonwebtoken:jjwt-impl:jar:0.12.6:runtime
+[DEBUG]    io.jsonwebtoken:jjwt-jackson:jar:0.12.6:runtime
+[DEBUG]       com.fasterxml.jackson.core:jackson-databind:jar:2.17.2:compile (version managed from 2.12.7.1)
+[DEBUG]          com.fasterxml.jackson.core:jackson-annotations:jar:2.17.2:compile (version managed from 2.17.2)
+[DEBUG]          com.fasterxml.jackson.core:jackson-core:jar:2.17.2:compile (version managed from 2.17.2)
+[DEBUG]    org.springdoc:springdoc-openapi-starter-webmvc-ui:jar:2.6.0:compile
+[DEBUG]       org.springdoc:springdoc-openapi-starter-webmvc-api:jar:2.6.0:compile
+[DEBUG]          org.springdoc:springdoc-openapi-starter-common:jar:2.6.0:compile
+[DEBUG]             io.swagger.core.v3:swagger-core-jakarta:jar:2.2.22:compile
+[DEBUG]                io.swagger.core.v3:swagger-annotations-jakarta:jar:2.2.22:compile
+[DEBUG]                io.swagger.core.v3:swagger-models-jakarta:jar:2.2.22:compile
+[DEBUG]                com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:jar:2.17.2:compile (version managed from 2.16.2)
+[DEBUG]       org.webjars:swagger-ui:jar:5.17.14:compile
+[DEBUG]    com.razorpay:razorpay-java:jar:1.4.10:compile
+[DEBUG]       org.json:json:jar:20231013:compile
+[DEBUG]       com.squareup.okhttp3:okhttp:jar:4.12.0:compile (version managed from 3.10.0)
+[DEBUG]          com.squareup.okio:okio:jar:3.6.0:compile
+[DEBUG]             com.squareup.okio:okio-jvm:jar:3.6.0:compile
+[DEBUG]                org.jetbrains.kotlin:kotlin-stdlib-common:jar:1.9.25:compile (version managed from 1.9.10)
+[DEBUG]          org.jetbrains.kotlin:kotlin-stdlib-jdk8:jar:1.9.25:compile (version managed from 1.8.21)
+[DEBUG]             org.jetbrains.kotlin:kotlin-stdlib:jar:1.9.25:compile (version managed from 1.9.25)
+[DEBUG]                org.jetbrains:annotations:jar:13.0:compile
+[DEBUG]             org.jetbrains.kotlin:kotlin-stdlib-jdk7:jar:1.9.25:compile (version managed from 1.9.25)
+[DEBUG]       com.squareup.okhttp3:logging-interceptor:jar:4.12.0:compile (version managed from 3.10.0)
+[DEBUG]       commons-codec:commons-codec:jar:1.16.1:compile (version managed from 1.11)
+[DEBUG]       org.apache.commons:commons-text:jar:1.3:compile
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ ApiMarketplace ---
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=173600, ConflictMarker.markTime=113700, ConflictMarker.nodeCount=2, ConflictIdSorter.graphTime=46700, ConflictIdSorter.topsortTime=21200, ConflictIdSorter.conflictIdCount=2, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=301700, ConflictResolver.conflictItemCount=2, DfDependencyCollector.collectTime=85870700, DfDependencyCollector.transformTime=694400}
+[DEBUG] org.apache.maven.plugins:maven-clean-plugin:jar:3.3.2
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:4.0.0:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.3.2
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.3.2
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.3.2
+[DEBUG]   Included: org.apache.maven.plugins:maven-clean-plugin:jar:3.3.2
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:4.0.0
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-clean-plugin:3.3.2:clean from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-clean-plugin:3.3.2, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@5bc2b487]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-clean-plugin:3.3.2:clean:default-clean' with basic configurator -->
+[DEBUG]   (f) directory = D:\ApiMarketplace\target
+[DEBUG]   (f) excludeDefaultDirectories = false
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) fast = false
+[DEBUG]   (f) fastMode = background
+[DEBUG]   (f) followSymLinks = false
+[DEBUG]   (f) outputDirectory = D:\ApiMarketplace\target\classes
+[DEBUG]   (f) reportDirectory = D:\ApiMarketplace\target\classes
+[DEBUG]   (f) retryOnError = true
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@72e295cc
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) testOutputDirectory = D:\ApiMarketplace\target\test-classes
+[DEBUG] -- end configuration --
+[INFO] Deleting D:\ApiMarketplace\target
+[INFO] Deleting file D:\ApiMarketplace\target\test-classes\com\marketplace\ConsumerModuleIntegrationTest.class
+[INFO] Deleting file D:\ApiMarketplace\target\test-classes\com\marketplace\ConsumerModuleIntegrationTest$CreateSubscriptionRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\test-classes\com\marketplace\AuthControllerTest.class
+[INFO] Deleting file D:\ApiMarketplace\target\test-classes\com\marketplace\ApiKeyAuthenticationIntegrationTest.class
+[INFO] Deleting file D:\ApiMarketplace\target\test-classes\com\marketplace\ApiKeyAuthenticationIntegrationTest$CreateSubscriptionRequest.class
+[INFO] Deleting directory D:\ApiMarketplace\target\test-classes\com\marketplace
+[INFO] Deleting file D:\ApiMarketplace\target\test-classes\com\example\ApiMarketplace\ApiMarketplaceApplicationTests.class
+[INFO] Deleting directory D:\ApiMarketplace\target\test-classes\com\example\ApiMarketplace
+[INFO] Deleting directory D:\ApiMarketplace\target\test-classes\com\example
+[INFO] Deleting directory D:\ApiMarketplace\target\test-classes\com
+[INFO] Deleting file D:\ApiMarketplace\target\test-classes\application-test.properties
+[INFO] Deleting directory D:\ApiMarketplace\target\test-classes
+[INFO] Deleting file D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst
+[INFO] Deleting file D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\createdFiles.lst
+[INFO] Deleting directory D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile
+[INFO] Deleting directory D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\testCompile
+[INFO] Deleting file D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst
+[INFO] Deleting file D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst
+[INFO] Deleting directory D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\compile\default-compile
+[INFO] Deleting directory D:\ApiMarketplace\target\maven-status\maven-compiler-plugin\compile
+[INFO] Deleting directory D:\ApiMarketplace\target\maven-status\maven-compiler-plugin
+[INFO] Deleting directory D:\ApiMarketplace\target\maven-status
+[INFO] Deleting directory D:\ApiMarketplace\target\generated-test-sources\test-annotations
+[INFO] Deleting directory D:\ApiMarketplace\target\generated-test-sources
+[INFO] Deleting file D:\ApiMarketplace\target\generated-sources\annotations\com\marketplace\mapper\SubscriptionPlanMapperImpl.java
+[INFO] Deleting file D:\ApiMarketplace\target\generated-sources\annotations\com\marketplace\mapper\ProviderMapperImpl.java
+[INFO] Deleting file D:\ApiMarketplace\target\generated-sources\annotations\com\marketplace\mapper\ApiMapperImpl.java
+[INFO] Deleting file D:\ApiMarketplace\target\generated-sources\annotations\com\marketplace\mapper\ApiDocumentationMapperImpl.java
+[INFO] Deleting directory D:\ApiMarketplace\target\generated-sources\annotations\com\marketplace\mapper
+[INFO] Deleting directory D:\ApiMarketplace\target\generated-sources\annotations\com\marketplace
+[INFO] Deleting directory D:\ApiMarketplace\target\generated-sources\annotations\com
+[INFO] Deleting directory D:\ApiMarketplace\target\generated-sources\annotations
+[INFO] Deleting directory D:\ApiMarketplace\target\generated-sources
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\user-registered.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\subscription-purchased.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\subscription-expiring.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\subscription-expired.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\subscription-cancelled.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\first-login.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\api-submitted.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\api-rejected.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\api-key-revoked.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\api-key-regenerated.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\api-key-created.html
+[INFO] Deleting file D:\ApiMarketplace\target\classes\templates\email\api-approved.html
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\templates\email
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\templates
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\startup\DefaultAdminInitializer.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\startup
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\ProviderService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\PaymentService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\ProviderServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\PaymentServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\ConsumerServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\ConsumerServiceImpl$1.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\CategoryServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\AuthServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\AuditLogServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\ApiProxyServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\ApiKeyConsumptionServiceImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\impl\AdminServiceImpl.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\service\impl
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\ConsumerService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\CategoryService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\AuthService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\AuditLogService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\ApiProxyService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\ApiKeyConsumptionService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\service\AdminService.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\service
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\security\jwt\JwtUtil.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\security\jwt\JwtAuthenticationEntryPoint.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\security\jwt
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\security\api\ApiKeyPrincipal.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\security\api
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\security
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\UserRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\UsageLogRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\SubscriptionRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\SubscriptionPlanRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\RoleRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\ProviderProfileRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\PaymentRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\ConsumerProfileRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\CategoryRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\AuditLogRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\ApiRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\ApiKeyRepository.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\repository\ApiDocumentationRepository.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\repository
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\SubscriptionExpirationNotificationService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\NotificationService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\NotificationService$2.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\NotificationService$1.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\email\NotificationRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\email\EmailTemplateService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\email\EmailService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\email\EmailNotificationService.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\notification\email\EmailEventType.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\notification\email
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\notification
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\UserMapper.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\SubscriptionPlanMapperImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\SubscriptionPlanMapper.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\ProviderMapperImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\ProviderMapper.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\CategoryMapper.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\AuditLogMapper.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\ApiMapperImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\ApiMapper.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\ApiDocumentationMapperImpl.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\mapper\ApiDocumentationMapper.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\mapper
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\filter\JwtAuthenticationFilter.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\filter\ApiKeyAuthenticationFilter.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\filter
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\UnauthorizedResourceAccessException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\SubscriptionNotFoundException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\SubscriptionAlreadyExistsException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\ResourceNotFoundException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\PlanNotAvailableException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\InvalidSubscriptionStateException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\InvalidCredentialsException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\GlobalExceptionHandler.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\EmailAlreadyExistsException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\ApiNotAvailableException.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\exception\ApiKeyNotFoundException.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\exception
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\User.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\User$UserBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\UsageLog.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\UsageLog$UsageLogBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\SubscriptionStatus.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\SubscriptionPlan.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\SubscriptionPlan$SubscriptionPlanBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Subscription.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Subscription$SubscriptionBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Role.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Role$RoleBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ProviderProfile.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ProviderProfile$ProviderProfileBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\PaymentStatus.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Payment.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Payment$PaymentBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ConsumerProfile.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ConsumerProfile$ConsumerProfileBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Category.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Category$CategoryBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\BillingCycle.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\AuditLog.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\AuditLog$AuditLogBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ApprovalStatus.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ApiStatus.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ApiKeyStatus.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ApiKey.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ApiKey$ApiKeyBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ApiDocumentation.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\ApiDocumentation$ApiDocumentationBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Api.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\entity\Api$ApiBuilder.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\entity
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\UserStatusRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\UserResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\UserResponse$UserResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\UsageSummaryResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\UsageSummaryResponse$UsageSummaryResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\UsageLogResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\UsageLogResponse$UsageLogResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionResponse$SubscriptionResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionResponse$PlanSummary.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionResponse$PlanSummary$PlanSummaryBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionResponse$ApiSummary.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionResponse$ApiSummary$ApiSummaryBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionPlanResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionPlanResponse$SubscriptionPlanResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionPlanDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionPlanDto$SubscriptionPlanDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionDetailsResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionDetailsResponse$SubscriptionDetailsResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionDetailsResponse$ApiKeyMetadata.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionDetailsResponse$ApiKeyMetadata$ApiKeyMetadataBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionActivationResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\SubscriptionActivationResponse$SubscriptionActivationResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\RegisterRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\RegisterRequest$RegisterRequestBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ProviderSubscriberResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ProviderSubscriberResponse$ProviderSubscriberResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ProviderSubscriberResponse$PlanSummary.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ProviderSubscriberResponse$PlanSummary$PlanSummaryBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ProviderProfileDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ProviderProfileDto$ProviderProfileDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\PaymentOrderResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\PaymentOrderResponse$PaymentOrderResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\PagedResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\PagedResponse$PagedResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\LoginResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\LoginResponse$LoginResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\LoginRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\LoginRequest$LoginRequestBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ErrorResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ErrorResponse$ErrorResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\DashboardResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\DashboardDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\DashboardDto$DashboardDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CreateSubscriptionRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CreateSubscriptionRequest$CreateSubscriptionRequestBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CreatePaymentOrderRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CreatePaymentOrderRequest$CreatePaymentOrderRequestBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ConsumerProfileUpdateRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ConsumerProfileUpdateRequest$ConsumerProfileUpdateRequestBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ConsumerProfileResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ConsumerProfileResponse$ConsumerProfileResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ConsumerDashboardResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ConsumerDashboardResponse$ConsumerDashboardResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CategoryResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CategoryResponse$CategoryResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CategoryRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CategoryRequest$CategoryRequestBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CategoryDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\CategoryDto$CategoryDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\AuditLogResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\AuditLogResponse$AuditLogResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiSummaryDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiSummaryDto$ApiSummaryDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiResponse$ApiResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiRequestDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiRequestDto$ApiRequestDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiMarketplaceDetailsResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiMarketplaceDetailsResponse$ProviderSummary.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiMarketplaceDetailsResponse$ProviderSummary$ProviderSummaryBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiMarketplaceDetailsResponse$ApiMarketplaceDetailsResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiMarketplaceCardResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiMarketplaceCardResponse$ApiMarketplaceCardResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiKeyResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiKeyResponse$ApiKeyResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiKeyCreatedResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiKeyCreatedResponse$ApiKeyCreatedResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiKeyAccessDecision.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiKeyAccessDecision$ApiKeyAccessDecisionBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiDocumentationResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiDocumentationResponse$ApiDocumentationResponseBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiDocumentationDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiDocumentationDto$ApiDocumentationDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiDetailsDto.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\ApiDetailsDto$ApiDetailsDtoBuilder.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\AnalyticsResponse.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\dto\AnalyticsResponse$AnalyticsResponseBuilder.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\dto
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\ProviderController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\ProtectedApiController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\PaymentController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\PaymentController$VerifyPaymentRequest.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\MarketplaceController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\DebugController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\DashboardController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\ConsumerController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\CategoryController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\AuthController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\AuditLogController.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\controller\AdminController.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\controller
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\constants\AppConstants.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\constants
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\config\WebMvcConfig.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\config\SecurityConfig.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\config\RazorpayConfig.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\config\OpenApiConfig.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\config\NotificationConfig.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\config\DevActivationConfig.class
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\marketplace\config\CorsConfig.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace\config
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\marketplace
+[INFO] Deleting file D:\ApiMarketplace\target\classes\com\example\ApiMarketplace\ApiMarketplaceApplication.class
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\example\ApiMarketplace
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com\example
+[INFO] Deleting directory D:\ApiMarketplace\target\classes\com
+[INFO] Deleting file D:\ApiMarketplace\target\classes\application.properties
+[INFO] Deleting file D:\ApiMarketplace\target\classes\application-dev.properties
+[INFO] Deleting directory D:\ApiMarketplace\target\classes
+[INFO] Deleting directory D:\ApiMarketplace\target
+[DEBUG] Skipping non-existing directory D:\ApiMarketplace\target\classes
+[DEBUG] Skipping non-existing directory D:\ApiMarketplace\target\test-classes
+[DEBUG] Skipping non-existing directory D:\ApiMarketplace\target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ApiMarketplace ---
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=179800, ConflictMarker.markTime=40700, ConflictMarker.nodeCount=13, ConflictIdSorter.graphTime=50900, ConflictIdSorter.topsortTime=25200, ConflictIdSorter.conflictIdCount=9, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=297700, ConflictResolver.conflictItemCount=13, DfDependencyCollector.collectTime=255834100, DfDependencyCollector.transformTime=630900}
+[DEBUG] org.apache.maven.plugins:maven-resources-plugin:jar:3.3.1
+[DEBUG]    org.codehaus.plexus:plexus-interpolation:jar:1.26:runtime
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:3.5.1:compile
+[DEBUG]    org.apache.maven.shared:maven-filtering:jar:3.3.1:compile
+[DEBUG]       javax.inject:javax.inject:jar:1:compile
+[DEBUG]       org.slf4j:slf4j-api:jar:1.7.36:compile
+[DEBUG]       org.sonatype.plexus:plexus-build-api:jar:0.0.7:compile
+[DEBUG]    commons-io:commons-io:jar:2.11.0:compile
+[DEBUG]    org.apache.commons:commons-lang3:jar:3.12.0:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1
+[DEBUG]   Included: org.apache.maven.plugins:maven-resources-plugin:jar:3.3.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.26
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.5.1
+[DEBUG]   Included: org.apache.maven.shared:maven-filtering:jar:3.3.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-build-api:jar:0.0.7
+[DEBUG]   Included: commons-io:commons-io:jar:2.11.0
+[DEBUG]   Included: org.apache.commons:commons-lang3:jar:3.12.0
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:3.3.1, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@5bc2b487]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-resources-plugin:3.3.1:resources:default-resources' with basic configurator -->
+[DEBUG]   (f) addDefaultExcludes = true
+[DEBUG]   (f) buildFilters = []
+[DEBUG]   (s) delimiters = [@]
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) escapeWindowsPaths = true
+[DEBUG]   (f) fileNameFiltering = false
+[DEBUG]   (s) includeEmptyDirs = false
+[DEBUG]   (s) outputDirectory = D:\ApiMarketplace\target\classes
+[DEBUG]   (s) overwrite = false
+[DEBUG]   (f) project = MavenProject: com.example:ApiMarketplace:0.0.1-SNAPSHOT @ D:\ApiMarketplace\pom.xml
+[DEBUG]   (f) propertiesEncoding = UTF-8
+[DEBUG]   (s) resources = [Resource {targetPath: null, filtering: true, FileSet {directory: D:\ApiMarketplace\src\main\resources, PatternSet [includes: {**/application*.yml, **/application*.yaml, **/application*.properties}, excludes: {}]}}, Resource {targetPath: null, filtering: false, FileSet {directory: D:\ApiMarketplace\src\main\resources, PatternSet [includes: {}, excludes: {**/application*.yml, **/application*.yaml, **/application*.properties}]}}]
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@72e295cc
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) supportMultiLineFiltering = false
+[DEBUG]   (f) useBuildFilters = true
+[DEBUG]   (s) useDefaultDelimiters = false
+[DEBUG] -- end configuration --
+[DEBUG] properties used:
+[DEBUG] activemq.version: 6.1.3
+[DEBUG] angus-mail.version: 2.0.3
+[DEBUG] artemis.version: 2.33.0
+[DEBUG] aspectj.version: 1.9.22.1
+[DEBUG] assertj.version: 3.25.3
+[DEBUG] awaitility.version: 4.2.2
+[DEBUG] brave.version: 6.0.3
+[DEBUG] build-helper-maven-plugin.version: 3.5.0
+[DEBUG] byte-buddy.version: 1.14.19
+[DEBUG] cache2k.version: 2.6.1.Final
+[DEBUG] caffeine.version: 3.1.8
+[DEBUG] cassandra-driver.version: 4.18.1
+[DEBUG] classmate.version: 1.7.0
+[DEBUG] classworlds.conf: C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0\bin\m2.conf
+[DEBUG] commons-codec.version: 1.16.1
+[DEBUG] commons-dbcp2.version: 2.12.0
+[DEBUG] commons-lang3.version: 3.14.0
+[DEBUG] commons-pool.version: 1.6
+[DEBUG] commons-pool2.version: 2.12.0
+[DEBUG] couchbase-client.version: 3.6.3
+[DEBUG] crac.version: 1.4.0
+[DEBUG] cyclonedx-maven-plugin.version: 2.8.1
+[DEBUG] db2-jdbc.version: 11.5.9.0
+[DEBUG] dependency-management-plugin.version: 1.1.6
+[DEBUG] derby.version: 10.16.1.1
+[DEBUG] ehcache3.version: 3.10.8
+[DEBUG] elasticsearch-client.version: 8.13.4
+[DEBUG] env.=C:: C:\Users\ASUS\AppData\Local\Programs\Microsoft VS Code
+[DEBUG] env.=D:: D:\ApiMarketplace
+[DEBUG] env.=EXITCODE: 00000000
+[DEBUG] env.ACSETUPSVCPORT: 23210
+[DEBUG] env.ACSVCPORT: 17532
+[DEBUG] env.AI_AGENT: github_copilot_vscode_agent
+[DEBUG] env.ALLUSERSPROFILE: C:\ProgramData
+[DEBUG] env.APPDATA: C:\Users\ASUS\AppData\Roaming
+[DEBUG] env.BUNDLED_DEBUGPY_PATH: c:\Users\ASUS\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\libs\debugpy
+[DEBUG] env.CHROME_CRASHPAD_PIPE_NAME: \\.\pipe\crashpad_18812_MYOYUJEAYFQFADJZ
+[DEBUG] env.CLASSWORLDS_JAR: "C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0\boot\plexus-classworlds-2.11.0.jar"
+[DEBUG] env.CLASSWORLDS_LAUNCHER: org.codehaus.plexus.classworlds.launcher.Launcher
+[DEBUG] env.COLORTERM: truecolor
+[DEBUG] env.COMMONPROGRAMFILES: C:\Program Files\Common Files
+[DEBUG] env.COMMONPROGRAMFILES(X86): C:\Program Files (x86)\Common Files
+[DEBUG] env.COMMONPROGRAMW6432: C:\Program Files\Common Files
+[DEBUG] env.COMPUTERNAME: OMPHOPSE
+[DEBUG] env.COMSPEC: C:\WINDOWS\system32\cmd.exe
+[DEBUG] env.COPILOT_AGENT: 1
+[DEBUG] env.COPILOT_DEBUG_NONCE: eb69e63ab97e05b1b709d5b3e6a44d4d
+[DEBUG] env.CURL_CA_BUNDLE: C:\Program Files\PostgreSQL\18\ssl\certs\ca-bundle.crt
+[DEBUG] env.DEBIAN_FRONTEND: noninteractive
+[DEBUG] env.DRIVERDATA: C:\Windows\System32\Drivers\DriverData
+[DEBUG] env.ERROR_CODE: 0
+[DEBUG] env.EXEC_DIR: D:\ApiMarketplace
+[DEBUG] env.FFMPEG: C:\Users\ASUS\Downloads\ffmpeg-7.0\ffmpeg-7.0
+[DEBUG] env.GDAL_DATA: C:\Program Files\PostgreSQL\18\gdal-data
+[DEBUG] env.GIT_ASKPASS: c:\Users\ASUS\AppData\Roaming\Code\User\globalStorage\vscode.git\askpass\70789581cae28aa7\askpass.sh
+[DEBUG] env.GIT_EDITOR: :
+[DEBUG] env.GIT_MERGE_AUTOEDIT: no
+[DEBUG] env.GIT_PAGER: cat
+[DEBUG] env.HOMEDRIVE: C:
+[DEBUG] env.HOMEPATH: \Users\ASUS
+[DEBUG] env.INTELLIJ IDEA: C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.5\bin;
+[DEBUG] env.INTELLIJ IDEA COMMUNITY EDITION: C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.3.5\bin;
+[DEBUG] env.INTERNAL_MAVEN_OPTS: --enable-native-access=ALL-UNNAMED 
+[DEBUG] env.JAVA: C:\Program Files\Java\jdk-17\bin
+[DEBUG] env.JAVACMD: C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot\bin\java.exe
+[DEBUG] env.JVMCONFIG: \.mvn\jvm.config
+[DEBUG] env.LANG: en_US.UTF-8
+[DEBUG] env.LOCALAPPDATA: C:\Users\ASUS\AppData\Local
+[DEBUG] env.LOGONSERVER: \\OMPHOPSE
+[DEBUG] env.MAVEN_CMD_LINE_ARGS: -U -X clean compile
+[DEBUG] env.MAVEN_HOME: C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0
+[DEBUG] env.MAVEN_PROJECTBASEDIR: D:\ApiMarketplace
+[DEBUG] env.NUMBER_OF_PROCESSORS: 8
+[DEBUG] env.ONEDRIVE: C:\Users\ASUS\OneDrive
+[DEBUG] env.OPENSSL_CONF: C:\Program Files\PostgreSQL\psqlODBC\etc\openssl.cnf
+[DEBUG] env.OS: Windows_NT
+[DEBUG] env.PATH: c:\Users\ASUS\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\ASUS\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot\bin;C:\Program Files\Eclipse Adoptium\jdk-8.0.472.8-hotspot\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\ffmpeg\ffmpeg-2024-05-06-git-96449cfeae-full_build\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Users\ASUS\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python37\;C:\Users\ASUS\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python38\;C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python312\;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.5\bin;C:\poppler-24.08.0\Library\;C:\Program Files\php-8.4.1;C:\sqlite-src-3490100;C:\DB.Browser.for.SQLite-v3.13.1-win64;C:\Program Files\nodejs\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;%USERPROFILE%\AppData\Local\Muse Hub\lib;C:\apache-maven-3.9.12\bin;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Users\ASUS\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.3.5\bin;C:\Users\ASUS\AppData\Roaming\Composer\vendor\bin;C:\Users\ASUS\AppData\Local\Microsoft\WinGet\Packages\Schniz.fnm_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\Users\ASUS\AppData\Roaming\npm;C:\Users\ASUS\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\ASUS\AppData\Local\GitHubDesktop\bin;C:\Users\ASUS\AppData\Local\Muse Hub\lib;C:\MongoSh\;c:\Users\ASUS\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts;c:\Users\ASUS\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\scripts\noConfigScripts
+[DEBUG] env.PATHEXT: .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+[DEBUG] env.POSTGIS_ENABLE_OUTDB_RASTERS: 1
+[DEBUG] env.POSTGIS_GDAL_ENABLED_DRIVERS: GTiff PNG JPEG GIF XYZ DTED USGSDEM AAIGrid
+[DEBUG] env.PROCESSOR_ARCHITECTURE: AMD64
+[DEBUG] env.PROCESSOR_IDENTIFIER: Intel64 Family 6 Model 165 Stepping 2, GenuineIntel
+[DEBUG] env.PROCESSOR_LEVEL: 6
+[DEBUG] env.PROCESSOR_REVISION: a502
+[DEBUG] env.PROGRAMDATA: C:\ProgramData
+[DEBUG] env.PROGRAMFILES: C:\Program Files
+[DEBUG] env.PROGRAMFILES(X86): C:\Program Files (x86)
+[DEBUG] env.PROGRAMW6432: C:\Program Files
+[DEBUG] env.PROJ_LIB: C:\Program Files\PostgreSQL\18\share\contrib\postgis-3.6\proj
+[DEBUG] env.PROMPT: $P$G
+[DEBUG] env.PSMODULEPATH: C:\Users\ASUS\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+[DEBUG] env.PUBLIC: C:\Users\Public
+[DEBUG] env.PYDEVD_DISABLE_FILE_VALIDATION: 1
+[DEBUG] env.PYTHONSTARTUP: c:\Users\ASUS\AppData\Roaming\Code\User\workspaceStorage\aa5bc478b87b135c4655c85d2a4bdb09\ms-python.python\pythonrc.py
+[DEBUG] env.PYTHON_BASIC_REPL: 1
+[DEBUG] env.RLSSVCPORT: 22112
+[DEBUG] env.SYSTEMDRIVE: C:
+[DEBUG] env.SYSTEMROOT: C:\WINDOWS
+[DEBUG] env.TEMP: C:\Users\ASUS\AppData\Local\Temp
+[DEBUG] env.TERM_PROGRAM: vscode
+[DEBUG] env.TERM_PROGRAM_VERSION: 1.132.0
+[DEBUG] env.TMP: C:\Users\ASUS\AppData\Local\Temp
+[DEBUG] env.USERDOMAIN: OMPHOPSE
+[DEBUG] env.USERDOMAIN_ROAMINGPROFILE: OMPHOPSE
+[DEBUG] env.USERNAME: ASUS
+[DEBUG] env.USERPROFILE: C:\Users\ASUS
+[DEBUG] env.VSCODE_DEBUGPY_ADAPTER_ENDPOINTS: c:\Users\ASUS\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\.noConfigDebugAdapterEndpoints\endpoint-b70c9cfba0de01ef.txt
+[DEBUG] env.VSCODE_GIT_ASKPASS_EXTRA_ARGS: 
+[DEBUG] env.VSCODE_GIT_ASKPASS_MAIN: c:\Users\ASUS\AppData\Roaming\Code\User\globalStorage\vscode.git\askpass\70789581cae28aa7\askpass-main.js
+[DEBUG] env.VSCODE_GIT_ASKPASS_NODE: C:\Users\ASUS\AppData\Local\Programs\Microsoft VS Code\Code.exe
+[DEBUG] env.VSCODE_GIT_IPC_HANDLE: \\.\pipe\vscode-git-83121504bb-sock
+[DEBUG] env.VSCODE_INJECTION: 1
+[DEBUG] env.VSCODE_JAVA_EXEC: C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot\bin\java
+[DEBUG] env.VSCODE_JDWP_ADAPTER_ENDPOINTS: c:\Users\ASUS\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\.noConfigDebugAdapterEndpoints\endpoint-5fb813dcc59a71c2.txt
+[DEBUG] env.VSCODE_PYTHON_AUTOACTIVATE_GUARD: 1
+[DEBUG] env.WDIR: D:\ApiMarketplace
+[DEBUG] env.WINDIR: C:\WINDOWS
+[DEBUG] env.ZES_ENABLE_SYSMAN: 1
+[DEBUG] env.__MVNW_CMD__: C:\Users\ASUS/.m2/wrapper/dists/apache-maven-3.9.16/0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0/bin/mvn.cmd
+[DEBUG] file.encoding: UTF-8
+[DEBUG] file.separator: \
+[DEBUG] flyway.version: 10.10.0
+[DEBUG] freemarker.version: 2.3.33
+[DEBUG] git-commit-id-maven-plugin.version: 8.0.2
+[DEBUG] glassfish-jaxb.version: 4.0.5
+[DEBUG] glassfish-jstl.version: 3.0.1
+[DEBUG] graphql-java.version: 22.1
+[DEBUG] groovy.version: 4.0.22
+[DEBUG] gson.version: 2.10.1
+[DEBUG] h2.version: 2.2.224
+[DEBUG] hamcrest.version: 2.2
+[DEBUG] hazelcast.version: 5.4.0
+[DEBUG] hibernate-validator.version: 8.0.1.Final
+[DEBUG] hibernate.version: 6.5.2.Final
+[DEBUG] hikaricp.version: 5.1.0
+[DEBUG] hsqldb.version: 2.7.3
+[DEBUG] htmlunit.version: 2.70.0
+[DEBUG] httpasyncclient.version: 4.1.5
+[DEBUG] httpclient5.version: 5.3.1
+[DEBUG] httpcore.version: 4.4.16
+[DEBUG] httpcore5.version: 5.2.5
+[DEBUG] infinispan.version: 15.0.7.Final
+[DEBUG] influxdb-java.version: 2.24
+[DEBUG] jackson-bom.version: 2.17.2
+[DEBUG] jakarta-activation.version: 2.1.3
+[DEBUG] jakarta-annotation.version: 2.1.1
+[DEBUG] jakarta-inject.version: 2.0.1
+[DEBUG] jakarta-jms.version: 3.1.0
+[DEBUG] jakarta-json-bind.version: 3.0.1
+[DEBUG] jakarta-json.version: 2.1.3
+[DEBUG] jakarta-mail.version: 2.1.3
+[DEBUG] jakarta-management.version: 1.1.4
+[DEBUG] jakarta-persistence.version: 3.1.0
+[DEBUG] jakarta-servlet-jsp-jstl.version: 3.0.1
+[DEBUG] jakarta-servlet.version: 6.0.0
+[DEBUG] jakarta-transaction.version: 2.0.1
+[DEBUG] jakarta-validation.version: 3.0.2
+[DEBUG] jakarta-websocket.version: 2.1.1
+[DEBUG] jakarta-ws-rs.version: 3.1.0
+[DEBUG] jakarta-xml-bind.version: 4.0.2
+[DEBUG] jakarta-xml-soap.version: 3.0.2
+[DEBUG] jakarta-xml-ws.version: 4.0.2
+[DEBUG] janino.version: 3.1.12
+[DEBUG] java.class.path: C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0\boot\plexus-classworlds-2.11.0.jar
+[DEBUG] java.class.version: 69.0
+[DEBUG] java.home: C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot
+[DEBUG] java.io.tmpdir: C:\Users\ASUS\AppData\Local\Temp\
+[DEBUG] java.library.path: C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;c:\Users\ASUS\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand;c:\Users\ASUS\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli;C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot\bin;C:\Program Files\Eclipse Adoptium\jdk-8.0.472.8-hotspot\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\ffmpeg\ffmpeg-2024-05-06-git-96449cfeae-full_build\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Users\ASUS\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python37\;C:\Users\ASUS\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python38\;C:\Users\ASUS\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\ASUS\AppData\Local\Programs\Python\Python312\;C:\Users\ASUS\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.5\bin;C:\poppler-24.08.0\Library\;C:\Program Files\php-8.4.1;C:\sqlite-src-3490100;C:\DB.Browser.for.SQLite-v3.13.1-win64;C:\Program Files\nodejs\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;%USERPROFILE%\AppData\Local\Muse Hub\lib;C:\apache-maven-3.9.12\bin;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Users\ASUS\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2023.3.5\bin;C:\Users\ASUS\AppData\Roaming\Composer\vendor\bin;C:\Users\ASUS\AppData\Local\Microsoft\WinGet\Packages\Schniz.fnm_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\Users\ASUS\AppData\Roaming\npm;C:\Users\ASUS\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\ASUS\AppData\Local\GitHubDesktop\bin;C:\Users\ASUS\AppData\Local\Muse Hub\lib;C:\MongoSh\;c:\Users\ASUS\.vscode\extensions\vscjava.vscode-java-debug-0.59.0\bundled\scripts\noConfigScripts;c:\Users\ASUS\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\scripts\noConfigScripts;.
+[DEBUG] java.runtime.name: OpenJDK Runtime Environment
+[DEBUG] java.runtime.version: 25.0.2+10-LTS
+[DEBUG] java.specification.name: Java Platform API Specification
+[DEBUG] java.specification.vendor: Oracle Corporation
+[DEBUG] java.specification.version: 25
+[DEBUG] java.vendor: Eclipse Adoptium
+[DEBUG] java.vendor.url: https://adoptium.net/
+[DEBUG] java.vendor.url.bug: https://github.com/adoptium/adoptium-support/issues
+[DEBUG] java.vendor.version: Temurin-25.0.2+10
+[DEBUG] java.version: 25.0.2
+[DEBUG] java.version.date: 2026-01-20
+[DEBUG] java.vm.compressedOopsMode: Zero based
+[DEBUG] java.vm.info: mixed mode, sharing
+[DEBUG] java.vm.name: OpenJDK 64-Bit Server VM
+[DEBUG] java.vm.specification.name: Java Virtual Machine Specification
+[DEBUG] java.vm.specification.vendor: Oracle Corporation
+[DEBUG] java.vm.specification.version: 25
+[DEBUG] java.vm.vendor: Eclipse Adoptium
+[DEBUG] java.vm.version: 25.0.2+10-LTS
+[DEBUG] javax-cache.version: 1.1.1
+[DEBUG] javax-money.version: 1.1
+[DEBUG] jaxen.version: 2.0.0
+[DEBUG] jaybird.version: 5.0.5.java11
+[DEBUG] jboss-logging.version: 3.5.3.Final
+[DEBUG] jdk.debug: release
+[DEBUG] jdom2.version: 2.0.6.1
+[DEBUG] jedis.version: 5.0.2
+[DEBUG] jersey.version: 3.1.8
+[DEBUG] jetty-reactive-httpclient.version: 4.0.6
+[DEBUG] jetty.version: 12.0.12
+[DEBUG] jmustache.version: 1.16
+[DEBUG] jooq.version: 3.19.11
+[DEBUG] json-path.version: 2.9.0
+[DEBUG] json-smart.version: 2.5.1
+[DEBUG] jsonassert.version: 1.5.3
+[DEBUG] jtds.version: 1.3.1
+[DEBUG] junit-jupiter.version: 5.10.3
+[DEBUG] junit.version: 4.13.2
+[DEBUG] kafka.version: 3.7.1
+[DEBUG] kotlin-coroutines.version: 1.8.1
+[DEBUG] kotlin-serialization.version: 1.6.3
+[DEBUG] kotlin.version: 1.9.25
+[DEBUG] lettuce.version: 6.3.2.RELEASE
+[DEBUG] library.jansi.path: C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0\lib\jansi-native
+[DEBUG] line.separator: 
+
+[DEBUG] liquibase.version: 4.27.0
+[DEBUG] log4j2.version: 2.23.1
+[DEBUG] logback.version: 1.5.7
+[DEBUG] lombok.version: 1.18.46
+[DEBUG] mariadb.version: 3.3.3
+[DEBUG] maven-antrun-plugin.version: 3.1.0
+[DEBUG] maven-assembly-plugin.version: 3.7.1
+[DEBUG] maven-clean-plugin.version: 3.3.2
+[DEBUG] maven-compiler-plugin.version: 3.13.0
+[DEBUG] maven-dependency-plugin.version: 3.6.1
+[DEBUG] maven-deploy-plugin.version: 3.1.3
+[DEBUG] maven-enforcer-plugin.version: 3.4.1
+[DEBUG] maven-failsafe-plugin.version: 3.2.5
+[DEBUG] maven-help-plugin.version: 3.4.1
+[DEBUG] maven-install-plugin.version: 3.1.3
+[DEBUG] maven-invoker-plugin.version: 3.6.1
+[DEBUG] maven-jar-plugin.version: 3.4.2
+[DEBUG] maven-javadoc-plugin.version: 3.6.3
+[DEBUG] maven-resources-plugin.version: 3.3.1
+[DEBUG] maven-shade-plugin.version: 3.5.3
+[DEBUG] maven-source-plugin.version: 3.3.1
+[DEBUG] maven-surefire-plugin.version: 3.2.5
+[DEBUG] maven-war-plugin.version: 3.4.0
+[DEBUG] maven.build.timestamp: 2026-08-09T13:57:13Z
+[DEBUG] maven.build.version: Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
+[DEBUG] maven.compiler.release: 21
+[DEBUG] maven.conf: C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0/conf
+[DEBUG] maven.home: C:\Users\ASUS\.m2\wrapper\dists\apache-maven-3.9.16\0daed3be3ebd1c706f0e69e8b07c6b73f5cc4ea3dfce72a8d0ec2e849ca2ddb0
+[DEBUG] maven.multiModuleProjectDirectory: D:\ApiMarketplace
+[DEBUG] maven.version: 3.9.16
+[DEBUG] micrometer-tracing.version: 1.3.3
+[DEBUG] micrometer.version: 1.13.3
+[DEBUG] mockito.version: 5.11.0
+[DEBUG] mongodb.version: 5.0.1
+[DEBUG] mssql-jdbc.version: 12.6.3.jre11
+[DEBUG] mysql.version: 8.3.0
+[DEBUG] native-build-tools-plugin.version: 0.10.2
+[DEBUG] native.encoding: Cp1252
+[DEBUG] nekohtml.version: 1.9.22
+[DEBUG] neo4j-java-driver.version: 5.23.0
+[DEBUG] netty.version: 4.1.112.Final
+[DEBUG] okhttp.version: 4.12.0
+[DEBUG] opentelemetry.version: 1.37.0
+[DEBUG] oracle-database.version: 21.9.0.0
+[DEBUG] oracle-r2dbc.version: 1.2.0
+[DEBUG] os.arch: amd64
+[DEBUG] os.name: Windows 11
+[DEBUG] os.version: 10.0
+[DEBUG] path.separator: ;
+[DEBUG] pooled-jms.version: 3.1.6
+[DEBUG] postgresql.version: 42.7.3
+[DEBUG] project.baseUri: file:/D:/ApiMarketplace/
+[DEBUG] project.build.sourceEncoding: UTF-8
+[DEBUG] project.reporting.outputEncoding: UTF-8
+[DEBUG] prometheus-client.version: 1.2.1
+[DEBUG] prometheus-simpleclient.version: 0.16.0
+[DEBUG] pulsar-reactive.version: 0.5.7
+[DEBUG] pulsar.version: 3.2.4
+[DEBUG] quartz.version: 2.3.2
+[DEBUG] querydsl.version: 5.1.0
+[DEBUG] r2dbc-h2.version: 1.0.0.RELEASE
+[DEBUG] r2dbc-mariadb.version: 1.2.1
+[DEBUG] r2dbc-mssql.version: 1.0.2.RELEASE
+[DEBUG] r2dbc-mysql.version: 1.1.3
+[DEBUG] r2dbc-pool.version: 1.0.1.RELEASE
+[DEBUG] r2dbc-postgresql.version: 1.0.5.RELEASE
+[DEBUG] r2dbc-proxy.version: 1.1.5.RELEASE
+[DEBUG] r2dbc-spi.version: 1.0.0.RELEASE
+[DEBUG] rabbit-amqp-client.version: 5.21.0
+[DEBUG] rabbit-stream-client.version: 0.15.0
+[DEBUG] reactive-streams.version: 1.0.4
+[DEBUG] reactor-bom.version: 2023.0.9
+[DEBUG] resource.delimiter: @
+[DEBUG] rest-assured.version: 5.4.0
+[DEBUG] rsocket.version: 1.1.3
+[DEBUG] rxjava3.version: 3.1.9
+[DEBUG] saaj-impl.version: 3.0.4
+[DEBUG] selenium-htmlunit.version: 4.13.0
+[DEBUG] selenium.version: 4.19.1
+[DEBUG] sendgrid.version: 4.10.2
+[DEBUG] slf4j.version: 2.0.16
+[DEBUG] snakeyaml.version: 2.2
+[DEBUG] spring-amqp.version: 3.1.7
+[DEBUG] spring-authorization-server.version: 1.3.2
+[DEBUG] spring-batch.version: 5.1.2
+[DEBUG] spring-boot.run.main-class: ${start-class}
+[DEBUG] spring-data-bom.version: 2024.0.3
+[DEBUG] spring-framework.version: 6.1.12
+[DEBUG] spring-graphql.version: 1.3.2
+[DEBUG] spring-hateoas.version: 2.3.2
+[DEBUG] spring-integration.version: 6.3.3
+[DEBUG] spring-kafka.version: 3.2.3
+[DEBUG] spring-ldap.version: 3.2.6
+[DEBUG] spring-pulsar.version: 1.1.3
+[DEBUG] spring-restdocs.version: 3.0.1
+[DEBUG] spring-retry.version: 2.0.8
+[DEBUG] spring-security.version: 6.3.3
+[DEBUG] spring-session.version: 3.3.2
+[DEBUG] spring-ws.version: 4.0.11
+[DEBUG] sqlite-jdbc.version: 3.45.3.0
+[DEBUG] stderr.encoding: Cp1252
+[DEBUG] stdin.encoding: cp437
+[DEBUG] stdout.encoding: Cp1252
+[DEBUG] sun.arch.data.model: 64
+[DEBUG] sun.boot.library.path: C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot\bin
+[DEBUG] sun.cpu.endian: little
+[DEBUG] sun.cpu.isalist: amd64
+[DEBUG] sun.io.unicode.encoding: UnicodeLittle
+[DEBUG] sun.java.command: org.codehaus.plexus.classworlds.launcher.Launcher -U -X clean compile
+[DEBUG] sun.java.launcher: SUN_STANDARD
+[DEBUG] sun.jnu.encoding: Cp1252
+[DEBUG] sun.management.compiler: HotSpot 64-Bit Tiered Compilers
+[DEBUG] sun.os.patch.level: 
+[DEBUG] testcontainers.version: 1.19.8
+[DEBUG] thymeleaf-extras-data-attribute.version: 2.0.1
+[DEBUG] thymeleaf-extras-springsecurity.version: 3.1.2.RELEASE
+[DEBUG] thymeleaf-layout-dialect.version: 3.3.0
+[DEBUG] thymeleaf.version: 3.1.2.RELEASE
+[DEBUG] tomcat.version: 10.1.28
+[DEBUG] unboundid-ldapsdk.version: 6.0.11
+[DEBUG] undertow.version: 2.3.13.Final
+[DEBUG] user.country: US
+[DEBUG] user.dir: D:\ApiMarketplace
+[DEBUG] user.home: C:\Users\ASUS
+[DEBUG] user.language: en
+[DEBUG] user.name: ASUS
+[DEBUG] user.script: 
+[DEBUG] user.variant: 
+[DEBUG] versions-maven-plugin.version: 2.16.2
+[DEBUG] webjars-locator-core.version: 0.58
+[DEBUG] wsdl4j.version: 1.6.3
+[DEBUG] xml-maven-plugin.version: 1.1.0
+[DEBUG] xmlunit2.version: 2.9.1
+[DEBUG] yasson.version: 3.0.4
+[DEBUG] zipkin-reporter.version: 3.4.0
+[DEBUG] Using 'UTF-8' encoding to copy filtered resources.
+[DEBUG] Using 'UTF-8' encoding to copy filtered properties files.
+[DEBUG] resource with targetPath null
+directory D:\ApiMarketplace\src\main\resources
+excludes []
+includes [**/application*.yml, **/application*.yaml, **/application*.properties]
+[DEBUG] ignoreDelta true
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[DEBUG] Copying file application-dev.properties
+[DEBUG] file application-dev.properties has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'application-dev.properties'.
+[DEBUG] filtering D:\ApiMarketplace\src\main\resources\application-dev.properties to D:\ApiMarketplace\target\classes\application-dev.properties
+[DEBUG] Copying file application.properties
+[DEBUG] file application.properties has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'application.properties'.
+[DEBUG] filtering D:\ApiMarketplace\src\main\resources\application.properties to D:\ApiMarketplace\target\classes\application.properties
+[DEBUG] resource with targetPath null
+directory D:\ApiMarketplace\src\main\resources
+excludes [**/application*.yml, **/application*.yaml, **/application*.properties]
+includes []
+[DEBUG] ignoreDelta true
+[INFO] Copying 12 resources from src\main\resources to target\classes
+[DEBUG] Copying file templates\email\api-approved.html
+[DEBUG] file api-approved.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'api-approved.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\api-approved.html to D:\ApiMarketplace\target\classes\templates\email\api-approved.html
+[DEBUG] Copying file templates\email\api-key-created.html
+[DEBUG] file api-key-created.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'api-key-created.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\api-key-created.html to D:\ApiMarketplace\target\classes\templates\email\api-key-created.html
+[DEBUG] Copying file templates\email\api-key-regenerated.html
+[DEBUG] file api-key-regenerated.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'api-key-regenerated.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\api-key-regenerated.html to D:\ApiMarketplace\target\classes\templates\email\api-key-regenerated.html
+[DEBUG] Copying file templates\email\api-key-revoked.html
+[DEBUG] file api-key-revoked.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'api-key-revoked.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\api-key-revoked.html to D:\ApiMarketplace\target\classes\templates\email\api-key-revoked.html
+[DEBUG] Copying file templates\email\api-rejected.html
+[DEBUG] file api-rejected.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'api-rejected.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\api-rejected.html to D:\ApiMarketplace\target\classes\templates\email\api-rejected.html
+[DEBUG] Copying file templates\email\api-submitted.html
+[DEBUG] file api-submitted.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'api-submitted.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\api-submitted.html to D:\ApiMarketplace\target\classes\templates\email\api-submitted.html
+[DEBUG] Copying file templates\email\first-login.html
+[DEBUG] file first-login.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'first-login.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\first-login.html to D:\ApiMarketplace\target\classes\templates\email\first-login.html
+[DEBUG] Copying file templates\email\subscription-cancelled.html
+[DEBUG] file subscription-cancelled.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'subscription-cancelled.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\subscription-cancelled.html to D:\ApiMarketplace\target\classes\templates\email\subscription-cancelled.html
+[DEBUG] Copying file templates\email\subscription-expired.html
+[DEBUG] file subscription-expired.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'subscription-expired.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\subscription-expired.html to D:\ApiMarketplace\target\classes\templates\email\subscription-expired.html
+[DEBUG] Copying file templates\email\subscription-expiring.html
+[DEBUG] file subscription-expiring.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'subscription-expiring.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\subscription-expiring.html to D:\ApiMarketplace\target\classes\templates\email\subscription-expiring.html
+[DEBUG] Copying file templates\email\subscription-purchased.html
+[DEBUG] file subscription-purchased.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'subscription-purchased.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\subscription-purchased.html to D:\ApiMarketplace\target\classes\templates\email\subscription-purchased.html
+[DEBUG] Copying file templates\email\user-registered.html
+[DEBUG] file user-registered.html has a filtered file extension
+[DEBUG] Using 'UTF-8' encoding to copy filtered resource 'user-registered.html'.
+[DEBUG] copy D:\ApiMarketplace\src\main\resources\templates\email\user-registered.html to D:\ApiMarketplace\target\classes\templates\email\user-registered.html
+[DEBUG] no user filter components
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ ApiMarketplace ---
+[DEBUG] Using mirror maven-default-http-blocker (http://0.0.0.0/) for apache.snapshots (http://repository.apache.org/snapshots).
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=91700, ConflictMarker.markTime=43800, ConflictMarker.nodeCount=22, ConflictIdSorter.graphTime=40500, ConflictIdSorter.topsortTime=27000, ConflictIdSorter.conflictIdCount=14, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=400300, ConflictResolver.conflictItemCount=22, DfDependencyCollector.collectTime=209362700, DfDependencyCollector.transformTime=643800}
+[DEBUG] org.apache.maven.plugins:maven-compiler-plugin:jar:3.13.0
+[DEBUG]    org.apache.maven.shared:maven-shared-utils:jar:3.4.2:compile
+[DEBUG]       org.slf4j:slf4j-api:jar:1.7.36:compile
+[DEBUG]       commons-io:commons-io:jar:2.11.0:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-incremental:jar:1.1:compile
+[DEBUG]    org.codehaus.plexus:plexus-java:jar:1.2.0:compile
+[DEBUG]       org.ow2.asm:asm:jar:9.6:compile
+[DEBUG]       com.thoughtworks.qdox:qdox:jar:2.0.3:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-api:jar:2.15.0:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-manager:jar:2.15.0:compile
+[DEBUG]       javax.inject:javax.inject:jar:1:compile
+[DEBUG]       org.codehaus.plexus:plexus-xml:jar:3.0.0:compile (version managed from default)
+[DEBUG]    org.codehaus.plexus:plexus-compiler-javac:jar:2.15.0:runtime
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:4.0.0:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.13.0
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.13.0
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.13.0
+[DEBUG]   Included: org.apache.maven.plugins:maven-compiler-plugin:jar:3.13.0
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.4.2
+[DEBUG]   Included: commons-io:commons-io:jar:2.11.0
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-incremental:jar:1.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-java:jar:1.2.0
+[DEBUG]   Included: org.ow2.asm:asm:jar:9.6
+[DEBUG]   Included: com.thoughtworks.qdox:qdox:jar:2.0.3
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-api:jar:2.15.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-manager:jar:2.15.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-xml:jar:3.0.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-javac:jar:2.15.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:4.0.0
+[DEBUG] Loading mojo org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.13.0, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@5bc2b487]
+[DEBUG] Configuring mojo execution 'org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile:default-compile' with basic configurator -->
+[DEBUG]   (s) groupId = org.mapstruct
+[DEBUG]   (s) artifactId = mapstruct-processor
+[DEBUG]   (s) version = 1.5.5.Final
+[DEBUG]   (s) groupId = org.projectlombok
+[DEBUG]   (s) artifactId = lombok
+[DEBUG]   (s) version = 1.18.46
+[DEBUG]   (s) groupId = org.projectlombok
+[DEBUG]   (s) artifactId = lombok-mapstruct-binding
+[DEBUG]   (s) version = 0.2.0
+[DEBUG]   (f) annotationProcessorPaths = [org.mapstruct:mapstruct-processor:1.5.5.Final.jar, org.projectlombok:lombok:1.18.46.jar, org.projectlombok:lombok-mapstruct-binding:0.2.0.jar]
+[DEBUG]   (f) annotationProcessorPathsUseDepMgmt = false
+[DEBUG]   (f) basedir = D:\ApiMarketplace
+[DEBUG]   (f) buildDirectory = D:\ApiMarketplace\target
+[DEBUG]   (f) compilePath = [D:\ApiMarketplace\target\classes, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-data-mongodb\3.3.3\spring-boot-starter-data-mongodb-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter\3.3.3\spring-boot-starter-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.3.3\spring-boot-starter-logging-3.3.3.jar, C:\Users\ASUS\.m2\repository\ch\qos\logback\logback-classic\1.5.7\logback-classic-1.5.7.jar, C:\Users\ASUS\.m2\repository\ch\qos\logback\logback-core\1.5.7\logback-core-1.5.7.jar, C:\Users\ASUS\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.23.1\log4j-to-slf4j-2.23.1.jar, C:\Users\ASUS\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar, C:\Users\ASUS\.m2\repository\org\slf4j\jul-to-slf4j\2.0.16\jul-to-slf4j-2.0.16.jar, C:\Users\ASUS\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar, C:\Users\ASUS\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar, C:\Users\ASUS\.m2\repository\org\springframework\data\spring-data-mongodb\4.3.3\spring-data-mongodb-4.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-tx\6.1.12\spring-tx-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-context\6.1.12\spring-context-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-beans\6.1.12\spring-beans-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-expression\6.1.12\spring-expression-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\data\spring-data-commons\3.3.3\spring-data-commons-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar, C:\Users\ASUS\.m2\repository\org\mongodb\mongodb-driver-sync\5.9.0\mongodb-driver-sync-5.9.0.jar, C:\Users\ASUS\.m2\repository\org\mongodb\mongodb-driver-core\5.9.0\mongodb-driver-core-5.9.0.jar, C:\Users\ASUS\.m2\repository\org\mongodb\bson\5.9.0\bson-5.9.0.jar, C:\Users\ASUS\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.3.3\spring-boot-starter-security-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-aop\6.1.12\spring-aop-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-config\6.3.3\spring-security-config-6.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-core\6.3.3\spring-security-core-6.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-crypto\6.3.3\spring-security-crypto-6.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-web\6.3.3\spring-security-web-6.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.3.3\spring-boot-starter-validation-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.28\tomcat-embed-el-10.1.28.jar, C:\Users\ASUS\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.1.Final\hibernate-validator-8.0.1.Final.jar, C:\Users\ASUS\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar, C:\Users\ASUS\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\classmate\1.7.0\classmate-1.7.0.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.3.3\spring-boot-starter-web-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.3.3\spring-boot-starter-json-3.3.3.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.17.2\jackson-datatype-jdk8-2.17.2.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.2\jackson-datatype-jsr310-2.17.2.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.17.2\jackson-module-parameter-names-2.17.2.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.3.3\spring-boot-starter-tomcat-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.28\tomcat-embed-core-10.1.28.jar, C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.28\tomcat-embed-websocket-10.1.28.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-web\6.1.12\spring-web-6.1.12.jar, C:\Users\ASUS\.m2\repository\io\micrometer\micrometer-observation\1.13.3\micrometer-observation-1.13.3.jar, C:\Users\ASUS\.m2\repository\io\micrometer\micrometer-commons\1.13.3\micrometer-commons-1.13.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-webmvc\6.1.12\spring-webmvc-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-mail\3.3.3\spring-boot-starter-mail-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-context-support\6.1.12\spring-context-support-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\eclipse\angus\jakarta.mail\2.0.3\jakarta.mail-2.0.3.jar, C:\Users\ASUS\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.3\jakarta.activation-api-2.1.3.jar, C:\Users\ASUS\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.2\jakarta.xml.bind-api-4.0.2.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-core\6.1.12\spring-core-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\spring-jcl\6.1.12\spring-jcl-6.1.12.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot\3.3.3\spring-boot-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.3.3\spring-boot-autoconfigure-3.3.3.jar, C:\Users\ASUS\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar, C:\Users\ASUS\.m2\repository\org\mapstruct\mapstruct\1.5.5.Final\mapstruct-1.5.5.Final.jar, C:\Users\ASUS\.m2\repository\org\mapstruct\mapstruct-processor\1.5.5.Final\mapstruct-processor-1.5.5.Final.jar, C:\Users\ASUS\.m2\repository\io\jsonwebtoken\jjwt-api\0.12.6\jjwt-api-0.12.6.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.2\jackson-databind-2.17.2.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.2\jackson-annotations-2.17.2.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.2\jackson-core-2.17.2.jar, C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-ui\2.6.0\springdoc-openapi-starter-webmvc-ui-2.6.0.jar, C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-api\2.6.0\springdoc-openapi-starter-webmvc-api-2.6.0.jar, C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-common\2.6.0\springdoc-openapi-starter-common-2.6.0.jar, C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-core-jakarta\2.2.22\swagger-core-jakarta-2.2.22.jar, C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-annotations-jakarta\2.2.22\swagger-annotations-jakarta-2.2.22.jar, C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-models-jakarta\2.2.22\swagger-models-jakarta-2.2.22.jar, C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.17.2\jackson-dataformat-yaml-2.17.2.jar, C:\Users\ASUS\.m2\repository\org\webjars\swagger-ui\5.17.14\swagger-ui-5.17.14.jar, C:\Users\ASUS\.m2\repository\com\razorpay\razorpay-java\1.4.10\razorpay-java-1.4.10.jar, C:\Users\ASUS\.m2\repository\org\json\json\20231013\json-20231013.jar, C:\Users\ASUS\.m2\repository\com\squareup\okhttp3\okhttp\4.12.0\okhttp-4.12.0.jar, C:\Users\ASUS\.m2\repository\com\squareup\okio\okio\3.6.0\okio-3.6.0.jar, C:\Users\ASUS\.m2\repository\com\squareup\okio\okio-jvm\3.6.0\okio-jvm-3.6.0.jar, C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.9.25\kotlin-stdlib-common-1.9.25.jar, C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk8\1.9.25\kotlin-stdlib-jdk8-1.9.25.jar, C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.9.25\kotlin-stdlib-1.9.25.jar, C:\Users\ASUS\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar, C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk7\1.9.25\kotlin-stdlib-jdk7-1.9.25.jar, C:\Users\ASUS\.m2\repository\com\squareup\okhttp3\logging-interceptor\4.12.0\logging-interceptor-4.12.0.jar, C:\Users\ASUS\.m2\repository\commons-codec\commons-codec\1.16.1\commons-codec-1.16.1.jar, C:\Users\ASUS\.m2\repository\org\apache\commons\commons-text\1.3\commons-text-1.3.jar]
+[DEBUG]   (f) compileSourceRoots = [D:\ApiMarketplace\src\main\java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) createMissingPackageInfoClass = true
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) debugFileName = javac
+[DEBUG]   (f) enablePreview = false
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) failOnWarning = false
+[DEBUG]   (f) fileExtensions = [jar, class]
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) forceLegacyJavacApi = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedSourcesDirectory = D:\ApiMarketplace\target\generated-sources\annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile {execution: default-compile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = D:\ApiMarketplace\target\classes
+[DEBUG]   (f) parameters = true
+[DEBUG]   (f) project = MavenProject: com.example:ApiMarketplace:0.0.1-SNAPSHOT @ D:\ApiMarketplace\pom.xml
+[DEBUG]   (f) projectArtifact = com.example:ApiMarketplace:jar:0.0.1-SNAPSHOT
+[DEBUG]   (s) release = 21
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@72e295cc
+[DEBUG]   (f) showCompilationChanges = false
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = true
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 21
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (s) target = 21
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[DEBUG] Adding D:\ApiMarketplace\target\generated-sources\annotations to compile source roots:
+  D:\ApiMarketplace\src\main\java
+[DEBUG] New compile source roots:
+  D:\ApiMarketplace\src\main\java
+  D:\ApiMarketplace\target\generated-sources\annotations
+[DEBUG] Dependency collection stats {ConflictMarker.analyzeTime=188400, ConflictMarker.markTime=88700, ConflictMarker.nodeCount=4, ConflictIdSorter.graphTime=13900, ConflictIdSorter.topsortTime=921900, ConflictIdSorter.conflictIdCount=3, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=241800, ConflictResolver.conflictItemCount=3, DfDependencyCollector.collectTime=36731000, DfDependencyCollector.transformTime=1535900}
+[DEBUG] CompilerReuseStrategy: reuseCreated
+[DEBUG] useIncrementalCompilation enabled
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ConsumerProfileResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\MarketplaceController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\ApiProxyService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\SubscriptionRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiMarketplaceDetailsResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\mapper\ApiDocumentationMapper.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\ConsumerService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\EmailAlreadyExistsException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\BillingCycle.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\AuditLogController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiKeyStatus.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\AuditLog.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\CategoryRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\notification\NotificationService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\PaymentController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiDocumentation.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\filter\JwtAuthenticationFilter.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ApiKeyConsumptionServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\mapper\AuditLogMapper.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\PagedResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\AdminService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\RegisterRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\config\SecurityConfig.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\LoginResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\UsageLogResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\PaymentStatus.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\CreatePaymentOrderRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\UserResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiKey.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\InvalidSubscriptionStateException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiRequestDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionDetailsResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\ProviderProfile.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\ApiDocumentationRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\UsageLogRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\config\DevActivationConfig.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\ApiKeyRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\SubscriptionStatus.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\UsageLog.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\DebugController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiMarketplaceCardResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\AuthController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\DashboardDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\ApiKeyConsumptionService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\Category.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\PlanNotAvailableException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ErrorResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\CategoryResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiDetailsDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionActivationResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\security\jwt\JwtUtil.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\filter\ApiKeyAuthenticationFilter.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionPlanDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\SubscriptionNotFoundException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\Role.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\mapper\CategoryMapper.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\User.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\ProviderController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ConsumerDashboardResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ApiProxyServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\mapper\SubscriptionPlanMapper.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\NotificationRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\AdminController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\ConsumerController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ConsumerProfileUpdateRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\mapper\ApiMapper.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ProviderServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiKeyCreatedResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApprovalStatus.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\CategoryDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\PaymentService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\AuditLogService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\notification\SubscriptionExpirationNotificationService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\SubscriptionPlanRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\Subscription.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\ResourceNotFoundException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\example\ApiMarketplace\ApiMarketplaceApplication.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\Api.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailTemplateService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiSummaryDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionPlanResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\ApiNotAvailableException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\AuditLogRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\LoginRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\UnauthorizedResourceAccessException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\AdminServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\CategoryController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ProviderProfileDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\CategoryRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\config\OpenApiConfig.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\security\jwt\JwtAuthenticationEntryPoint.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\PaymentOrderResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\CategoryServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\UserRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\InvalidCredentialsException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\ApiRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\ProviderProfileRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiDocumentationDto.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\DashboardController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\AuditLogServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\config\CorsConfig.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\config\WebMvcConfig.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\ProviderService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\UsageSummaryResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\SubscriptionPlan.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\config\RazorpayConfig.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\controller\ProtectedApiController.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ProviderSubscriberResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\AuditLogResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailEventType.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\mapper\UserMapper.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiKeyResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ConsumerServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiDocumentationResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\AuthServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\ConsumerProfileRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\RoleRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\CategoryService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\AuthService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\PaymentServiceImpl.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\repository\PaymentRepository.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\security\api\ApiKeyPrincipal.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\UserStatusRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\config\NotificationConfig.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\CreateSubscriptionRequest.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\DashboardResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\ApiKeyNotFoundException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\mapper\ProviderMapper.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\ConsumerProfile.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\Payment.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\AnalyticsResponse.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailNotificationService.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\constants\AppConstants.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\GlobalExceptionHandler.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\exception\SubscriptionAlreadyExistsException.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiKeyAccessDecision.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiStatus.java
+[INFO] 	Stale source detected: D:\ApiMarketplace\src\main\java\com\marketplace\startup\DefaultAdminInitializer.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\example\ApiMarketplace\ApiMarketplaceApplication.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\config\CorsConfig.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\config\DevActivationConfig.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\config\NotificationConfig.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\config\OpenApiConfig.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\config\RazorpayConfig.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\config\SecurityConfig.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\config\WebMvcConfig.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\constants\AppConstants.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\AdminController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\AuditLogController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\AuthController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\CategoryController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\ConsumerController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\DashboardController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\DebugController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\MarketplaceController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\PaymentController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\ProtectedApiController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\controller\ProviderController.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\AnalyticsResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiDetailsDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiDocumentationDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiDocumentationResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiKeyAccessDecision.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiKeyCreatedResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiKeyResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiMarketplaceCardResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiMarketplaceDetailsResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiRequestDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ApiSummaryDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\AuditLogResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\CategoryDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\CategoryRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\CategoryResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ConsumerDashboardResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ConsumerProfileResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ConsumerProfileUpdateRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\CreatePaymentOrderRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\CreateSubscriptionRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\DashboardDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\DashboardResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ErrorResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\LoginRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\LoginResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\PagedResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\PaymentOrderResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ProviderProfileDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\ProviderSubscriberResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\RegisterRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionActivationResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionDetailsResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionPlanDto.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionPlanResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\SubscriptionResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\UsageLogResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\UsageSummaryResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\UserResponse.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\dto\UserStatusRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\Api.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiDocumentation.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiKey.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiKeyStatus.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApiStatus.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\ApprovalStatus.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\AuditLog.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\BillingCycle.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\Category.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\ConsumerProfile.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\Payment.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\PaymentStatus.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\ProviderProfile.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\Role.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\Subscription.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\SubscriptionPlan.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\SubscriptionStatus.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\UsageLog.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\entity\User.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\ApiKeyNotFoundException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\ApiNotAvailableException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\EmailAlreadyExistsException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\GlobalExceptionHandler.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\InvalidCredentialsException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\InvalidSubscriptionStateException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\PlanNotAvailableException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\ResourceNotFoundException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\SubscriptionAlreadyExistsException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\SubscriptionNotFoundException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\exception\UnauthorizedResourceAccessException.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\filter\ApiKeyAuthenticationFilter.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\filter\JwtAuthenticationFilter.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\mapper\ApiDocumentationMapper.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\mapper\ApiMapper.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\mapper\AuditLogMapper.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\mapper\CategoryMapper.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\mapper\ProviderMapper.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\mapper\SubscriptionPlanMapper.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\mapper\UserMapper.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailEventType.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailNotificationService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\EmailTemplateService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\notification\email\NotificationRequest.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\notification\NotificationService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\notification\SubscriptionExpirationNotificationService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\ApiDocumentationRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\ApiKeyRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\ApiRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\AuditLogRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\CategoryRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\ConsumerProfileRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\PaymentRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\ProviderProfileRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\RoleRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\SubscriptionPlanRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\SubscriptionRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\UsageLogRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\repository\UserRepository.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\security\api\ApiKeyPrincipal.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\security\jwt\JwtAuthenticationEntryPoint.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\security\jwt\JwtUtil.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\AdminService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\ApiKeyConsumptionService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\ApiProxyService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\AuditLogService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\AuthService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\CategoryService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\ConsumerService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\AdminServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ApiKeyConsumptionServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ApiProxyServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\AuditLogServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\AuthServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\CategoryServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ConsumerServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\PaymentServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\impl\ProviderServiceImpl.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\PaymentService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\service\ProviderService.java
+[INFO] 	Input tree files (+): D:\ApiMarketplace\src\main\java\com\marketplace\startup\DefaultAdminInitializer.java
+[INFO] Recompiling the module because of changed source code.
+[DEBUG] Classpath:
+[DEBUG]  D:\ApiMarketplace\target\classes
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-data-mongodb\3.3.3\spring-boot-starter-data-mongodb-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter\3.3.3\spring-boot-starter-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.3.3\spring-boot-starter-logging-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\ch\qos\logback\logback-classic\1.5.7\logback-classic-1.5.7.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\ch\qos\logback\logback-core\1.5.7\logback-core-1.5.7.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.23.1\log4j-to-slf4j-2.23.1.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\slf4j\jul-to-slf4j\2.0.16\jul-to-slf4j-2.0.16.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\data\spring-data-mongodb\4.3.3\spring-data-mongodb-4.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-tx\6.1.12\spring-tx-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-context\6.1.12\spring-context-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-beans\6.1.12\spring-beans-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-expression\6.1.12\spring-expression-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\data\spring-data-commons\3.3.3\spring-data-commons-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\mongodb\mongodb-driver-sync\5.9.0\mongodb-driver-sync-5.9.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\mongodb\mongodb-driver-core\5.9.0\mongodb-driver-core-5.9.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\mongodb\bson\5.9.0\bson-5.9.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.3.3\spring-boot-starter-security-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-aop\6.1.12\spring-aop-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-config\6.3.3\spring-security-config-6.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-core\6.3.3\spring-security-core-6.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-crypto\6.3.3\spring-security-crypto-6.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-web\6.3.3\spring-security-web-6.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.3.3\spring-boot-starter-validation-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.28\tomcat-embed-el-10.1.28.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.1.Final\hibernate-validator-8.0.1.Final.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\classmate\1.7.0\classmate-1.7.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.3.3\spring-boot-starter-web-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.3.3\spring-boot-starter-json-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.17.2\jackson-datatype-jdk8-2.17.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.2\jackson-datatype-jsr310-2.17.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.17.2\jackson-module-parameter-names-2.17.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.3.3\spring-boot-starter-tomcat-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.28\tomcat-embed-core-10.1.28.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.28\tomcat-embed-websocket-10.1.28.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-web\6.1.12\spring-web-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\io\micrometer\micrometer-observation\1.13.3\micrometer-observation-1.13.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\io\micrometer\micrometer-commons\1.13.3\micrometer-commons-1.13.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-webmvc\6.1.12\spring-webmvc-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-mail\3.3.3\spring-boot-starter-mail-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-context-support\6.1.12\spring-context-support-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\eclipse\angus\jakarta.mail\2.0.3\jakarta.mail-2.0.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.3\jakarta.activation-api-2.1.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.2\jakarta.xml.bind-api-4.0.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-core\6.1.12\spring-core-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\spring-jcl\6.1.12\spring-jcl-6.1.12.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot\3.3.3\spring-boot-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.3.3\spring-boot-autoconfigure-3.3.3.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\mapstruct\mapstruct\1.5.5.Final\mapstruct-1.5.5.Final.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\mapstruct\mapstruct-processor\1.5.5.Final\mapstruct-processor-1.5.5.Final.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\io\jsonwebtoken\jjwt-api\0.12.6\jjwt-api-0.12.6.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.2\jackson-databind-2.17.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.2\jackson-annotations-2.17.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.2\jackson-core-2.17.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-ui\2.6.0\springdoc-openapi-starter-webmvc-ui-2.6.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-api\2.6.0\springdoc-openapi-starter-webmvc-api-2.6.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-common\2.6.0\springdoc-openapi-starter-common-2.6.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-core-jakarta\2.2.22\swagger-core-jakarta-2.2.22.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-annotations-jakarta\2.2.22\swagger-annotations-jakarta-2.2.22.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-models-jakarta\2.2.22\swagger-models-jakarta-2.2.22.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.17.2\jackson-dataformat-yaml-2.17.2.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\webjars\swagger-ui\5.17.14\swagger-ui-5.17.14.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\razorpay\razorpay-java\1.4.10\razorpay-java-1.4.10.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\json\json\20231013\json-20231013.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\squareup\okhttp3\okhttp\4.12.0\okhttp-4.12.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\squareup\okio\okio\3.6.0\okio-3.6.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\squareup\okio\okio-jvm\3.6.0\okio-jvm-3.6.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.9.25\kotlin-stdlib-common-1.9.25.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk8\1.9.25\kotlin-stdlib-jdk8-1.9.25.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.9.25\kotlin-stdlib-1.9.25.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk7\1.9.25\kotlin-stdlib-jdk7-1.9.25.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\com\squareup\okhttp3\logging-interceptor\4.12.0\logging-interceptor-4.12.0.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\commons-codec\commons-codec\1.16.1\commons-codec-1.16.1.jar
+[DEBUG]  C:\Users\ASUS\.m2\repository\org\apache\commons\commons-text\1.3\commons-text-1.3.jar
+[DEBUG] Source roots:
+[DEBUG]  D:\ApiMarketplace\src\main\java
+[DEBUG]  D:\ApiMarketplace\target\generated-sources\annotations
+[DEBUG] Command line options:
+[DEBUG] -d D:\ApiMarketplace\target\classes -classpath D:\ApiMarketplace\target\classes;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-data-mongodb\3.3.3\spring-boot-starter-data-mongodb-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter\3.3.3\spring-boot-starter-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-logging\3.3.3\spring-boot-starter-logging-3.3.3.jar;C:\Users\ASUS\.m2\repository\ch\qos\logback\logback-classic\1.5.7\logback-classic-1.5.7.jar;C:\Users\ASUS\.m2\repository\ch\qos\logback\logback-core\1.5.7\logback-core-1.5.7.jar;C:\Users\ASUS\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.23.1\log4j-to-slf4j-2.23.1.jar;C:\Users\ASUS\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar;C:\Users\ASUS\.m2\repository\org\slf4j\jul-to-slf4j\2.0.16\jul-to-slf4j-2.0.16.jar;C:\Users\ASUS\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\ASUS\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\ASUS\.m2\repository\org\springframework\data\spring-data-mongodb\4.3.3\spring-data-mongodb-4.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-tx\6.1.12\spring-tx-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-context\6.1.12\spring-context-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-beans\6.1.12\spring-beans-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-expression\6.1.12\spring-expression-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\data\spring-data-commons\3.3.3\spring-data-commons-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\ASUS\.m2\repository\org\mongodb\mongodb-driver-sync\5.9.0\mongodb-driver-sync-5.9.0.jar;C:\Users\ASUS\.m2\repository\org\mongodb\mongodb-driver-core\5.9.0\mongodb-driver-core-5.9.0.jar;C:\Users\ASUS\.m2\repository\org\mongodb\bson\5.9.0\bson-5.9.0.jar;C:\Users\ASUS\.m2\repository\org\apache\commons\commons-lang3\3.14.0\commons-lang3-3.14.0.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-security\3.3.3\spring-boot-starter-security-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-aop\6.1.12\spring-aop-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-config\6.3.3\spring-security-config-6.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-core\6.3.3\spring-security-core-6.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-crypto\6.3.3\spring-security-crypto-6.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\security\spring-security-web\6.3.3\spring-security-web-6.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-validation\3.3.3\spring-boot-starter-validation-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.28\tomcat-embed-el-10.1.28.jar;C:\Users\ASUS\.m2\repository\org\hibernate\validator\hibernate-validator\8.0.1.Final\hibernate-validator-8.0.1.Final.jar;C:\Users\ASUS\.m2\repository\jakarta\validation\jakarta.validation-api\3.0.2\jakarta.validation-api-3.0.2.jar;C:\Users\ASUS\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\classmate\1.7.0\classmate-1.7.0.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-web\3.3.3\spring-boot-starter-web-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-json\3.3.3\spring-boot-starter-json-3.3.3.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.17.2\jackson-datatype-jdk8-2.17.2.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.2\jackson-datatype-jsr310-2.17.2.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.17.2\jackson-module-parameter-names-2.17.2.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-tomcat\3.3.3\spring-boot-starter-tomcat-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.28\tomcat-embed-core-10.1.28.jar;C:\Users\ASUS\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.28\tomcat-embed-websocket-10.1.28.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-web\6.1.12\spring-web-6.1.12.jar;C:\Users\ASUS\.m2\repository\io\micrometer\micrometer-observation\1.13.3\micrometer-observation-1.13.3.jar;C:\Users\ASUS\.m2\repository\io\micrometer\micrometer-commons\1.13.3\micrometer-commons-1.13.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-webmvc\6.1.12\spring-webmvc-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-starter-mail\3.3.3\spring-boot-starter-mail-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-context-support\6.1.12\spring-context-support-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\eclipse\angus\jakarta.mail\2.0.3\jakarta.mail-2.0.3.jar;C:\Users\ASUS\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.3\jakarta.activation-api-2.1.3.jar;C:\Users\ASUS\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.2\jakarta.xml.bind-api-4.0.2.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-core\6.1.12\spring-core-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\spring-jcl\6.1.12\spring-jcl-6.1.12.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot\3.3.3\spring-boot-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.3.3\spring-boot-autoconfigure-3.3.3.jar;C:\Users\ASUS\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar;C:\Users\ASUS\.m2\repository\org\mapstruct\mapstruct\1.5.5.Final\mapstruct-1.5.5.Final.jar;C:\Users\ASUS\.m2\repository\org\mapstruct\mapstruct-processor\1.5.5.Final\mapstruct-processor-1.5.5.Final.jar;C:\Users\ASUS\.m2\repository\io\jsonwebtoken\jjwt-api\0.12.6\jjwt-api-0.12.6.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.2\jackson-databind-2.17.2.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.2\jackson-annotations-2.17.2.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.2\jackson-core-2.17.2.jar;C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-ui\2.6.0\springdoc-openapi-starter-webmvc-ui-2.6.0.jar;C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-webmvc-api\2.6.0\springdoc-openapi-starter-webmvc-api-2.6.0.jar;C:\Users\ASUS\.m2\repository\org\springdoc\springdoc-openapi-starter-common\2.6.0\springdoc-openapi-starter-common-2.6.0.jar;C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-core-jakarta\2.2.22\swagger-core-jakarta-2.2.22.jar;C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-annotations-jakarta\2.2.22\swagger-annotations-jakarta-2.2.22.jar;C:\Users\ASUS\.m2\repository\io\swagger\core\v3\swagger-models-jakarta\2.2.22\swagger-models-jakarta-2.2.22.jar;C:\Users\ASUS\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-yaml\2.17.2\jackson-dataformat-yaml-2.17.2.jar;C:\Users\ASUS\.m2\repository\org\webjars\swagger-ui\5.17.14\swagger-ui-5.17.14.jar;C:\Users\ASUS\.m2\repository\com\razorpay\razorpay-java\1.4.10\razorpay-java-1.4.10.jar;C:\Users\ASUS\.m2\repository\org\json\json\20231013\json-20231013.jar;C:\Users\ASUS\.m2\repository\com\squareup\okhttp3\okhttp\4.12.0\okhttp-4.12.0.jar;C:\Users\ASUS\.m2\repository\com\squareup\okio\okio\3.6.0\okio-3.6.0.jar;C:\Users\ASUS\.m2\repository\com\squareup\okio\okio-jvm\3.6.0\okio-jvm-3.6.0.jar;C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-common\1.9.25\kotlin-stdlib-common-1.9.25.jar;C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk8\1.9.25\kotlin-stdlib-jdk8-1.9.25.jar;C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib\1.9.25\kotlin-stdlib-1.9.25.jar;C:\Users\ASUS\.m2\repository\org\jetbrains\annotations\13.0\annotations-13.0.jar;C:\Users\ASUS\.m2\repository\org\jetbrains\kotlin\kotlin-stdlib-jdk7\1.9.25\kotlin-stdlib-jdk7-1.9.25.jar;C:\Users\ASUS\.m2\repository\com\squareup\okhttp3\logging-interceptor\4.12.0\logging-interceptor-4.12.0.jar;C:\Users\ASUS\.m2\repository\commons-codec\commons-codec\1.16.1\commons-codec-1.16.1.jar;C:\Users\ASUS\.m2\repository\org\apache\commons\commons-text\1.3\commons-text-1.3.jar; -sourcepath D:\ApiMarketplace\src\main\java;D:\ApiMarketplace\target\generated-sources\annotations; -s D:\ApiMarketplace\target\generated-sources\annotations -processorpath C:\Users\ASUS\.m2\repository\org\mapstruct\mapstruct-processor\1.5.5.Final\mapstruct-processor-1.5.5.Final.jar;C:\Users\ASUS\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar;C:\Users\ASUS\.m2\repository\org\projectlombok\lombok-mapstruct-binding\0.2.0\lombok-mapstruct-binding-0.2.0.jar; -g -parameters --release 21 -encoding UTF-8 -XDuseUnsharedTable=true
+[DEBUG] incrementalBuildHelper#beforeRebuildExecution
+[INFO] Compiling 142 source files with javac [debug parameters release 21] to target\classes
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::objectFieldOffset has been called by lombok.permit.Permit
+WARNING: Please consider reporting this to the maintainers of class lombok.permit.Permit
+WARNING: sun.misc.Unsafe::objectFieldOffset will be removed in a future release
+[DEBUG] incrementalBuildHelper#afterRebuildExecution
+[WARNING] /D:/ApiMarketplace/src/main/java/com/marketplace/mapper/ApiMapper.java:[12,19] Unmapped target properties: "categoryName, category, subscribers, requests, revenue, providerName, companyName, websiteUrl, lastUpdated, plans, documentation".
+[WARNING] /D:/ApiMarketplace/src/main/java/com/marketplace/mapper/ApiMapper.java:[13,19] Unmapped target properties: "categoryName, category, subscribers, requests, revenue, plans, documentation".
+[WARNING] /D:/ApiMarketplace/src/main/java/com/marketplace/mapper/ApiDocumentationMapper.java:[11,22] Unmapped target properties: "createdAt, updatedAt".
+[WARNING] /D:/ApiMarketplace/src/main/java/com/marketplace/mapper/ProviderMapper.java:[10,21] Unmapped target properties: "createdAt, updatedAt".
+[WARNING] /D:/ApiMarketplace/src/main/java/com/marketplace/mapper/SubscriptionPlanMapper.java:[11,22] Unmapped target property: "createdAt".
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  49.202 s
+[INFO] Finished at: 2026-08-09T19:27:55+05:30
+[INFO] ------------------------------------------------------------------------
+[DEBUG] Shutting down adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gaecv, file-gav, file-hgaecv, file-hgav, file-static, gaecv, gav, static]
+[DEBUG] Shutting down 'file-lock' factory
+[DEBUG] Shutting down 'rwlock-local' factory
+[DEBUG] Shutting down 'semaphore-local' factory
+[DEBUG] Shutting down 'noop' factory

@@ -1,32 +1,46 @@
 package com.marketplace.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.marketplace.constants.AppConstants;
+import com.marketplace.dto.ApiDocumentationDto;
 import com.marketplace.dto.AnalyticsResponse;
 import com.marketplace.dto.ApiSummaryDto;
 import com.marketplace.dto.DashboardResponse;
+import com.marketplace.dto.SubscriptionPlanDto;
 import com.marketplace.dto.UserResponse;
 import com.marketplace.entity.ApprovalStatus;
 import com.marketplace.entity.Api;
 import com.marketplace.entity.ApiStatus;
 import com.marketplace.entity.Category;
 import com.marketplace.entity.Role;
+import com.marketplace.entity.SubscriptionPlan;
+import com.marketplace.entity.Subscription;
+import com.marketplace.entity.SubscriptionStatus;
 import com.marketplace.entity.User;
 import com.marketplace.exception.ResourceNotFoundException;
+import com.marketplace.mapper.ApiDocumentationMapper;
+import com.marketplace.mapper.SubscriptionPlanMapper;
 import com.marketplace.mapper.UserMapper;
+import com.marketplace.repository.ApiDocumentationRepository;
 import com.marketplace.repository.ApiRepository;
 import com.marketplace.repository.CategoryRepository;
+import com.marketplace.repository.ProviderProfileRepository;
 import com.marketplace.repository.RoleRepository;
+import com.marketplace.repository.SubscriptionPlanRepository;
+import com.marketplace.repository.SubscriptionRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.AdminService;
 import com.marketplace.service.AuditLogService;
 import com.marketplace.notification.NotificationService;
 import com.marketplace.notification.email.EmailEventType;
 import com.marketplace.notification.email.NotificationRequest;
-import java.util.Map;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,16 +50,28 @@ public class AdminServiceImpl implements AdminService {
 
     private final UserRepository userRepository;
 
-        private final ApiRepository apiRepository;
-    
+    private final ApiRepository apiRepository;
+
     private final UserMapper userMapper;
-    
-    private final CategoryRepository categoryRepository ;
-    
+
+    private final CategoryRepository categoryRepository;
+
+    private final ProviderProfileRepository providerProfileRepository;
+
     private final RoleRepository roleRepository;
 
+    private final SubscriptionPlanRepository subscriptionPlanRepository;
+
+    private final SubscriptionRepository subscriptionRepository;
+
+    private final ApiDocumentationRepository apiDocumentationRepository;
+
+    private final SubscriptionPlanMapper subscriptionPlanMapper;
+
+    private final ApiDocumentationMapper apiDocumentationMapper;
+
     private final AuditLogService auditLogService;
-        private final NotificationService notificationService;
+    private final NotificationService notificationService;
 
     @Override
     public List<UserResponse> getAllUsers() {
@@ -127,6 +153,19 @@ public class AdminServiceImpl implements AdminService {
         Role providerRole = getRoleByName(AppConstants.ROLE_PROVIDER);
         Role consumerRole = getRoleByName(AppConstants.ROLE_CONSUMER);
 
+        BigDecimal totalRevenue = subscriptionRepository.findAll()
+                .stream()
+                .map(subscription -> {
+                    if (subscription.getPrice() != null) {
+                        return subscription.getPrice();
+                    }
+                    if (subscription.getSubscriptionPlan() != null && subscription.getSubscriptionPlan().getPrice() != null) {
+                        return subscription.getSubscriptionPlan().getPrice();
+                    }
+                    return BigDecimal.ZERO;
+                })
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
         DashboardResponse response = new DashboardResponse();
 
         response.setTotalUsers(userRepository.count());
@@ -137,11 +176,11 @@ public class AdminServiceImpl implements AdminService {
         response.setTotalConsumers(
                 userRepository.countByRole_Id(consumerRole.getId()));
 
-        response.setTotalApis(0);
+        response.setTotalApis(apiRepository.countByDeletedFalse());
 
-        response.setTotalSubscriptions(0);
+        response.setTotalSubscriptions(subscriptionRepository.count());
 
-        response.setTotalRevenue(0);
+        response.setTotalRevenue(totalRevenue.doubleValue());
 
         return response;
     }
@@ -281,16 +320,53 @@ public class AdminServiceImpl implements AdminService {
                 String categoryName = api.getCategoryId() == null
                                 ? null
                                 : categoryRepository.findById(api.getCategoryId()).map(Category::getName).orElse(null);
+                String providerName = null;
+                String providerCompanyName = null;
+                String providerWebsite = null;
+                String providerSupport = null;
+                if (api.getProviderId() != null) {
+                    var profileOpt = providerProfileRepository.findByUserId(api.getProviderId());
+                    if (profileOpt.isPresent()) {
+                        var profile = profileOpt.get();
+                        providerCompanyName = profile.getCompanyName();
+                        providerName = profile.getCompanyName();
+                        providerWebsite = profile.getWebsite();
+                        providerSupport = profile.getSupportEmail();
+                    }
+                }
+                List<SubscriptionPlanDto> plans = subscriptionPlanRepository.findByApiId(api.getId()).stream()
+                        .sorted(Comparator.comparing(SubscriptionPlan::getId))
+                        .map(subscriptionPlanMapper::toDto)
+                        .collect(Collectors.toList());
+
+                ApiDocumentationDto documentation = apiDocumentationRepository.findFirstByApiId(api.getId())
+                        .map(apiDocumentationMapper::toDto)
+                        .orElse(null);
+
                 return ApiSummaryDto.builder()
                                 .id(api.getId())
                                 .name(api.getName())
                                 .description(api.getDescription())
+                                .shortDescription(api.getShortDescription())
                                 .categoryName(categoryName)
+                                .category(categoryName)
                                 .logo(api.getLogo())
                                 .version(api.getVersion())
                                 .status(api.getStatus() == null ? null : api.getStatus().name())
                                 .rateLimit(api.getRateLimit())
                                 .authenticationType(api.getAuthenticationType())
+                                .supportUrl(providerSupport)
+                                .timeout(api.getTimeout())
+                                .tags(api.getTags())
+                                .providerName(providerName)
+                                .companyName(providerCompanyName)
+                                .websiteUrl(providerWebsite)
+                                .baseUrl(api.getBaseUrl())
+                                .createdAt(api.getCreatedAt())
+                                .updatedAt(api.getUpdatedAt())
+                                .lastUpdated(api.getUpdatedAt())
+                                .plans(plans)
+                                .documentation(documentation)
                                 .build();
         }
     

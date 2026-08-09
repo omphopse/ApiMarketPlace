@@ -11,6 +11,7 @@ public interface ApiRepository extends MongoRepository<Api, String> {
     List<Api> findTop5ByProviderIdAndDeletedFalseOrderByCreatedAtDesc(String providerId);
     long countByProviderIdAndDeletedFalse(String providerId);
     long countByProviderIdAndStatusAndDeletedFalse(String providerId, ApiStatus status);
+    long countByDeletedFalse();
     List<Api> findByDeletedFalseOrderByCreatedAtDesc();
     List<Api> findByStatusAndDeletedFalseOrderByCreatedAtDesc(ApiStatus status);
     Optional<Api> findByIdAndDeletedFalse(String id);

@@ -1,0 +1,201 @@
+Classfile /D:/ApiMarketplace/target/classes/com/marketplace/controller/PaymentController.class
+  Last modified Aug 9, 2026; size 3157 bytes
+  SHA-256 checksum a8b0efdd3fb6c63db6bd898f5656cb0a303e3560b9aaf85016dd86965b89ce07
+  Compiled from "PaymentController.java"
+public class com.marketplace.controller.PaymentController
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #1                          // com/marketplace/controller/PaymentController
+  super_class: #3                         // java/lang/Object
+  interfaces: 0, fields: 1, methods: 3, attributes: 5
+Constant pool:
+   #1 = Class              #2             // com/marketplace/controller/PaymentController
+   #2 = Utf8               com/marketplace/controller/PaymentController
+   #3 = Class              #4             // java/lang/Object
+   #4 = Utf8               java/lang/Object
+   #5 = Utf8               paymentService
+   #6 = Utf8               LPaymentService;
+   #7 = Utf8               createOrder
+   #8 = Utf8               (LCreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity;
+   #9 = Utf8               Signature
+  #10 = Utf8               (LCreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity<LPaymentOrderResponse;>;
+  #11 = Utf8               RuntimeVisibleAnnotations
+  #12 = Utf8               Lio/swagger/v3/oas/annotations/Operation;
+  #13 = Utf8               summary
+  #14 = Utf8               Create a Razorpay order for a pending subscription
+  #15 = Utf8               Lorg/springframework/web/bind/annotation/PostMapping;
+  #16 = Utf8               value
+  #17 = Utf8               /create-order
+  #18 = Utf8               RuntimeVisibleParameterAnnotations
+  #19 = Utf8               Ljakarta/validation/Valid;
+  #20 = Utf8               Lorg/springframework/web/bind/annotation/RequestBody;
+  #21 = Utf8               Code
+  #22 = Class              #23            // java/lang/Error
+  #23 = Utf8               java/lang/Error
+  #24 = String             #25            // Unresolved compilation problems: \n\tPaymentOrderResponse cannot be resolved to a type\n\tCreatePaymentOrderRequest cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+  #25 = Utf8               Unresolved compilation problems: \n\tPaymentOrderResponse cannot be resolved to a type\n\tCreatePaymentOrderRequest cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+  #26 = Methodref          #22.#27        // java/lang/Error."<init>":(Ljava/lang/String;)V
+  #27 = NameAndType        #28:#29        // "<init>":(Ljava/lang/String;)V
+  #28 = Utf8               <init>
+  #29 = Utf8               (Ljava/lang/String;)V
+  #30 = Utf8               LineNumberTable
+  #31 = Utf8               LocalVariableTable
+  #32 = Utf8               this
+  #33 = Utf8               Lcom/marketplace/controller/PaymentController;
+  #34 = Utf8               RuntimeVisibleTypeAnnotations
+  #35 = Utf8               request
+  #36 = Utf8               MethodParameters
+  #37 = Utf8               verifyPayment
+  #38 = Utf8               (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity;
+  #39 = Utf8               (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity<LSubscriptionActivationResponse;>;
+  #40 = Utf8               Verify a Razorpay payment and activate the subscription
+  #41 = Utf8               /verify
+  #42 = String             #43            // Unresolved compilation problems: \n\tSubscriptionActivationResponse cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+  #43 = Utf8               Unresolved compilation problems: \n\tSubscriptionActivationResponse cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+  #44 = Utf8               (LPaymentService;)V
+  #45 = Utf8               RuntimeInvisibleAnnotations
+  #46 = Utf8               Llombok/Generated;
+  #47 = String             #48            // Unresolved compilation problems: \n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.service.PaymentService cannot be resolved\n\tPaymentService cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+  #48 = Utf8               Unresolved compilation problems: \n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.service.PaymentService cannot be resolved\n\tPaymentService cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+  #49 = Utf8               SourceFile
+  #50 = Utf8               PaymentController.java
+  #51 = Utf8               Lorg/springframework/web/bind/annotation/RestController;
+  #52 = Utf8               Lorg/springframework/web/bind/annotation/RequestMapping;
+  #53 = Utf8               /api/consumer/payments
+  #54 = Utf8               Lorg/springframework/security/access/prepost/PreAuthorize;
+  #55 = Utf8               hasRole(\'CONSUMER\')
+  #56 = Utf8               Lio/swagger/v3/oas/annotations/tags/Tag;
+  #57 = Utf8               name
+  #58 = Utf8               Consumer Payments
+  #59 = Utf8               description
+  #60 = Utf8               Consumer-facing Razorpay payment operations
+  #61 = Utf8               InnerClasses
+  #62 = Class              #63            // com/marketplace/controller/PaymentController$VerifyPaymentRequest
+  #63 = Utf8               com/marketplace/controller/PaymentController$VerifyPaymentRequest
+  #64 = Utf8               VerifyPaymentRequest
+  #65 = Class              #66            // CreatePaymentOrderRequest
+  #66 = Utf8               CreatePaymentOrderRequest
+  #67 = Class              #68            // PaymentOrderResponse
+  #68 = Utf8               PaymentOrderResponse
+  #69 = Class              #70            // PaymentService
+  #70 = Utf8               PaymentService
+  #71 = Class              #72            // SubscriptionActivationResponse
+  #72 = Utf8               SubscriptionActivationResponse
+  #73 = Utf8               MissingTypes
+  #74 = Utf8               NestMembers
+{
+  public org.springframework.http.ResponseEntity<PaymentOrderResponse> createOrder(CreatePaymentOrderRequest);
+    descriptor: (LCreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #10                          // (LCreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity<LPaymentOrderResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#14)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Create a Razorpay order for a pending subscription"
+        )
+      1: #15(#16=[s#17])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/create-order"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #19()
+          jakarta.validation.Valid
+        1: #20()
+          org.springframework.web.bind.annotation.RequestBody
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #22                 // class java/lang/Error
+         3: dup
+         4: ldc           #24                 // String Unresolved compilation problems: \n\tPaymentOrderResponse cannot be resolved to a type\n\tCreatePaymentOrderRequest cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+         6: invokespecial #26                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 26: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/PaymentController;
+    RuntimeVisibleTypeAnnotations:
+      0: #19(): METHOD_FORMAL_PARAMETER, param_index=0
+        jakarta.validation.Valid
+    MethodParameters:
+      Name                           Flags
+      request
+
+  public org.springframework.http.ResponseEntity<SubscriptionActivationResponse> verifyPayment(com.marketplace.controller.PaymentController$VerifyPaymentRequest);
+    descriptor: (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #39                          // (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity<LSubscriptionActivationResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#40)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Verify a Razorpay payment and activate the subscription"
+        )
+      1: #15(#16=[s#41])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/verify"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #20()
+          org.springframework.web.bind.annotation.RequestBody
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #22                 // class java/lang/Error
+         3: dup
+         4: ldc           #42                 // String Unresolved compilation problems: \n\tSubscriptionActivationResponse cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+         6: invokespecial #26                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 32: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/PaymentController;
+    MethodParameters:
+      Name                           Flags
+      request
+
+  public com.marketplace.controller.PaymentController(PaymentService);
+    descriptor: (LPaymentService;)V
+    flags: (0x0001) ACC_PUBLIC
+    RuntimeInvisibleAnnotations:
+      0: #46()
+        lombok.Generated
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #22                 // class java/lang/Error
+         3: dup
+         4: ldc           #47                 // String Unresolved compilation problems: \n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.dto cannot be resolved\n\tThe import com.marketplace.service.PaymentService cannot be resolved\n\tPaymentService cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n\tPaymentService cannot be resolved to a type\n
+         6: invokespecial #26                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 3: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/PaymentController;
+    MethodParameters:
+      Name                           Flags
+      paymentService                 final
+}
+SourceFile: "PaymentController.java"
+RuntimeVisibleAnnotations:
+  0: #51()
+    org.springframework.web.bind.annotation.RestController
+  1: #52(#16=[s#53])
+    org.springframework.web.bind.annotation.RequestMapping(
+      value=["/api/consumer/payments"]
+    )
+  2: #54(#16=s#55)
+    org.springframework.security.access.prepost.PreAuthorize(
+      value="hasRole(\'CONSUMER\')"
+    )
+  3: #56(#57=s#58,#59=s#60)
+    io.swagger.v3.oas.annotations.tags.Tag(
+      name="Consumer Payments"
+      description="Consumer-facing Razorpay payment operations"
+    )
+  MissingTypes: length = 0xA (unknown attribute)
+   00 04 00 41 00 43 00 45 00 47
+NestMembers:
+  com/marketplace/controller/PaymentController$VerifyPaymentRequest

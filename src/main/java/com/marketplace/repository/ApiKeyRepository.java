@@ -9,7 +9,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface ApiKeyRepository extends MongoRepository<ApiKey, String> {
     List<ApiKey> findByConsumerOrderByCreatedAtDesc(User consumer);
-    Optional<ApiKey> findBySubscriptionAndConsumer(Subscription subscription, User consumer);
+    Optional<ApiKey> findFirstBySubscriptionAndConsumerOrderByCreatedAtDesc(Subscription subscription, User consumer);
     Optional<ApiKey> findByIdAndConsumer(String id, User consumer);
     List<ApiKey> findBySubscription(Subscription subscription);
+    Optional<ApiKey> findByKeyHash(String keyHash);
 }

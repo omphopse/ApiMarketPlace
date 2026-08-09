@@ -1,0 +1,246 @@
+Classfile /D:/ApiMarketplace/target/classes/com/marketplace/controller/PaymentController.class
+  Last modified Aug 9, 2026; size 3421 bytes
+  SHA-256 checksum 09efb1ceda82715e887676144e7dbc38905e5aa2b3fccbc7025a58ae5d2f7b3f
+  Compiled from "PaymentController.java"
+public class com.marketplace.controller.PaymentController
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #14                         // com/marketplace/controller/PaymentController
+  super_class: #54                        // java/lang/Object
+  interfaces: 0, fields: 1, methods: 3, attributes: 4
+Constant pool:
+    #1 = Fieldref           #2.#3         // org/springframework/http/HttpStatus.CREATED:Lorg/springframework/http/HttpStatus;
+    #2 = Class              #4            // org/springframework/http/HttpStatus
+    #3 = NameAndType        #5:#6         // CREATED:Lorg/springframework/http/HttpStatus;
+    #4 = Utf8               org/springframework/http/HttpStatus
+    #5 = Utf8               CREATED
+    #6 = Utf8               Lorg/springframework/http/HttpStatus;
+    #7 = Methodref          #8.#9         // org/springframework/http/ResponseEntity.status:(Lorg/springframework/http/HttpStatusCode;)Lorg/springframework/http/ResponseEntity$BodyBuilder;
+    #8 = Class              #10           // org/springframework/http/ResponseEntity
+    #9 = NameAndType        #11:#12       // status:(Lorg/springframework/http/HttpStatusCode;)Lorg/springframework/http/ResponseEntity$BodyBuilder;
+   #10 = Utf8               org/springframework/http/ResponseEntity
+   #11 = Utf8               status
+   #12 = Utf8               (Lorg/springframework/http/HttpStatusCode;)Lorg/springframework/http/ResponseEntity$BodyBuilder;
+   #13 = Fieldref           #14.#15       // com/marketplace/controller/PaymentController.paymentService:Lcom/marketplace/service/PaymentService;
+   #14 = Class              #16           // com/marketplace/controller/PaymentController
+   #15 = NameAndType        #17:#18       // paymentService:Lcom/marketplace/service/PaymentService;
+   #16 = Utf8               com/marketplace/controller/PaymentController
+   #17 = Utf8               paymentService
+   #18 = Utf8               Lcom/marketplace/service/PaymentService;
+   #19 = InterfaceMethodref #20.#21       // com/marketplace/service/PaymentService.createOrder:(Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lcom/marketplace/dto/PaymentOrderResponse;
+   #20 = Class              #22           // com/marketplace/service/PaymentService
+   #21 = NameAndType        #23:#24       // createOrder:(Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lcom/marketplace/dto/PaymentOrderResponse;
+   #22 = Utf8               com/marketplace/service/PaymentService
+   #23 = Utf8               createOrder
+   #24 = Utf8               (Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lcom/marketplace/dto/PaymentOrderResponse;
+   #25 = InterfaceMethodref #26.#27       // org/springframework/http/ResponseEntity$BodyBuilder.body:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #26 = Class              #28           // org/springframework/http/ResponseEntity$BodyBuilder
+   #27 = NameAndType        #29:#30       // body:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #28 = Utf8               org/springframework/http/ResponseEntity$BodyBuilder
+   #29 = Utf8               body
+   #30 = Utf8               (Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #31 = Methodref          #32.#33       // com/marketplace/controller/PaymentController$VerifyPaymentRequest.subscriptionId:()Ljava/lang/String;
+   #32 = Class              #34           // com/marketplace/controller/PaymentController$VerifyPaymentRequest
+   #33 = NameAndType        #35:#36       // subscriptionId:()Ljava/lang/String;
+   #34 = Utf8               com/marketplace/controller/PaymentController$VerifyPaymentRequest
+   #35 = Utf8               subscriptionId
+   #36 = Utf8               ()Ljava/lang/String;
+   #37 = Methodref          #32.#38       // com/marketplace/controller/PaymentController$VerifyPaymentRequest.razorpayPaymentId:()Ljava/lang/String;
+   #38 = NameAndType        #39:#36       // razorpayPaymentId:()Ljava/lang/String;
+   #39 = Utf8               razorpayPaymentId
+   #40 = Methodref          #32.#41       // com/marketplace/controller/PaymentController$VerifyPaymentRequest.razorpayOrderId:()Ljava/lang/String;
+   #41 = NameAndType        #42:#36       // razorpayOrderId:()Ljava/lang/String;
+   #42 = Utf8               razorpayOrderId
+   #43 = Methodref          #32.#44       // com/marketplace/controller/PaymentController$VerifyPaymentRequest.razorpaySignature:()Ljava/lang/String;
+   #44 = NameAndType        #45:#36       // razorpaySignature:()Ljava/lang/String;
+   #45 = Utf8               razorpaySignature
+   #46 = InterfaceMethodref #20.#47       // com/marketplace/service/PaymentService.verifyPayment:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionActivationResponse;
+   #47 = NameAndType        #48:#49       // verifyPayment:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionActivationResponse;
+   #48 = Utf8               verifyPayment
+   #49 = Utf8               (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionActivationResponse;
+   #50 = Methodref          #8.#51        // org/springframework/http/ResponseEntity.ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #51 = NameAndType        #52:#30       // ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #52 = Utf8               ok
+   #53 = Methodref          #54.#55       // java/lang/Object."<init>":()V
+   #54 = Class              #56           // java/lang/Object
+   #55 = NameAndType        #57:#58       // "<init>":()V
+   #56 = Utf8               java/lang/Object
+   #57 = Utf8               <init>
+   #58 = Utf8               ()V
+   #59 = Utf8               (Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity;
+   #60 = Utf8               Code
+   #61 = Utf8               LineNumberTable
+   #62 = Utf8               LocalVariableTable
+   #63 = Utf8               this
+   #64 = Utf8               Lcom/marketplace/controller/PaymentController;
+   #65 = Utf8               request
+   #66 = Utf8               Lcom/marketplace/dto/CreatePaymentOrderRequest;
+   #67 = Utf8               MethodParameters
+   #68 = Utf8               Signature
+   #69 = Utf8               (Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/PaymentOrderResponse;>;
+   #70 = Utf8               RuntimeVisibleAnnotations
+   #71 = Utf8               Lio/swagger/v3/oas/annotations/Operation;
+   #72 = Utf8               summary
+   #73 = Utf8               Create a Razorpay order for a pending subscription
+   #74 = Utf8               Lorg/springframework/web/bind/annotation/PostMapping;
+   #75 = Utf8               value
+   #76 = Utf8               /create-order
+   #77 = Utf8               RuntimeVisibleTypeAnnotations
+   #78 = Utf8               Ljakarta/validation/Valid;
+   #79 = Utf8               RuntimeVisibleParameterAnnotations
+   #80 = Utf8               Lorg/springframework/web/bind/annotation/RequestBody;
+   #81 = Utf8               (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity;
+   #82 = Utf8               Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;
+   #83 = Utf8               (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/SubscriptionActivationResponse;>;
+   #84 = Utf8               Verify a Razorpay payment and activate the subscription
+   #85 = Utf8               /verify
+   #86 = Utf8               (Lcom/marketplace/service/PaymentService;)V
+   #87 = Utf8               RuntimeInvisibleAnnotations
+   #88 = Utf8               Llombok/Generated;
+   #89 = Utf8               SourceFile
+   #90 = Utf8               PaymentController.java
+   #91 = Utf8               Lorg/springframework/web/bind/annotation/RestController;
+   #92 = Utf8               Lorg/springframework/web/bind/annotation/RequestMapping;
+   #93 = Utf8               /api/consumer/payments
+   #94 = Utf8               Lorg/springframework/security/access/prepost/PreAuthorize;
+   #95 = Utf8               hasRole(\'CONSUMER\')
+   #96 = Utf8               Lio/swagger/v3/oas/annotations/tags/Tag;
+   #97 = Utf8               name
+   #98 = Utf8               Consumer Payments
+   #99 = Utf8               description
+  #100 = Utf8               Consumer-facing Razorpay payment operations
+  #101 = Utf8               NestMembers
+  #102 = Utf8               InnerClasses
+  #103 = Utf8               BodyBuilder
+  #104 = Utf8               VerifyPaymentRequest
+{
+  public org.springframework.http.ResponseEntity<com.marketplace.dto.PaymentOrderResponse> createOrder(com.marketplace.dto.CreatePaymentOrderRequest);
+    descriptor: (Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=3, locals=2, args_size=2
+         0: getstatic     #1                  // Field org/springframework/http/HttpStatus.CREATED:Lorg/springframework/http/HttpStatus;
+         3: invokestatic  #7                  // Method org/springframework/http/ResponseEntity.status:(Lorg/springframework/http/HttpStatusCode;)Lorg/springframework/http/ResponseEntity$BodyBuilder;
+         6: aload_0
+         7: getfield      #13                 // Field paymentService:Lcom/marketplace/service/PaymentService;
+        10: aload_1
+        11: invokeinterface #19,  2           // InterfaceMethod com/marketplace/service/PaymentService.createOrder:(Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lcom/marketplace/dto/PaymentOrderResponse;
+        16: invokeinterface #25,  2           // InterfaceMethod org/springframework/http/ResponseEntity$BodyBuilder.body:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+        21: areturn
+      LineNumberTable:
+        line 27: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      22     0  this   Lcom/marketplace/controller/PaymentController;
+            0      22     1 request   Lcom/marketplace/dto/CreatePaymentOrderRequest;
+    MethodParameters:
+      Name                           Flags
+      request
+    Signature: #69                          // (Lcom/marketplace/dto/CreatePaymentOrderRequest;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/PaymentOrderResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #71(#72=s#73)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Create a Razorpay order for a pending subscription"
+        )
+      1: #74(#75=[s#76])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/create-order"]
+        )
+    RuntimeVisibleTypeAnnotations:
+      0: #78(): METHOD_FORMAL_PARAMETER, param_index=0
+        jakarta.validation.Valid
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #78()
+          jakarta.validation.Valid
+        1: #80()
+          org.springframework.web.bind.annotation.RequestBody
+
+  public org.springframework.http.ResponseEntity<com.marketplace.dto.SubscriptionActivationResponse> verifyPayment(com.marketplace.controller.PaymentController$VerifyPaymentRequest);
+    descriptor: (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=5, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #13                 // Field paymentService:Lcom/marketplace/service/PaymentService;
+         4: aload_1
+         5: invokevirtual #31                 // Method com/marketplace/controller/PaymentController$VerifyPaymentRequest.subscriptionId:()Ljava/lang/String;
+         8: aload_1
+         9: invokevirtual #37                 // Method com/marketplace/controller/PaymentController$VerifyPaymentRequest.razorpayPaymentId:()Ljava/lang/String;
+        12: aload_1
+        13: invokevirtual #40                 // Method com/marketplace/controller/PaymentController$VerifyPaymentRequest.razorpayOrderId:()Ljava/lang/String;
+        16: aload_1
+        17: invokevirtual #43                 // Method com/marketplace/controller/PaymentController$VerifyPaymentRequest.razorpaySignature:()Ljava/lang/String;
+        20: invokeinterface #46,  5           // InterfaceMethod com/marketplace/service/PaymentService.verifyPayment:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionActivationResponse;
+        25: invokestatic  #50                 // Method org/springframework/http/ResponseEntity.ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+        28: areturn
+      LineNumberTable:
+        line 33: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      29     0  this   Lcom/marketplace/controller/PaymentController;
+            0      29     1 request   Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;
+    MethodParameters:
+      Name                           Flags
+      request
+    Signature: #83                          // (Lcom/marketplace/controller/PaymentController$VerifyPaymentRequest;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/SubscriptionActivationResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #71(#72=s#84)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Verify a Razorpay payment and activate the subscription"
+        )
+      1: #74(#75=[s#85])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/verify"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #80()
+          org.springframework.web.bind.annotation.RequestBody
+
+  public com.marketplace.controller.PaymentController(com.marketplace.service.PaymentService);
+    descriptor: (Lcom/marketplace/service/PaymentService;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #53                 // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #13                 // Field paymentService:Lcom/marketplace/service/PaymentService;
+         9: return
+      LineNumberTable:
+        line 18: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/PaymentController;
+            0      10     1 paymentService   Lcom/marketplace/service/PaymentService;
+    MethodParameters:
+      Name                           Flags
+      paymentService                 final
+    RuntimeInvisibleAnnotations:
+      0: #88()
+        lombok.Generated
+}
+SourceFile: "PaymentController.java"
+RuntimeVisibleAnnotations:
+  0: #91()
+    org.springframework.web.bind.annotation.RestController
+  1: #92(#75=[s#93])
+    org.springframework.web.bind.annotation.RequestMapping(
+      value=["/api/consumer/payments"]
+    )
+  2: #94(#75=s#95)
+    org.springframework.security.access.prepost.PreAuthorize(
+      value="hasRole(\'CONSUMER\')"
+    )
+  3: #96(#97=s#98,#99=s#100)
+    io.swagger.v3.oas.annotations.tags.Tag(
+      name="Consumer Payments"
+      description="Consumer-facing Razorpay payment operations"
+    )
+NestMembers:
+  com/marketplace/controller/PaymentController$VerifyPaymentRequest
+InnerClasses:
+  public static #103= #26 of #8;          // BodyBuilder=class org/springframework/http/ResponseEntity$BodyBuilder of class org/springframework/http/ResponseEntity

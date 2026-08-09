@@ -1,0 +1,13 @@
+Compiled from "Utils.java"
+public class com.razorpay.Utils {
+  public com.razorpay.Utils();
+  public static boolean verifyPaymentSignature(org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public static boolean verifySubscription(org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public static boolean verifyPaymentLink(org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public static boolean verifyWebhookSignature(java.lang.String, java.lang.String, java.lang.String) throws com.razorpay.RazorpayException;
+  public static boolean verifySignature(java.lang.String, java.lang.String, java.lang.String) throws com.razorpay.RazorpayException;
+  public static java.lang.String generateOnboardingSignature(org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public static java.lang.String encrypt(java.lang.String, java.lang.String) throws com.razorpay.RazorpayException;
+  public static java.lang.String bytesToHex(byte[]);
+  public static java.lang.String getHash(java.lang.String, java.lang.String) throws com.razorpay.RazorpayException;
+}

@@ -1,0 +1,21 @@
+Compiled from "OrderClient.java"
+public class com.razorpay.OrderClient extends com.razorpay.ApiClient {
+  com.razorpay.OrderClient(java.lang.String);
+  public com.razorpay.Order create(org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public java.util.List<com.razorpay.Order> fetchAll() throws com.razorpay.RazorpayException;
+  public java.util.List<com.razorpay.Order> fetchAll(org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public com.razorpay.Order fetch(java.lang.String) throws com.razorpay.RazorpayException;
+  public java.util.List<com.razorpay.Payment> fetchPayments(java.lang.String) throws com.razorpay.RazorpayException;
+  public com.razorpay.Order edit(java.lang.String, org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public com.razorpay.Order viewRtoReview(java.lang.String) throws com.razorpay.RazorpayException;
+  public com.razorpay.Order editFulfillment(java.lang.String, org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public java.lang.Object delete(java.lang.String, java.lang.String, org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public com.razorpay.Entity patch(java.lang.String, java.lang.String, org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public com.razorpay.Entity patch(java.lang.String, java.lang.String, org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public com.razorpay.Entity put(java.lang.String, java.lang.String, org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public com.razorpay.Entity put(java.lang.String, java.lang.String, org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public java.lang.Object post(java.lang.String, java.lang.String, org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public java.lang.Object post(java.lang.String, java.lang.String, org.json.JSONObject) throws com.razorpay.RazorpayException;
+  public com.razorpay.Entity get(java.lang.String, java.lang.String, org.json.JSONObject, java.lang.String) throws com.razorpay.RazorpayException;
+  public com.razorpay.Entity get(java.lang.String, java.lang.String, org.json.JSONObject) throws com.razorpay.RazorpayException;
+}

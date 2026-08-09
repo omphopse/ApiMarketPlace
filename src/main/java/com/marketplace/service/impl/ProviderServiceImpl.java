@@ -15,18 +15,24 @@ import com.marketplace.entity.ApiStatus;
 import com.marketplace.entity.BillingCycle;
 import com.marketplace.entity.Category;
 import com.marketplace.entity.ProviderProfile;
+import com.marketplace.entity.Subscription;
 import com.marketplace.entity.SubscriptionPlan;
+import com.marketplace.entity.SubscriptionStatus;
 import com.marketplace.entity.User;
 import com.marketplace.exception.ResourceNotFoundException;
 import com.marketplace.mapper.ApiDocumentationMapper;
 import com.marketplace.mapper.ApiMapper;
 import com.marketplace.mapper.ProviderMapper;
 import com.marketplace.mapper.SubscriptionPlanMapper;
+import com.marketplace.dto.ProviderSubscriberResponse;
+import com.marketplace.dto.PagedResponse;
 import com.marketplace.repository.ApiDocumentationRepository;
 import com.marketplace.repository.ApiRepository;
 import com.marketplace.repository.CategoryRepository;
 import com.marketplace.repository.ProviderProfileRepository;
 import com.marketplace.repository.SubscriptionPlanRepository;
+import com.marketplace.repository.SubscriptionRepository;
+import com.marketplace.repository.UsageLogRepository;
 import com.marketplace.repository.UserRepository;
 import com.marketplace.service.ProviderService;
 import com.marketplace.notification.NotificationService;
@@ -43,10 +49,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.Map;
+import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -60,6 +72,8 @@ public class ProviderServiceImpl implements ProviderService {
     private final CategoryRepository categoryRepository;
     private final SubscriptionPlanRepository subscriptionPlanRepository;
     private final ApiDocumentationRepository apiDocumentationRepository;
+    private final SubscriptionRepository subscriptionRepository;
+    private final UsageLogRepository usageLogRepository;
     private final UserRepository userRepository;
     private final ProviderMapper providerMapper;
     private final SubscriptionPlanMapper subscriptionPlanMapper;
@@ -149,24 +163,144 @@ public class ProviderServiceImpl implements ProviderService {
             .map(this::apiToSummaryDto)
             .collect(Collectors.toList());
 
+        // Calculate total subscribers from all active subscriptions for this provider's APIs
+        List<Api> providerApis = apiRepository.findByProviderIdAndDeletedFalseOrderByCreatedAtDesc(userId);
+        long totalSubscribers = 0;
+        BigDecimal monthlyRevenue = BigDecimal.ZERO;
+        
+        for (Api api : providerApis) {
+            // Count active subscriptions
+            List<Subscription> apiSubscriptions = subscriptionRepository.findByApi_IdAndStatus(api.getId(), SubscriptionStatus.ACTIVE);
+            totalSubscribers += apiSubscriptions.size();
+            
+            // Sum revenue from subscriptions created in the last month
+            LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
+            for (Subscription sub : apiSubscriptions) {
+                if (sub.getCreatedAt().isAfter(oneMonthAgo)) {
+                    if (sub.getPrice() != null) {
+                        monthlyRevenue = monthlyRevenue.add(sub.getPrice());
+                    }
+                }
+            }
+        }
+
         return DashboardDto.builder()
                 .totalApis(totalApis)
                 .approvedApis(approvedApis)
                 .pendingApis(pendingApis)
                 .rejectedApis(rejectedApis)
                 .archivedApis(archivedApis)
-                .monthlyRevenue(0)
-                .totalSubscribers(0)
+                .monthlyRevenue(monthlyRevenue.intValue())
+                .totalSubscribers(totalSubscribers)
                 .recentApis(recentApis)
                 .build();
     }
 
     @Override
     @Transactional
-    public List<ApiSummaryDto> getApis(String userId) {
-        return apiRepository.findByProviderIdAndDeletedFalseOrderByCreatedAtDesc(userId).stream()
-                .map(this::apiToSummaryDto)
-                .collect(Collectors.toList());
+    public List<ApiSummaryDto> getApis(String userId, String search, String status, String category, String sort) {
+        List<Api> providerApis = apiRepository.findByProviderIdAndDeletedFalseOrderByCreatedAtDesc(userId);
+
+        Stream<Api> stream = providerApis.stream();
+
+        if (search != null && !search.isBlank()) {
+            String normalizedSearch = search.trim().toLowerCase();
+            stream = stream.filter(api -> {
+                return Stream.of(api.getName(), api.getDescription(), api.getShortDescription(), api.getFullDescription())
+                        .filter(Objects::nonNull)
+                        .map(String::toLowerCase)
+                        .anyMatch(value -> value.contains(normalizedSearch));
+            });
+        }
+
+        if (status != null && !status.equalsIgnoreCase("ALL") && !status.isBlank()) {
+            try {
+                ApiStatus apiStatus = ApiStatus.valueOf(status);
+                stream = stream.filter(api -> api.getStatus() == apiStatus);
+            } catch (IllegalArgumentException ignored) {
+                // ignore invalid status values and keep the list unchanged
+            }
+        }
+
+        if (category != null && !category.isBlank()) {
+            String normalizedCategory = category.trim().toLowerCase();
+            stream = stream.filter(api -> {
+                return Stream.of(api.getCategoryId(), api.getCategoryId() == null ? null : api.getCategoryId())
+                        .filter(Objects::nonNull)
+                        .map(String::toLowerCase)
+                        .anyMatch(value -> value.equals(normalizedCategory));
+            });
+        }
+
+        if (sort != null && !sort.isBlank()) {
+            switch (sort) {
+                case "OLDEST":
+                    stream = stream.sorted(Comparator.comparing(Api::getCreatedAt, Comparator.nullsLast(Comparator.naturalOrder())));
+                    break;
+                case "NAME_ASC":
+                    stream = stream.sorted(Comparator.comparing(Api::getName, Comparator.nullsLast(String::compareToIgnoreCase)));
+                    break;
+                case "NAME_DESC":
+                    stream = stream.sorted(Comparator.comparing(Api::getName, Comparator.nullsLast(String::compareToIgnoreCase)).reversed());
+                    break;
+                case "MOST_REQUESTS":
+                    stream = stream.sorted(Comparator.comparingLong((Api api) -> countApiRequests(api.getId())).reversed());
+                    break;
+                case "MOST_SUBSCRIBERS":
+                    stream = stream.sorted(Comparator.comparingLong((Api api) -> countActiveSubscriptions(api.getId())).reversed());
+                    break;
+                case "NEWEST":
+                default:
+                    stream = stream.sorted(Comparator.comparing(Api::getCreatedAt, Comparator.nullsLast(Comparator.reverseOrder())));
+                    break;
+            }
+        }
+
+        return stream.map(this::apiToSummaryDto).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public PagedResponse<ProviderSubscriberResponse> getSubscribers(String userId, String apiId, int page, int size) {
+        Api api = findApiForProvider(userId, apiId);
+        size = Math.max(1, Math.min(size, 50));
+        page = Math.max(0, page);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<Subscription> result = subscriptionRepository.findByApi_Id(api.getId(), pageable);
+        return toPagedResponse(result, this::toProviderSubscriberResponse);
+    }
+
+    private ProviderSubscriberResponse toProviderSubscriberResponse(Subscription subscription) {
+        if (subscription == null) return null;
+        return ProviderSubscriberResponse.builder()
+                .subscriptionId(subscription.getId())
+                .consumerId(subscription.getConsumer() != null ? subscription.getConsumer().getId() : null)
+                .consumerName(subscription.getConsumer() != null ? subscription.getConsumer().getFullName() : null)
+                .consumerEmail(subscription.getConsumer() != null ? subscription.getConsumer().getEmail() : null)
+                .status(subscription.getStatus() != null ? subscription.getStatus().name() : null)
+                .createdAt(subscription.getCreatedAt())
+                .expiresAt(subscription.getExpiresAt())
+                .price(subscription.getPrice())
+                .plan(ProviderSubscriberResponse.PlanSummary.builder()
+                        .id(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getId() : null)
+                        .name(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getPlanName() : null)
+                        .billingCycle(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getBillingCycle().name() : null)
+                        .requestLimit(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getRequestLimit() : null)
+                        .price(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getPrice() : null)
+                        .build())
+                .build();
+    }
+
+    private <T, E> PagedResponse<T> toPagedResponse(Page<E> page, java.util.function.Function<E, T> mapper) {
+        return PagedResponse.<T>builder()
+                .content(page.stream().map(mapper).collect(Collectors.toList()))
+                .page(page.getNumber())
+                .size(page.getSize())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .first(page.isFirst())
+                .last(page.isLast())
+                .build();
     }
 
     private ApiSummaryDto apiToSummaryDto(Api api) {
@@ -179,12 +313,21 @@ public class ProviderServiceImpl implements ProviderService {
                 .id(api.getId())
                 .name(api.getName())
                 .description(api.getDescription())
+                .shortDescription(api.getShortDescription())
                 .categoryName(categoryName)
+                .category(categoryName)
                 .logo(api.getLogo())
                 .version(api.getVersion())
                 .status(api.getStatus() != null ? api.getStatus().name() : null)
                 .rateLimit(api.getRateLimit())
                 .authenticationType(api.getAuthenticationType())
+                .supportUrl(api.getSupportUrl())
+                .timeout(api.getTimeout())
+                .tags(api.getTags())
+                .subscribers(countActiveSubscriptions(api.getId()))
+                .requests(countApiRequests(api.getId()))
+                .revenue(sumActiveSubscriptionRevenue(api.getId()))
+                .lastUpdated(api.getUpdatedAt())
                 .build();
     }
 
@@ -194,6 +337,21 @@ public class ProviderServiceImpl implements ProviderService {
         Api api = findApiForProvider(userId, apiId);
         ApiDetailsDto details = apiToDetailsDto(api);
         return details;
+    }
+
+    private long countActiveSubscriptions(String apiId) {
+        return subscriptionRepository.countByApi_IdAndStatus(apiId, SubscriptionStatus.ACTIVE);
+    }
+
+    private long countApiRequests(String apiId) {
+        return usageLogRepository.countByApi_Id(apiId);
+    }
+
+    private java.math.BigDecimal sumActiveSubscriptionRevenue(String apiId) {
+        return subscriptionRepository.findByApi_IdAndStatus(apiId, SubscriptionStatus.ACTIVE).stream()
+                .map(Subscription::getPrice)
+                .filter(Objects::nonNull)
+                .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
     }
 
         private ApiDetailsDto apiToDetailsDto(Api api) {
@@ -217,14 +375,23 @@ public class ProviderServiceImpl implements ProviderService {
             .providerId(api.getProviderId())
             .name(api.getName())
             .description(api.getDescription())
+            .shortDescription(api.getShortDescription())
+            .fullDescription(api.getFullDescription())
             .baseUrl(api.getBaseUrl())
             .categoryId(api.getCategoryId())
             .categoryName(categoryName)
+            .category(categoryName)
             .logo(api.getLogo())
             .version(api.getVersion())
             .authenticationType(api.getAuthenticationType())
             .rateLimit(api.getRateLimit())
+            .supportUrl(api.getSupportUrl())
+            .timeout(api.getTimeout())
+            .tags(api.getTags())
             .status(api.getStatus() != null ? api.getStatus().name() : null)
+            .subscribers(countActiveSubscriptions(api.getId()))
+            .requests(countApiRequests(api.getId()))
+            .revenue(sumActiveSubscriptionRevenue(api.getId()))
             .plans(plans)
             .documentation(documentation)
             .build();
@@ -236,16 +403,20 @@ public class ProviderServiceImpl implements ProviderService {
         validateCategory(request.getCategoryId());
         validateUrl(request.getBaseUrl());
         Api api = Api.builder()
-                
                 .providerId(userId)
                 .name(request.getName())
                 .description(request.getDescription())
+                .shortDescription(request.getShortDescription())
+                .fullDescription(request.getFullDescription())
                 .baseUrl(request.getBaseUrl())
                 .categoryId(request.getCategoryId())
                 .logo(request.getLogo())
                 .version(request.getVersion())
                 .authenticationType(request.getAuthenticationType())
                 .rateLimit(request.getRateLimit())
+                .supportUrl(request.getSupportUrl())
+                .timeout(request.getTimeout())
+                .tags(request.getTags())
                 .status(ApiStatus.DRAFT)
                 .deleted(false)
                 .build();
@@ -266,12 +437,17 @@ public class ProviderServiceImpl implements ProviderService {
 
         api.setName(request.getName());
         api.setDescription(request.getDescription());
+        api.setShortDescription(request.getShortDescription());
+        api.setFullDescription(request.getFullDescription());
         api.setBaseUrl(request.getBaseUrl());
         api.setCategoryId(request.getCategoryId());
         api.setLogo(request.getLogo());
         api.setVersion(request.getVersion());
         api.setAuthenticationType(request.getAuthenticationType());
         api.setRateLimit(request.getRateLimit());
+        api.setSupportUrl(request.getSupportUrl());
+        api.setTimeout(request.getTimeout());
+        api.setTags(request.getTags());
         apiRepository.save(api);
 
         savePlans(api, request.getPlans());

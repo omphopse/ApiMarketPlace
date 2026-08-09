@@ -2,29 +2,32 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getStoredUser, clearStoredUser } from '../utils/auth';
 
-const api = axios.create({
-  baseURL: '/api',
-  headers: { 'Content-Type': 'application/json' }
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+  timeout: 10000
 });
 
-api.interceptors.request.use((config) => {
+apiClient.interceptors.request.use((config) => {
   const user = getStoredUser();
   if (user?.token) {
+    config.headers = config.headers || {};
     config.headers.Authorization = `Bearer ${user.token}`;
   }
   return config;
 });
 
-api.interceptors.response.use(
+apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const status = error.response?.status;
+    if (status === 401) {
       clearStoredUser();
-      window.location.href = '/login';
       toast.error('Session expired. Please log in again.');
+    } else if (status === 403) {
+      toast.error(error.response?.data?.message || 'Access denied.');
     }
     return Promise.reject(error);
   }
 );
 
-export default api;
+export default apiClient;

@@ -26,6 +26,7 @@ import com.marketplace.entity.ApiStatus;
 import com.marketplace.entity.BillingCycle;
 import com.marketplace.entity.Category;
 import com.marketplace.entity.ConsumerProfile;
+import com.marketplace.entity.ProviderProfile;
 import com.marketplace.entity.Subscription;
 import com.marketplace.entity.SubscriptionPlan;
 import com.marketplace.entity.SubscriptionStatus;
@@ -44,6 +45,7 @@ import com.marketplace.repository.ApiKeyRepository;
 import com.marketplace.repository.ApiRepository;
 import com.marketplace.repository.CategoryRepository;
 import com.marketplace.repository.ConsumerProfileRepository;
+import com.marketplace.repository.ProviderProfileRepository;
 import com.marketplace.repository.SubscriptionPlanRepository;
 import com.marketplace.repository.SubscriptionRepository;
 import com.marketplace.repository.UsageLogRepository;
@@ -54,18 +56,27 @@ import com.marketplace.notification.email.EmailEventType;
 import com.marketplace.notification.email.NotificationRequest;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -84,12 +95,17 @@ public class ConsumerServiceImpl implements ConsumerService {
     private final UserRepository userRepository;
     private final ApiRepository apiRepository;
     private final CategoryRepository categoryRepository;
+    private final ProviderProfileRepository providerProfileRepository;
     private final SubscriptionPlanRepository subscriptionPlanRepository;
     private final SubscriptionRepository subscriptionRepository;
     private final ApiKeyRepository apiKeyRepository;
     private final ApiDocumentationRepository apiDocumentationRepository;
     private final UsageLogRepository usageLogRepository;
     private final NotificationService notificationService;
+    private final Environment environment;
+
+    @Value("${uploads.path:uploads}")
+    private String uploadsPath;
 
     @Override
     @Transactional
@@ -119,6 +135,42 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
+    public String uploadProfileImage(MultipartFile file) {
+        validateImage(file);
+        Path uploadDirectory = Path.of(uploadsPath).toAbsolutePath().normalize();
+        try {
+            Files.createDirectories(uploadDirectory);
+            String filename = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+            String extension = filename.contains(".") ? filename.substring(filename.lastIndexOf('.')) : "";
+            String storageName = "consumer-" + System.currentTimeMillis() + extension.toLowerCase(Locale.ROOT);
+            Path target = uploadDirectory.resolve(storageName);
+            Files.copy(file.getInputStream(), target, StandardCopyOption.REPLACE_EXISTING);
+            User user = getCurrentUser();
+            ConsumerProfile profile = consumerProfileRepository.findByUserId(user.getId())
+                    .orElseGet(() -> createDefaultProfile(user));
+            profile.setProfileImage("/uploads/" + storageName);
+            consumerProfileRepository.save(profile);
+            return profile.getProfileImage();
+        } catch (IOException ex) {
+            throw new RuntimeException("Unable to store file", ex);
+        }
+    }
+
+    private void validateImage(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new IllegalArgumentException("Image file is required");
+        }
+        String contentType = file.getContentType();
+        if (contentType == null || !(contentType.equals("image/png") || contentType.equals("image/jpeg") || contentType.equals("image/jpg"))) {
+            throw new IllegalArgumentException("Supported image types are png, jpg, jpeg");
+        }
+        if (file.getSize() > 2 * 1024 * 1024L) {
+            throw new IllegalArgumentException("Maximum file size is 2MB");
+        }
+    }
+
+    @Override
+    @Transactional
     public PagedResponse<ApiMarketplaceCardResponse> browseMarketplace(int page, int size, String search, String categoryId, String pricing, String sort) {
         size = validateSize(size);
         Pageable pageable = PageRequest.of(page, size);
@@ -134,13 +186,21 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .filter(a -> a.getStatus() == ApiStatus.APPROVED)
                 .orElseThrow(() -> new ApiNotAvailableException("API is not available"));
         Category category = categoryRepository.findById(api.getCategoryId()).orElse(null);
+        
+        String providerName = null;
+        if (api.getProviderId() != null) {
+            providerName = providerProfileRepository.findByUserId(api.getProviderId())
+                    .map(ProviderProfile::getCompanyName)
+                    .orElse(null);
+        }
+        
         return ApiMarketplaceDetailsResponse.builder()
                 .id(api.getId())
                 .name(api.getName())
                 .description(api.getDescription())
                 .logoUrl(api.getLogo())
                 .category(category != null ? CategoryResponse.builder().id(category.getId()).name(category.getName()).build() : null)
-                .provider(new ApiMarketplaceDetailsResponse.ProviderSummary(api.getProviderId() != null ? String.valueOf(api.getProviderId()) : null, null))
+                .provider(new ApiMarketplaceDetailsResponse.ProviderSummary(providerName, null))
                 .version(api.getVersion())
                 .documentationAvailable(apiDocumentationRepository.findFirstByApiId(api.getId()).isPresent())
                 .build();
@@ -229,6 +289,25 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
+    public SubscriptionActivationResponse activateSubscriptionDev(String subscriptionId) {
+        User consumer = getCurrentUser();
+        Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
+        // allow dev activation for free plans, or when running tests
+        java.math.BigDecimal price = subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getPrice() : null;
+        boolean isTestProfile = false;
+        try {
+            String[] profiles = environment.getActiveProfiles();
+            for (String p : profiles) if ("test".equalsIgnoreCase(p)) isTestProfile = true;
+        } catch (Exception ignored) {}
+
+        if (price != null && price.compareTo(java.math.BigDecimal.ZERO) > 0 && !isTestProfile) {
+            throw new InvalidSubscriptionStateException("Dev activation is not allowed for paid plans");
+        }
+        return activateSubscription(subscriptionId);
+    }
+
+    @Override
+    @Transactional
     public List<ApiKeyResponse> getApiKeys() {
         User consumer = getCurrentUser();
         return apiKeyRepository.findByConsumerOrderByCreatedAtDesc(consumer).stream()
@@ -245,7 +324,7 @@ public class ConsumerServiceImpl implements ConsumerService {
             throw new InvalidSubscriptionStateException("Subscription must be active to regenerate an API key");
         }
 
-        apiKeyRepository.findBySubscriptionAndConsumer(subscription, consumer).ifPresent(existing -> {
+        apiKeyRepository.findFirstBySubscriptionAndConsumerOrderByCreatedAtDesc(subscription, consumer).ifPresent(existing -> {
             existing.setStatus(ApiKeyStatus.REVOKED);
             existing.setRevokedAt(LocalDateTime.now());
             apiKeyRepository.save(existing);
@@ -295,7 +374,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     public SubscriptionDetailsResponse getSubscription(String subscriptionId) {
         User consumer = getCurrentUser();
         Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
-        ApiKey apiKey = apiKeyRepository.findBySubscriptionAndConsumer(subscription, consumer).orElse(null);
+        ApiKey apiKey = apiKeyRepository.findFirstBySubscriptionAndConsumerOrderByCreatedAtDesc(subscription, consumer).orElse(null);
         return SubscriptionDetailsResponse.builder()
                 .subscriptionId(subscription.getId())
                 .apiName(subscription.getApi().getName())
@@ -303,7 +382,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .status(subscription.getStatus().name())
                 .startedAt(subscription.getStartedAt())
                 .expiresAt(subscription.getExpiresAt())
-                .usageSummary(buildUsageSummary(subscription))
+                .usageSummary(buildUsageSummary(subscription, null))
                 .apiKeyMetadata(apiKey != null ? new SubscriptionDetailsResponse.ApiKeyMetadata(apiKey.getId(), apiKey.getKeyPrefix(), apiKey.getStatus().name(), apiKey.getCreatedAt(), apiKey.getLastUsedAt()) : null)
                 .documentationAvailable(apiDocumentationRepository.findFirstByApiId(subscription.getApi().getId()).isPresent())
                 .build();
@@ -360,13 +439,31 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     @Transactional
-    public UsageSummaryResponse getUsageSummary(String subscriptionId) {
+    public UsageSummaryResponse getUsageSummary(String subscriptionId, String range) {
         User consumer = getCurrentUser();
         if (subscriptionId != null) {
             Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
-            return buildUsageSummary(subscription);
+            return buildUsageSummary(subscription, range);
         }
-        return UsageSummaryResponse.builder().totalRequests(0L).successfulRequests(0L).failedRequests(0L).requestLimit(0).remainingRequests(0L).build();
+        return UsageSummaryResponse.builder()
+                .totalRequests(0L)
+                .successfulRequests(0L)
+                .failedRequests(0L)
+                .requestLimit(0)
+                .remainingRequests(0L)
+                .recentRequests(List.of())
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public java.util.List<UsageLogResponse> getUsageLogs(String subscriptionId) {
+        User consumer = getCurrentUser();
+        Subscription subscription = getSubscriptionForCurrentConsumer(subscriptionId, consumer);
+        LocalDateTime startDate = subscription.getStartedAt() != null ? subscription.getStartedAt() : LocalDateTime.now().minusYears(10);
+        return usageLogRepository.findBySubscriptionIdAndTimestampAfter(subscription.getId(), startDate).stream()
+                .map(this::toUsageLogResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -375,12 +472,24 @@ public class ConsumerServiceImpl implements ConsumerService {
         User consumer = getCurrentUser();
         long totalSubscriptions = subscriptionRepository.countByConsumer(consumer);
         long activeSubscriptions = subscriptionRepository.countByConsumerAndStatus(consumer, SubscriptionStatus.ACTIVE);
-        long totalRequestsThisMonth = usageLogRepository.countByConsumerSince(consumer, LocalDateTime.now().minusMonths(1));
-        long remainingRequests = Math.max(0L, 10000L - totalRequestsThisMonth);
+        LocalDateTime startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+        long totalRequestsThisMonth = usageLogRepository.countByConsumerIdAndTimestampAfter(consumer.getId(), startOfMonth);
+        var activeSubscriptionPage = subscriptionRepository.findByConsumerAndStatusOrderByCreatedAtDesc(consumer, SubscriptionStatus.ACTIVE, PageRequest.of(0, 100));
+        List<Subscription> activeSubscriptionList = activeSubscriptionPage.getContent();
+        long remainingRequests = activeSubscriptionList.stream()
+                .mapToLong(subscription -> {
+                    int requestLimit = subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getRequestLimit() : 0;
+                    if (requestLimit <= 0) {
+                        return 0L;
+                    }
+                    long usedThisMonth = usageLogRepository.countBySubscriptionIdAndTimestampAfter(subscription.getId(), startOfMonth);
+                    return Math.max(0L, requestLimit - usedThisMonth);
+                })
+                .sum();
         List<SubscriptionResponse> recentSubscriptions = subscriptionRepository.findByConsumerOrderByCreatedAtDesc(consumer, PageRequest.of(0, 5)).stream()
                 .map(this::toSubscriptionResponse)
                 .collect(Collectors.toList());
-        List<UsageLogResponse> recentUsage = usageLogRepository.findTop10ByConsumerOrderByTimestampDesc(consumer).stream()
+        List<UsageLogResponse> recentUsage = usageLogRepository.findTop10ByConsumerIdOrderByTimestampDesc(consumer.getId()).stream()
                 .map(this::toUsageLogResponse)
                 .collect(Collectors.toList());
         return ConsumerDashboardResponse.builder()
@@ -425,13 +534,19 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     private ApiMarketplaceCardResponse toMarketplaceCard(Api api) {
         Category category = categoryRepository.findById(api.getCategoryId()).orElse(null);
+        String providerName = null;
+        if (api.getProviderId() != null) {
+            providerName = providerProfileRepository.findByUserId(api.getProviderId())
+                    .map(ProviderProfile::getCompanyName)
+                    .orElse(null);
+        }
         return ApiMarketplaceCardResponse.builder()
                 .id(api.getId())
                 .name(api.getName())
                 .shortDescription(api.getDescription())
                 .logoUrl(api.getLogo())
                 .category(category != null ? category.getName() : null)
-                .providerName(api.getProviderId() != null ? String.valueOf(api.getProviderId()) : null)
+                .providerName(providerName)
                 .version(api.getVersion())
                 .startingPrice(subscriptionPlanRepository.findByApiId(api.getId()).stream().filter(SubscriptionPlan::isActive).min((a, b) -> a.getPrice().compareTo(b.getPrice())).map(SubscriptionPlan::getPrice).orElse(BigDecimal.ZERO))
                 .hasFreePlan(subscriptionPlanRepository.findByApiId(api.getId()).stream().anyMatch(plan -> plan.isActive() && plan.getPrice().compareTo(BigDecimal.ZERO) == 0))
@@ -461,10 +576,16 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .build();
     }
 
-    private UsageSummaryResponse buildUsageSummary(Subscription subscription) {
-        long totalRequests = usageLogRepository.countByConsumerSince(subscription.getConsumer(), subscription.getStartedAt() != null ? subscription.getStartedAt() : LocalDateTime.now().minusYears(10));
-        long successfulRequests = totalRequests;
-        long failedRequests = 0;
+    private UsageSummaryResponse buildUsageSummary(Subscription subscription, String range) {
+        LocalDateTime startDate = resolveRangeStart(range, subscription.getStartedAt());
+        List<UsageLog> usageLogs = usageLogRepository.findBySubscriptionIdAndTimestampAfter(subscription.getId(), startDate);
+        long totalRequests = usageLogs.size();
+        
+        long successfulRequests = usageLogs.stream()
+                .filter(log -> log.getStatusCode() >= 200 && log.getStatusCode() < 300)
+                .count();
+        long failedRequests = totalRequests - successfulRequests;
+        
         int requestLimit = subscription.getSubscriptionPlan().getRequestLimit();
         long remainingRequests = Math.max(0L, (long) requestLimit - totalRequests);
         return UsageSummaryResponse.builder()
@@ -475,11 +596,31 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .remainingRequests(remainingRequests)
                 .periodStart(subscription.getStartedAt())
                 .periodEnd(subscription.getExpiresAt())
-                .recentRequests(List.of())
+                .recentRequests(usageLogs.stream()
+                        .sorted((a, b) -> b.getTimestamp().compareTo(a.getTimestamp()))
+                        .map(this::toUsageLogResponse)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
+    private LocalDateTime resolveRangeStart(String range, LocalDateTime subscriptionStartedAt) {
+        if ("7d".equalsIgnoreCase(range)) {
+            return LocalDateTime.now().minusDays(7);
+        }
+        if ("90d".equalsIgnoreCase(range)) {
+            return LocalDateTime.now().minusDays(90);
+        }
+        if (subscriptionStartedAt != null) {
+            return subscriptionStartedAt;
+        }
+        return LocalDateTime.now().minusYears(10);
+    }
+
     private UsageLogResponse toUsageLogResponse(UsageLog usageLog) {
+        String apiName = null;
+        if (usageLog.getApi() != null) {
+            apiName = usageLog.getApi().getName();
+        }
         return UsageLogResponse.builder()
                 .id(usageLog.getId())
                 .endpoint(usageLog.getEndpoint())
@@ -487,6 +628,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .statusCode(usageLog.getStatusCode())
                 .responseTimeMs(usageLog.getResponseTimeMs())
                 .timestamp(usageLog.getTimestamp())
+                .apiName(apiName)
                 .build();
     }
 
@@ -494,6 +636,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         String masked = apiKey.getKeyPrefix() + "••••••••••••";
         return ApiKeyResponse.builder()
                 .id(apiKey.getId())
+                .subscriptionId(apiKey.getSubscription() != null ? apiKey.getSubscription().getId() : null)
                 .apiName(apiKey.getApi().getName())
                 .keyPrefix(apiKey.getKeyPrefix())
                 .maskedKey(masked)

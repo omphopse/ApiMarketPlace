@@ -1,6 +1,7 @@
 package com.marketplace.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,10 @@ public class Api {
 
     private String description;
 
+    private String shortDescription;
+
+    private String fullDescription;
+
     private String baseUrl;
 
     private String categoryId;
@@ -40,6 +45,12 @@ public class Api {
     private String authenticationType;
 
     private Integer rateLimit;
+
+    private String supportUrl;
+
+    private Integer timeout;
+
+    private List<String> tags;
 
     private boolean deleted;
 

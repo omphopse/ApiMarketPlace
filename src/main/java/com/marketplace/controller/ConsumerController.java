@@ -15,6 +15,7 @@ import com.marketplace.dto.SubscriptionDetailsResponse;
 import com.marketplace.dto.SubscriptionPlanResponse;
 import com.marketplace.dto.SubscriptionResponse;
 import com.marketplace.dto.UsageSummaryResponse;
+import com.marketplace.dto.UsageLogResponse;
 import com.marketplace.service.ConsumerService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -23,7 +24,9 @@ import java.util.List;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +38,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/consumer")
@@ -55,6 +60,12 @@ public class ConsumerController {
     @PutMapping("/profile")
     public ResponseEntity<ConsumerProfileResponse> updateProfile(@Valid @RequestBody ConsumerProfileUpdateRequest request) {
         return ResponseEntity.ok(consumerService.updateProfile(request));
+    }
+
+    @Operation(summary = "Upload consumer profile picture")
+    @PostMapping(value = "/profile/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploadProfileImage(@RequestPart("file") MultipartFile file) {
+        return ResponseEntity.ok(consumerService.uploadProfileImage(file));
     }
 
     @Operation(summary = "Browse marketplace APIs")
@@ -91,7 +102,7 @@ public class ConsumerController {
     @PostMapping("/dev/subscriptions/{subscriptionId}/activate")
     @PreAuthorize("hasRole('CONSUMER')")
     public ResponseEntity<SubscriptionActivationResponse> activateSubscription(@PathVariable String subscriptionId) {
-        return ResponseEntity.ok(consumerService.activateSubscription(subscriptionId));
+        return ResponseEntity.ok(consumerService.activateSubscriptionDev(subscriptionId));
     }
 
     @Operation(summary = "List active consumer API keys")
@@ -144,8 +155,17 @@ public class ConsumerController {
 
     @Operation(summary = "View usage summary")
     @GetMapping("/usage")
-    public ResponseEntity<UsageSummaryResponse> getUsage(@RequestParam(required = false) String subscriptionId) {
-        return ResponseEntity.ok(consumerService.getUsageSummary(subscriptionId));
+    public ResponseEntity<UsageSummaryResponse> getUsage(
+            @RequestParam(required = false) String subscriptionId,
+            @RequestParam(required = false) String range) {
+        return ResponseEntity.ok(consumerService.getUsageSummary(subscriptionId, range));
+    }
+
+    // Temporary debug endpoint to list raw usage logs for a subscription (authenticated consumer only)
+    @Operation(summary = "Debug: list raw usage logs for subscription")
+    @GetMapping("/debug/usage-logs")
+    public ResponseEntity<java.util.List<UsageLogResponse>> getUsageLogs(@RequestParam String subscriptionId) {
+        return ResponseEntity.ok(consumerService.getUsageLogs(subscriptionId));
     }
 
     @Operation(summary = "Get the consumer dashboard summary")
