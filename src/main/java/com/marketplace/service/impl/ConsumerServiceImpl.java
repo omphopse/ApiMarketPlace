@@ -83,11 +83,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
 public class ConsumerServiceImpl implements ConsumerService {
+    private static final Logger log = LoggerFactory.getLogger(ConsumerServiceImpl.class);
     private static final String API_KEY_PREFIX = "amp_live_";
     private static final int MAX_PAGE_SIZE = 100;
 
@@ -472,26 +475,44 @@ public class ConsumerServiceImpl implements ConsumerService {
         User consumer = getCurrentUser();
         long totalSubscriptions = subscriptionRepository.countByConsumer(consumer);
         long activeSubscriptions = subscriptionRepository.countByConsumerAndStatus(consumer, SubscriptionStatus.ACTIVE);
-        LocalDateTime startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay();
-        long totalRequestsThisMonth = usageLogRepository.countByConsumerIdAndTimestampAfter(consumer.getId(), startOfMonth);
+        // Use a 30-day window to reflect recent activity (matches 'Requests this month' expectation)
+        LocalDateTime windowStart = LocalDateTime.now().minusDays(30);
+        long totalRequestsThisMonth = usageLogRepository.findByConsumerAndTimestampAfter(consumer, windowStart).size();
         var activeSubscriptionPage = subscriptionRepository.findByConsumerAndStatusOrderByCreatedAtDesc(consumer, SubscriptionStatus.ACTIVE, PageRequest.of(0, 100));
         List<Subscription> activeSubscriptionList = activeSubscriptionPage.getContent();
         long remainingRequests = activeSubscriptionList.stream()
-                .mapToLong(subscription -> {
-                    int requestLimit = subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getRequestLimit() : 0;
+            .mapToLong(subscription -> {
+                    SubscriptionPlan plan = subscription.getSubscriptionPlan();
+                    int requestLimit = 0;
+                    if (plan != null && plan.getRequestLimit() != null) {
+                        requestLimit = plan.getRequestLimit();
+                    }
                     if (requestLimit <= 0) {
                         return 0L;
                     }
-                    long usedThisMonth = usageLogRepository.countBySubscriptionIdAndTimestampAfter(subscription.getId(), startOfMonth);
-                    return Math.max(0L, requestLimit - usedThisMonth);
+                    long usedThisMonth = usageLogRepository.findBySubscriptionAndTimestampAfter(subscription, windowStart).size();
+                    return Math.max(0L, (long) requestLimit - usedThisMonth);
                 })
                 .sum();
         List<SubscriptionResponse> recentSubscriptions = subscriptionRepository.findByConsumerOrderByCreatedAtDesc(consumer, PageRequest.of(0, 5)).stream()
                 .map(this::toSubscriptionResponse)
                 .collect(Collectors.toList());
-        List<UsageLogResponse> recentUsage = usageLogRepository.findTop10ByConsumerIdOrderByTimestampDesc(consumer.getId()).stream()
-                .map(this::toUsageLogResponse)
-                .collect(Collectors.toList());
+        List<UsageLogResponse> recentUsage = usageLogRepository.findTop10ByConsumerOrderByTimestampDesc(consumer).stream()
+            .map(this::toUsageLogResponse)
+            .collect(Collectors.toList());
+        // Debug logging to diagnose why dashboard counts may be zero
+        try {
+            log.info("Dashboard computed for consumerId={}: totalRequestsThisMonth={}, remainingRequests={}, activeSubscriptions={}", consumer.getId(), totalRequestsThisMonth, remainingRequests, activeSubscriptions);
+            for (Subscription s : activeSubscriptionList) {
+                int limit = s.getSubscriptionPlan() != null && s.getSubscriptionPlan().getRequestLimit() != null ? s.getSubscriptionPlan().getRequestLimit() : 0;
+                long used = usageLogRepository.countBySubscriptionAndTimestampAfter(s, windowStart);
+                log.info("Subscription {} planLimit={} usedThisMonth={}", s.getId(), limit, used);
+            }
+            log.info("Recent usage size={}", recentUsage.size());
+        } catch (Exception ex) {
+            log.warn("Failed to write dashboard debug logs", ex);
+        }
+
         return ConsumerDashboardResponse.builder()
                 .activeSubscriptions(activeSubscriptions)
                 .totalSubscriptions(totalSubscriptions)
@@ -567,13 +588,25 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     private SubscriptionResponse toSubscriptionResponse(Subscription subscription) {
+        SubscriptionPlan plan = subscription.getSubscriptionPlan();
+        String billingCycleName = null;
+        if (plan != null && plan.getBillingCycle() != null) {
+            billingCycleName = plan.getBillingCycle().name();
+        }
+        Integer requestLimit = plan != null ? plan.getRequestLimit() : null;
         return SubscriptionResponse.builder()
-                .subscriptionId(subscription.getId())
-                .api(new SubscriptionResponse.ApiSummary(subscription.getApi().getId(), subscription.getApi().getName()))
-                .plan(new SubscriptionResponse.PlanSummary(subscription.getSubscriptionPlan().getId(), subscription.getSubscriptionPlan().getPlanName(), subscription.getSubscriptionPlan().getPrice(), subscription.getSubscriptionPlan().getBillingCycle().name(), subscription.getSubscriptionPlan().getRequestLimit()))
-                .status(subscription.getStatus().name())
-                .createdAt(subscription.getCreatedAt())
-                .build();
+            .subscriptionId(subscription.getId())
+            .api(new SubscriptionResponse.ApiSummary(subscription.getApi().getId(), subscription.getApi().getName()))
+            .plan(new SubscriptionResponse.PlanSummary(
+                plan != null ? plan.getId() : null,
+                plan != null ? plan.getPlanName() : null,
+                plan != null ? plan.getPrice() : null,
+                billingCycleName,
+                requestLimit
+            ))
+            .status(subscription.getStatus().name())
+            .createdAt(subscription.getCreatedAt())
+            .build();
     }
 
     private UsageSummaryResponse buildUsageSummary(Subscription subscription, String range) {
@@ -586,7 +619,8 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .count();
         long failedRequests = totalRequests - successfulRequests;
         
-        int requestLimit = subscription.getSubscriptionPlan().getRequestLimit();
+        SubscriptionPlan plan = subscription.getSubscriptionPlan();
+        int requestLimit = (plan != null && plan.getRequestLimit() != null) ? plan.getRequestLimit() : 0;
         long remainingRequests = Math.max(0L, (long) requestLimit - totalRequests);
         return UsageSummaryResponse.builder()
                 .totalRequests(totalRequests)

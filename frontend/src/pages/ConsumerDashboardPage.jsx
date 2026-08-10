@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Card, Chip, Grid, LinearProgress, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery, useTheme, Skeleton, Tabs, Tab, Divider } from '@mui/material';
+import { Box, Button, Card, Chip, Grid, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, useMediaQuery, useTheme, Skeleton } from '@mui/material';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from 'recharts';
 import DashboardLayout from '../layouts/DashboardLayout';
 import PageHeader from '../components/PageHeader';
@@ -27,10 +27,6 @@ const ConsumerDashboardPage = () => {
   const [dashboardError, setDashboardError] = useState('');
   const [profileError, setProfileError] = useState(false);
   const [keysError, setKeysError] = useState(false);
-  const [activePeriod, setActivePeriod] = useState('30days');
-  const [activeTab, setActiveTab] = useState(0);
-
-  const handleTabChange = (_, newValue) => setActiveTab(newValue);
 
   useEffect(() => {
     consumerService.getDashboard()
@@ -92,16 +88,6 @@ const ConsumerDashboardPage = () => {
     ].filter((item) => item.value > 0);
   }, [recentUsage]);
 
-  const mostRecentKey = useMemo(() => {
-    if (!apiKeys?.length) return null;
-    return apiKeys[0];
-  }, [apiKeys]);
-
-  const activeKeysCount = useMemo(() => apiKeys?.filter((key) => key.status === 'ACTIVE').length || 0, [apiKeys]);
-
-  const quotaLimit = dashboard ? dashboard.totalRequestsThisMonth + dashboard.remainingRequests : 0;
-  const quotaPercent = quotaLimit > 0 ? Math.round((dashboard.totalRequestsThisMonth / quotaLimit) * 100) : 0;
-
   if (dashboardError) {
     return (
       <DashboardLayout role="CONSUMER" title="Consumer dashboard" subtitle="Track your API subscriptions and usage.">
@@ -160,88 +146,19 @@ const ConsumerDashboardPage = () => {
         )}
       />
 
-      <Grid container spacing={2} sx={{ mb: 2 }}>
+      <Grid container spacing={2} sx={{ mb: 3 }}>
         {[
           { label: 'Active subscriptions', value: dashboard.activeSubscriptions },
-          { label: 'Total subscriptions', value: dashboard.totalSubscriptions },
-          { label: 'Requests this month', value: dashboard.totalRequestsThisMonth },
-          { label: 'Remaining requests', value: dashboard.remainingRequests }
+          { label: 'Total subscriptions', value: dashboard.totalSubscriptions }
         ].map((item) => (
-          <Grid item xs={12} sm={6} md={3} key={item.label}>
+          <Grid item xs={12} sm={6} md={6} key={item.label}>
             <StatCard label={item.label} value={item.value ?? 'Unavailable'} accent="primary" />
           </Grid>
         ))}
       </Grid>
 
-      <Divider sx={{ my: 2 }} />
-      <Tabs value={activeTab} onChange={handleTabChange} aria-label="dashboard-tabs" sx={{ mb: 2 }}>
-        <Tab label="Quota overview" />
-      </Tabs>
-
-      
-
-      {activeTab === 0 && (
-        <Grid container spacing={3}>
-          <Grid item xs={12} lg={6}>
-            <AppCard title="Quota overview" subtitle="Requests used and remaining for your active subscriptions.">
-              <Stack spacing={2}>
-                <Box>
-                  <Typography variant="subtitle2" color="text.secondary">Used this month</Typography>
-                  <Typography variant="h5" fontWeight={700}>{dashboard.totalRequestsThisMonth?.toLocaleString()}</Typography>
-                </Box>
-                <Box>
-                  <Typography variant="subtitle2" color="text.secondary">Remaining requests</Typography>
-                  <Typography variant="h5" fontWeight={700}>{dashboard.remainingRequests?.toLocaleString()}</Typography>
-                </Box>
-                {quotaLimit > 0 ? (
-                  <Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                      <Typography variant="body2" color="text.secondary">Quota used</Typography>
-                      <Typography variant="body2" color="text.secondary">{quotaPercent}%</Typography>
-                    </Box>
-                    <LinearProgress variant="determinate" value={quotaPercent} sx={{ height: 10, borderRadius: 5 }} />
-                  </Box>
-                ) : (
-                  <Typography color="text.secondary">Quota percentage is not available from the current data.</Typography>
-                )}
-              </Stack>
-            </AppCard>
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <AppCard title="API keys" subtitle="Active keys and latest masked key.">
-              {keysError ? (
-                <Typography color="text.secondary">API key information could not be loaded.</Typography>
-              ) : apiKeys?.length ? (
-                <Stack spacing={1.5}>
-                  <Typography variant="body2" color="text.secondary">Active keys</Typography>
-                  <Typography variant="h5" fontWeight={700}>{activeKeysCount}</Typography>
-                  {mostRecentKey ? (
-                    <Box>
-                      <Typography variant="subtitle2" color="text.secondary">Latest key</Typography>
-                      <Typography fontWeight={700}>{mostRecentKey.maskedKey}</Typography>
-                      <Typography variant="body2" color="text.secondary">{mostRecentKey.apiName || 'API unavailable'}</Typography>
-                    </Box>
-                  ) : null}
-                  <Button component={Link} to="/consumer/api-keys" variant="outlined">
-                    Manage API Keys
-                  </Button>
-                </Stack>
-              ) : (
-                <Stack spacing={1.5}>
-                  <Typography color="text.secondary">No API keys were returned.</Typography>
-                  <Button component={Link} to="/consumer/api-keys" variant="outlined">
-                    Manage API Keys
-                  </Button>
-                </Stack>
-              )}
-            </AppCard>
-          </Grid>
-        </Grid>
-      )}
-
-
-      <Grid container spacing={3} sx={{ mt: 1 }}>
-        <Grid item xs={12} lg={6}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
           <AppCard title="Recent subscriptions" subtitle="Your most recent subscription activity.">
             {recentSubscriptions.length ? (
               <Box sx={{ overflowX: 'auto' }}>
@@ -278,8 +195,10 @@ const ConsumerDashboardPage = () => {
             </Box>
           </AppCard>
         </Grid>
+      </Grid>
 
-        <Grid item xs={12} lg={6}>
+      <Grid container spacing={3} sx={{ mt: 1 }}>
+        <Grid item xs={12}>
           <AppCard title="Recent API activity" subtitle="Latest requests from your consumer account.">
             {recentUsage.length ? (
               <Box sx={{ overflowX: 'auto' }}>
