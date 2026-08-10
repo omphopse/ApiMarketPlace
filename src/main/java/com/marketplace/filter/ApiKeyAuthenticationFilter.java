@@ -53,9 +53,6 @@ public class ApiKeyAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String resolveApiKey(String header, HttpServletRequest request) {
-        if (header != null && header.startsWith("Bearer ")) {
-            return header.substring(7).trim();
-        }
         String xApiKey = request.getHeader("X-API-Key");
         if (xApiKey != null && !xApiKey.isBlank()) {
             return xApiKey.trim();

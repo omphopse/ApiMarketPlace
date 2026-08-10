@@ -11,10 +11,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.ResourceAccessException;
 
 @RestController
 @RequestMapping("/api/marketplace")
@@ -23,7 +24,9 @@ public class ProtectedApiController {
     private final ApiKeyConsumptionService apiKeyConsumptionService;
     private final ApiProxyService apiProxyService;
 
-    @GetMapping({"/apis/{apiId}/execute", "/apis/{apiId}/execute/**"})
+    @RequestMapping(
+            value = {"/apis/{apiId}/execute", "/apis/{apiId}/execute/**"},
+            method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.PATCH, RequestMethod.DELETE})
     public ResponseEntity<?> executeProtectedApi(@PathVariable String apiId, Authentication authentication, HttpServletRequest request) {
         ApiKeyAccessDecision decision = apiKeyConsumptionService.validateRequest(authentication, request);
         if (!decision.isAllowed()) {
@@ -31,14 +34,22 @@ public class ProtectedApiController {
         }
 
         try {
-            ResponseEntity<String> providerResponse = apiProxyService.proxyRequest(request, decision.getApi(), decision);
+            ResponseEntity<byte[]> providerResponse = apiProxyService.proxyRequest(request, decision.getApi(), decision);
             HttpHeaders headers = new HttpHeaders();
             headers.add("X-RateLimit-Limit", String.valueOf(decision.getLimit()));
             headers.add("X-RateLimit-Remaining", String.valueOf(decision.getRemaining()));
             headers.add("Retry-After", String.valueOf(decision.getRetryAfterSeconds() != null ? decision.getRetryAfterSeconds() : 0));
             if (providerResponse.getHeaders() != null) {
                 providerResponse.getHeaders().forEach((name, values) -> {
-                    if (!"Transfer-Encoding".equalsIgnoreCase(name) && !"Content-Length".equalsIgnoreCase(name)) {
+                    if (!"Transfer-Encoding".equalsIgnoreCase(name)
+                            && !"Content-Length".equalsIgnoreCase(name)
+                            && !"Connection".equalsIgnoreCase(name)
+                            && !"Keep-Alive".equalsIgnoreCase(name)
+                            && !"Proxy-Authenticate".equalsIgnoreCase(name)
+                            && !"Proxy-Authorization".equalsIgnoreCase(name)
+                            && !"TE".equalsIgnoreCase(name)
+                            && !"Trailer".equalsIgnoreCase(name)
+                            && !"Upgrade".equalsIgnoreCase(name)) {
                         headers.put(name, values);
                     }
                 });
@@ -46,7 +57,7 @@ public class ProtectedApiController {
             headers.remove("Authorization");
             headers.remove("Cookie");
             return ResponseEntity.status(providerResponse.getStatusCode()).headers(headers).body(providerResponse.getBody());
-        } catch (Exception ex) {
+        } catch (ResourceAccessException ex) {
             HttpHeaders headers = new HttpHeaders();
             headers.add("X-RateLimit-Limit", String.valueOf(decision.getLimit()));
             headers.add("X-RateLimit-Remaining", String.valueOf(decision.getRemaining()));

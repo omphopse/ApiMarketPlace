@@ -6,16 +6,15 @@ import com.marketplace.service.ApiProxyService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -26,14 +25,15 @@ public class ApiProxyServiceImpl implements ApiProxyService {
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public ResponseEntity<String> proxyRequest(HttpServletRequest request, Api api, ApiKeyAccessDecision decision) {
+    public ResponseEntity<byte[]> proxyRequest(HttpServletRequest request, Api api, ApiKeyAccessDecision decision) {
         if (api == null || api.getBaseUrl() == null || api.getBaseUrl().isBlank()) {
             throw new IllegalArgumentException("Provider API base URL is not configured");
         }
 
         HttpMethod method = HttpMethod.valueOf(request.getMethod());
         String targetPath = buildTargetPath(request);
-        URI targetUri = UriComponentsBuilder.fromUriString(api.getBaseUrl())
+        String normalizedBaseUrl = api.getBaseUrl().replaceAll("/+$", "");
+        URI targetUri = UriComponentsBuilder.fromUriString(normalizedBaseUrl)
                 .path(targetPath)
                 .query(request.getQueryString())
                 .build(true)
@@ -47,28 +47,43 @@ public class ApiProxyServiceImpl implements ApiProxyService {
                 Collections.list(request.getHeaders(headerName)).forEach(value -> headers.add(headerName, value));
             }
         }
-        headers.remove("Authorization");
         headers.remove("Cookie");
 
-        String body = null;
-        if (method != HttpMethod.GET && method != HttpMethod.DELETE) {
+        byte[] body = null;
+        if (method != HttpMethod.GET) {
             try {
-                body = request.getReader().lines().collect(Collectors.joining("\n"));
+                body = StreamUtils.copyToByteArray(request.getInputStream());
             } catch (IOException e) {
                 throw new IllegalStateException("Unable to read request body", e);
             }
         }
 
-        RequestEntity<?> requestEntity;
-        if (body != null && !body.isBlank()) {
-            requestEntity = new RequestEntity<>(body, headers, method, targetUri);
-        } else {
-            requestEntity = new RequestEntity<>(headers, method, targetUri);
-        }
+        RequestEntity<?> requestEntity = (body != null && body.length > 0)
+                ? new RequestEntity<>(body, headers, method, targetUri)
+                : new RequestEntity<>(headers, method, targetUri);
+
         try {
-            return restTemplate.exchange(requestEntity, String.class);
+            return restTemplate.exchange(requestEntity, byte[].class);
         } catch (RestClientResponseException ex) {
-            throw ex;
+            HttpHeaders responseHeaders = new HttpHeaders();
+            if (ex.getResponseHeaders() != null) {
+                ex.getResponseHeaders().forEach((name, values) -> {
+                    if (!"Transfer-Encoding".equalsIgnoreCase(name)
+                            && !"Content-Length".equalsIgnoreCase(name)
+                            && !"Connection".equalsIgnoreCase(name)
+                            && !"Keep-Alive".equalsIgnoreCase(name)
+                            && !"Proxy-Authenticate".equalsIgnoreCase(name)
+                            && !"Proxy-Authorization".equalsIgnoreCase(name)
+                            && !"TE".equalsIgnoreCase(name)
+                            && !"Trailer".equalsIgnoreCase(name)
+                            && !"Upgrade".equalsIgnoreCase(name)) {
+                        responseHeaders.put(name, values);
+                    }
+                });
+            }
+            return ResponseEntity.status(ex.getRawStatusCode())
+                    .headers(responseHeaders)
+                    .body(ex.getResponseBodyAsByteArray());
         }
     }
 
@@ -87,12 +102,23 @@ public class ApiProxyServiceImpl implements ApiProxyService {
 
     private boolean isSafeHeader(String headerName) {
         String normalized = headerName.toLowerCase();
-        return !normalized.contains("authorization")
-                && !normalized.contains("cookie")
+        return !normalized.contains("cookie")
                 && !normalized.contains("jwt")
                 && !normalized.contains("token")
                 && !normalized.contains("secret")
                 && !normalized.contains("api-key")
-                && !normalized.contains("x-api-key");
+                && !normalized.contains("x-api-key")
+                && !normalized.equals("host")
+                && !normalized.equals("accept-encoding")
+                && !normalized.equals("content-length")
+                && !normalized.equals("connection")
+                && !normalized.equals("keep-alive")
+                && !normalized.equals("proxy-authenticate")
+                && !normalized.equals("proxy-authorization")
+                && !normalized.equals("te")
+                && !normalized.equals("trailer")
+                && !normalized.equals("transfer-encoding")
+                && !normalized.equals("upgrade")
+                && !normalized.equals("proxy-connection");
     }
 }
