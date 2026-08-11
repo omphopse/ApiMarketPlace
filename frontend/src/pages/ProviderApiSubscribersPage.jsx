@@ -13,6 +13,7 @@ import { formatCurrency, formatDate } from '../utils/formatters';
 const ProviderApiSubscribersPage = () => {
   const { id } = useParams();
   const [subscribers, setSubscribers] = useState([]);
+  const [apiDetails, setApiDetails] = useState(null);
   const [pagination, setPagination] = useState({ page: 0, size: 10, totalPages: 0, totalElements: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -36,8 +37,18 @@ const ProviderApiSubscribersPage = () => {
     }
   };
 
+  const loadApiDetails = async () => {
+    try {
+      const api = await providerService.getApiById(id);
+      setApiDetails(api);
+    } catch (_) {
+      setApiDetails(null);
+    }
+  };
+
   useEffect(() => {
     loadSubscribers(0, pagination.size);
+    loadApiDetails();
   }, [id]);
 
   const handlePageChange = (_, value) => {
@@ -49,8 +60,8 @@ const ProviderApiSubscribersPage = () => {
       <PageHeader title="Subscribers" subtitle="Manage your current API subscribers." action={<Button component={Link} to={`/provider/apis/${id}`} variant="contained">Back to API</Button>} />
       <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item xs={12} md={4}><AppCard title="Total subscribers" subtitle={pagination.totalElements} /></Grid>
-        <Grid item xs={12} md={4}><AppCard title="Page" subtitle={pagination.page + 1} /></Grid>
-        <Grid item xs={12} md={4}><AppCard title="Page size" subtitle={pagination.size} /></Grid>
+        <Grid item xs={12} md={4}><AppCard title="Total active subscribers" subtitle={apiDetails?.subscribers != null ? apiDetails.subscribers : 'Unavailable'} /></Grid>
+        <Grid item xs={12} md={4}><AppCard title="Total revenue" subtitle={apiDetails?.revenue != null ? formatCurrency(apiDetails.revenue) : 'Unavailable'} /></Grid>
       </Grid>
       <AppCard title="Subscriber list" subtitle="Exact user details for each active subscription.">
         {loading ? (

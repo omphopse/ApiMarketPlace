@@ -19,5 +19,6 @@ public class UsageSummaryResponse {
     private Long remainingRequests;
     private LocalDateTime periodStart;
     private LocalDateTime periodEnd;
+    private List<UsageSeriesPoint> requestsSeries;
     private List<UsageLogResponse> recentRequests;
 }

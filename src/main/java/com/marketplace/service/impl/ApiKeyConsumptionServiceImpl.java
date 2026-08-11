@@ -4,11 +4,14 @@ import com.marketplace.dto.ApiKeyAccessDecision;
 import com.marketplace.entity.Api;
 import com.marketplace.entity.ApiKey;
 import com.marketplace.entity.ApiKeyStatus;
+import com.marketplace.entity.ApiStatus;
+import com.marketplace.entity.User;
 import com.marketplace.entity.Subscription;
 import com.marketplace.entity.SubscriptionStatus;
 import com.marketplace.entity.UsageLog;
 import com.marketplace.repository.ApiKeyRepository;
 import com.marketplace.repository.SubscriptionRepository;
+import com.marketplace.repository.UserRepository;
 import java.util.Objects;
 import com.marketplace.repository.UsageLogRepository;
 import com.marketplace.security.api.ApiKeyPrincipal;
@@ -34,6 +37,7 @@ import org.springframework.util.StringUtils;
 public class ApiKeyConsumptionServiceImpl implements ApiKeyConsumptionService {
     private final ApiKeyRepository apiKeyRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final UserRepository userRepository;
     private final UsageLogRepository usageLogRepository;
     private final MongoTemplate mongoTemplate;
 
@@ -97,12 +101,21 @@ public class ApiKeyConsumptionServiceImpl implements ApiKeyConsumptionService {
         }
 
         Api api = apiKey.getApi();
-        if (api == null) {
+        if (api == null || api.isDeleted() || api.getStatus() != ApiStatus.APPROVED) {
             return ApiKeyAccessDecision.builder()
                     .allowed(false)
-                    .errorCode("API_NOT_FOUND")
-                    .message("API was not found")
-                    .statusCode(404)
+                    .errorCode("API_NOT_AVAILABLE")
+                    .message("This API is no longer available because its provider account has been deactivated.")
+                    .statusCode(403)
+                    .build();
+        }
+
+        if (api.getProviderId() == null || !userRepository.findById(api.getProviderId()).filter(User::isEnabled).isPresent()) {
+            return ApiKeyAccessDecision.builder()
+                    .allowed(false)
+                    .errorCode("API_NOT_AVAILABLE")
+                    .message("This API is no longer available because its provider account has been deactivated.")
+                    .statusCode(403)
                     .build();
         }
 

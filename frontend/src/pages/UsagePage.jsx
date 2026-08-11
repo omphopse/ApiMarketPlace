@@ -6,7 +6,7 @@ import AppCard from '../components/AppCard';
 import LoadingState from '../components/LoadingState';
 import ErrorState from '../components/ErrorState';
 import { consumerService } from '../services/consumerService';
-import { ResponsiveContainer, BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from 'recharts';
 
 const UsagePage = () => {
   const [usage, setUsage] = useState(null);
@@ -88,12 +88,20 @@ const UsagePage = () => {
       <Grid container spacing={3} sx={{ mt: 0.2 }}>
         <Grid item xs={12} lg={8}><AppCard title="Requests over time" subtitle="Usage during the selected range"><Box sx={{ height: 280 }}>
             {usage?.requestsSeries?.length ? (
-              <ResponsiveContainer width="100%" height="100%"><BarChart data={usage.requestsSeries}><CartesianGrid strokeDasharray="3 3" /><XAxis dataKey="name" /><YAxis /><Tooltip /><Bar dataKey="value" fill="#1677FF" /></BarChart></ResponsiveContainer>
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={usage.requestsSeries} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" tick={{ fill: '#6B7280', fontSize: 12 }} />
+                  <YAxis tick={{ fill: '#6B7280', fontSize: 12 }} />
+                  <Tooltip formatter={(value) => [`${value ?? 0}`, 'Requests']} />
+                  <Line type="monotone" dataKey="value" stroke="#1677FF" strokeWidth={3} dot={{ r: 4, fill: '#1677FF', stroke: '#ffffff', strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                </LineChart>
+              </ResponsiveContainer>
             ) : (
               <Box sx={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'text.secondary' }}>No usage points available for this period.</Box>
             )}
           </Box></AppCard></Grid>
-        <Grid item xs={12} lg={4}><AppCard title="Error mix" subtitle="Success and error breakdown"><Box sx={{ height: 260 }}><ResponsiveContainer width="100%" height="100%"><PieChart><Pie data={usage?.errorSeries || []} dataKey="value" nameKey="name" innerRadius={55} outerRadius={90}><Cell fill="#1677FF" /><Cell fill="#F59E0B" /><Cell fill="#DC2626" /></Pie></PieChart></ResponsiveContainer></Box></AppCard></Grid>
+        <Grid item xs={12} lg={4}><AppCard title="Error mix" subtitle="Success and error breakdown"><Box sx={{ height: 260 }}><ResponsiveContainer width="100%" height="100%"><PieChart><Tooltip formatter={(value) => [`${value ?? 0}`, 'Requests']} /><Pie data={usage?.errorSeries || []} dataKey="value" nameKey="name" innerRadius={55} outerRadius={90} label={({ name }) => name}><Cell fill="#1677FF" /><Cell fill="#F59E0B" /><Cell fill="#DC2626" /></Pie></PieChart></ResponsiveContainer></Box></AppCard></Grid>
       </Grid>
       <AppCard title="Recent requests" subtitle="Latest activity from your subscriptions" sx={{ mt: 3 }}>
         <Box sx={{ overflowX: 'auto' }}>

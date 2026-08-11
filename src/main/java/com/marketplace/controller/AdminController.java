@@ -104,6 +104,11 @@ public class AdminController {
     public ResponseEntity<ApiSummaryDto> rejectApi(@PathVariable String id) {
         return ResponseEntity.ok(adminService.rejectApi(id));
     }
+
+    @PutMapping("/apis/{id}/status")
+    public ResponseEntity<ApiSummaryDto> changeApiStatus(@PathVariable String id, @RequestBody com.marketplace.dto.ApiStatusChangeRequest request) {
+        return ResponseEntity.ok(adminService.changeApiStatus(id, request.getNewStatus(), request.getReason()));
+    }
     
     @GetMapping("/analytics")
     public ResponseEntity<AnalyticsResponse> getAnalytics() {

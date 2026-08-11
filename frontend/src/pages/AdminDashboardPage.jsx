@@ -13,13 +13,15 @@ import { adminService } from '../services/adminService';
 const AdminDashboardPage = () => {
   const [dashboard, setDashboard] = useState(null);
   const [analytics, setAnalytics] = useState(null);
+  const [apis, setApis] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    Promise.all([adminService.getDashboard(), adminService.getAnalytics()])
-      .then(([dashboardResponse, analyticsResponse]) => {
+    Promise.all([adminService.getDashboard(), adminService.getAnalytics(), adminService.getApis()])
+      .then(([dashboardResponse, analyticsResponse, apisResponse]) => {
         setDashboard(dashboardResponse);
         setAnalytics(analyticsResponse);
+        setApis(apisResponse.content || []);
       })
       .catch((err) => setError(err.message));
   }, []);
@@ -35,13 +37,18 @@ const AdminDashboardPage = () => {
   }, [analytics]);
 
   const providerStatusData = useMemo(() => {
-    if (!analytics) return [];
+    const totals = { approved: 0, pending: 0, rejected: 0 };
+    apis.forEach((api) => {
+      if (api.status === 'APPROVED') totals.approved += 1;
+      if (api.status === 'PENDING') totals.pending += 1;
+      if (api.status === 'REJECTED') totals.rejected += 1;
+    });
     return [
-      { name: 'Approved', value: analytics.approvedProviders },
-      { name: 'Pending', value: analytics.pendingProviders },
-      { name: 'Rejected', value: analytics.rejectedProviders }
+      { name: 'Approved', value: totals.approved },
+      { name: 'Pending', value: totals.pending },
+      { name: 'Rejected', value: totals.rejected }
     ];
-  }, [analytics]);
+  }, [apis]);
 
   if (error) {
     return (

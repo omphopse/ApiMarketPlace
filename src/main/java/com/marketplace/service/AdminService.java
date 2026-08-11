@@ -36,6 +36,8 @@ public interface AdminService {
     ApiSummaryDto approveApi(String id);
 
     ApiSummaryDto rejectApi(String id);
+
+    ApiSummaryDto changeApiStatus(String id, String newStatus, String reason);
     
     AnalyticsResponse getAnalytics();
 

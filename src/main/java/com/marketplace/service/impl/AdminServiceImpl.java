@@ -32,6 +32,7 @@ import com.marketplace.repository.ApiDocumentationRepository;
 import com.marketplace.repository.ApiRepository;
 import com.marketplace.repository.CategoryRepository;
 import com.marketplace.repository.ProviderProfileRepository;
+import com.marketplace.exception.UnauthorizedResourceAccessException;
 import com.marketplace.repository.RoleRepository;
 import com.marketplace.repository.SubscriptionPlanRepository;
 import com.marketplace.repository.SubscriptionRepository;
@@ -41,6 +42,8 @@ import com.marketplace.service.AuditLogService;
 import com.marketplace.notification.NotificationService;
 import com.marketplace.notification.email.EmailEventType;
 import com.marketplace.notification.email.NotificationRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -94,7 +97,12 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
+    @Transactional
     public UserResponse updateUserStatus(String id, boolean enabled) {
+        User currentUser = getCurrentUser();
+        if (currentUser.getId().equals(id)) {
+            throw new UnauthorizedResourceAccessException("Administrators cannot disable or delete their own account.");
+        }
 
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
@@ -129,7 +137,12 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
+    @Transactional
     public void deleteUser(String id) {
+        User currentUser = getCurrentUser();
+        if (currentUser.getId().equals(id)) {
+            throw new UnauthorizedResourceAccessException("Administrators cannot disable or delete their own account.");
+        }
 
         User user = userRepository.findById(id)
                 .orElseThrow(() ->
@@ -137,6 +150,17 @@ public class AdminServiceImpl implements AdminService {
 
         if (AppConstants.ROLE_ADMIN.equals(user.getRole().getName())) {
             throw new IllegalArgumentException("Admin users cannot be deleted.");
+        }
+
+        if (AppConstants.ROLE_PROVIDER.equals(user.getRole().getName())) {
+            List<Api> providerApis = apiRepository.findByProviderIdAndDeletedFalseOrderByCreatedAtDesc(id);
+            if (!providerApis.isEmpty()) {
+                providerApis.forEach(api -> {
+                    api.setStatus(ApiStatus.ARCHIVED);
+                    api.setDeleted(true);
+                });
+                apiRepository.saveAll(providerApis);
+            }
         }
 
         userRepository.delete(user);
@@ -198,6 +222,12 @@ public class AdminServiceImpl implements AdminService {
                 .toList();
     }
     
+    private User getCurrentUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Current user not found"));
+    }
+
     private Role getRoleByName(String roleName) {
         return roleRepository.findByName(roleName)
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found: " + roleName));
@@ -302,6 +332,35 @@ public class AdminServiceImpl implements AdminService {
                 auditLogService.saveLog("REJECT_API", "API", "Rejected API: " + updatedApi.getName());
                 notifyProvider(updatedApi, EmailEventType.API_REJECTED);
                 return toApiSummary(updatedApi);
+        }
+
+        @Override
+        public ApiSummaryDto changeApiStatus(String id, String newStatus, String reason) {
+                Api api = getReviewableApi(id);
+                ApiStatus previous = api.getStatus();
+                ApiStatus target;
+                try {
+                        target = ApiStatus.valueOf(newStatus);
+                } catch (IllegalArgumentException ex) {
+                        throw new IllegalArgumentException("Invalid API status: " + newStatus);
+                }
+
+                api.setStatus(target);
+                Api updated = apiRepository.save(api);
+
+                String desc = String.format("Changed API status from %s to %s for API: %s", previous == null ? "null" : previous.name(), target.name(), updated.getName());
+                if (reason != null && !reason.isBlank()) {
+                        desc = desc + " - Reason: " + reason;
+                }
+                auditLogService.saveLog("CHANGE_API_STATUS", "API", desc);
+
+                if (target == ApiStatus.APPROVED) {
+                        notifyProvider(updated, EmailEventType.API_APPROVED);
+                } else if (target == ApiStatus.REJECTED) {
+                        notifyProvider(updated, EmailEventType.API_REJECTED);
+                }
+
+                return toApiSummary(updated);
         }
 
         private void notifyProvider(Api api, EmailEventType eventType) {

@@ -17,6 +17,7 @@ import com.marketplace.dto.SubscriptionDetailsResponse;
 import com.marketplace.dto.SubscriptionPlanResponse;
 import com.marketplace.dto.SubscriptionResponse;
 import com.marketplace.dto.UsageLogResponse;
+import com.marketplace.dto.UsageSeriesPoint;
 import com.marketplace.dto.UsageSummaryResponse;
 import com.marketplace.entity.Api;
 import com.marketplace.entity.ApiDocumentation;
@@ -187,6 +188,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     public ApiMarketplaceDetailsResponse getMarketplaceApi(String apiId) {
         Api api = apiRepository.findByIdAndDeletedFalse(apiId)
                 .filter(a -> a.getStatus() == ApiStatus.APPROVED)
+                .filter(this::isProviderAvailable)
                 .orElseThrow(() -> new ApiNotAvailableException("API is not available"));
         Category category = categoryRepository.findById(api.getCategoryId()).orElse(null);
         
@@ -214,6 +216,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     public List<SubscriptionPlanResponse> getApiPlans(String apiId) {
         Api api = apiRepository.findByIdAndDeletedFalse(apiId)
                 .filter(a -> a.getStatus() == ApiStatus.APPROVED)
+                .filter(this::isProviderAvailable)
                 .orElseThrow(() -> new ApiNotAvailableException("API is not available"));
         return subscriptionPlanRepository.findByApiId(api.getId()).stream()
                 .filter(SubscriptionPlan::isActive)
@@ -226,6 +229,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     public SubscriptionResponse createSubscription(CreateSubscriptionRequest request) {
         User consumer = getCurrentUser();
         Api api = apiRepository.findByIdAndDeletedFalse(request.getApiId())
+                .filter(this::isProviderAvailable)
                 .orElseThrow(() -> new ApiNotAvailableException("API is not available"));
         if (api.getStatus() != ApiStatus.APPROVED) {
             throw new ApiNotAvailableException("API is not available");
@@ -267,7 +271,8 @@ public class ConsumerServiceImpl implements ConsumerService {
         if (subscription.getStatus() != SubscriptionStatus.PENDING) {
             throw new InvalidSubscriptionStateException("Subscription is not pending");
         }
-        if (subscription.getApi().getStatus() != ApiStatus.APPROVED) {
+        Api api = subscription.getApi();
+        if (api == null || api.getStatus() != ApiStatus.APPROVED || !isProviderAvailable(api)) {
             throw new ApiNotAvailableException("API is not available");
         }
         if (!subscription.getSubscriptionPlan().isActive()) {
@@ -454,6 +459,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .failedRequests(0L)
                 .requestLimit(0)
                 .remainingRequests(0L)
+                .requestsSeries(List.of())
                 .recentRequests(List.of())
                 .build();
     }
@@ -630,6 +636,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 .remainingRequests(remainingRequests)
                 .periodStart(subscription.getStartedAt())
                 .periodEnd(subscription.getExpiresAt())
+                .requestsSeries(buildRequestsSeries(usageLogs, startDate))
                 .recentRequests(usageLogs.stream()
                         .sorted((a, b) -> b.getTimestamp().compareTo(a.getTimestamp()))
                         .map(this::toUsageLogResponse)
@@ -648,6 +655,27 @@ public class ConsumerServiceImpl implements ConsumerService {
             return subscriptionStartedAt;
         }
         return LocalDateTime.now().minusYears(10);
+    }
+
+    private List<UsageSeriesPoint> buildRequestsSeries(List<UsageLog> usageLogs, LocalDateTime startDate) {
+        var dailyCounts = usageLogs.stream()
+                .filter(log -> log.getTimestamp() != null)
+                .collect(Collectors.groupingBy(log -> log.getTimestamp().toLocalDate(), Collectors.counting()));
+
+        List<UsageSeriesPoint> series = new java.util.ArrayList<>();
+        var formatter = java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
+        var currentDate = startDate.toLocalDate();
+        var endDate = LocalDate.now();
+
+        while (!currentDate.isAfter(endDate)) {
+            series.add(UsageSeriesPoint.builder()
+                    .name(currentDate.format(formatter))
+                    .value(dailyCounts.getOrDefault(currentDate, 0L))
+                    .build());
+            currentDate = currentDate.plusDays(1);
+        }
+
+        return series;
     }
 
     private UsageLogResponse toUsageLogResponse(UsageLog usageLog) {
@@ -719,6 +747,12 @@ public class ConsumerServiceImpl implements ConsumerService {
         };
     }
 
+    private boolean isProviderAvailable(Api api) {
+        return api.getProviderId() != null && userRepository.findById(api.getProviderId())
+                .filter(User::isEnabled)
+                .isPresent();
+    }
+
     private User getCurrentUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepository.findByEmail(email)
@@ -747,6 +781,7 @@ public class ConsumerServiceImpl implements ConsumerService {
         return apiRepository.findAll().stream()
                 .filter(api -> !api.isDeleted())
                 .filter(api -> api.getStatus() == ApiStatus.APPROVED)
+                .filter(this::isProviderAvailable)
                 .filter(api -> matchesSearch(api, search))
                 .filter(api -> categoryId == null || Objects.equals(api.getCategoryId(), categoryId))
                 .filter(api -> matchesPricing(api, pricing))

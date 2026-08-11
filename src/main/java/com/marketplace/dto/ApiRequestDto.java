@@ -1,5 +1,6 @@
 package com.marketplace.dto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -56,6 +57,7 @@ public class ApiRequestDto {
 
     private List<String> tags;
 
+    @Valid
     private List<SubscriptionPlanDto> plans;
     private ApiDocumentationDto documentation;
 }

@@ -284,7 +284,7 @@ public class ProviderServiceImpl implements ProviderService {
                 .plan(ProviderSubscriberResponse.PlanSummary.builder()
                         .id(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getId() : null)
                         .name(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getPlanName() : null)
-                        .billingCycle(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getBillingCycle().name() : null)
+                        .billingCycle(subscription.getSubscriptionPlan() != null && subscription.getSubscriptionPlan().getBillingCycle() != null ? subscription.getSubscriptionPlan().getBillingCycle().name() : null)
                         .requestLimit(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getRequestLimit() : null)
                         .price(subscription.getSubscriptionPlan() != null ? subscription.getSubscriptionPlan().getPrice() : null)
                         .build())

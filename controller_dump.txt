@@ -1,0 +1,1001 @@
+﻿Classfile /D:/ApiMarketplace/target/classes/com/marketplace/controller/ConsumerController.class
+  Last modified Aug 11, 2026; size 12358 bytes
+  SHA-256 checksum 40de5012d1764ad40e79292915bb1f7fbdd86b1c631f229a9a6e888c1b5c7453
+  Compiled from "ConsumerController.java"
+public class com.marketplace.controller.ConsumerController
+  minor version: 0
+  major version: 65
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #1                          // com/marketplace/controller/ConsumerController
+  super_class: #3                         // java/lang/Object
+  interfaces: 0, fields: 1, methods: 19, attributes: 4
+Constant pool:
+    #1 = Class              #2            // com/marketplace/controller/ConsumerController
+    #2 = Utf8               com/marketplace/controller/ConsumerController
+    #3 = Class              #4            // java/lang/Object
+    #4 = Utf8               java/lang/Object
+    #5 = Utf8               consumerService
+    #6 = Utf8               Lcom/marketplace/service/ConsumerService;
+    #7 = Utf8               getProfile
+    #8 = Utf8               ()Lorg/springframework/http/ResponseEntity;
+    #9 = Utf8               Signature
+   #10 = Utf8               ()Lorg/springframework/http/ResponseEntity<LConsumerProfileResponse;>;
+   #11 = Utf8               RuntimeVisibleAnnotations
+   #12 = Utf8               Lio/swagger/v3/oas/annotations/Operation;
+   #13 = Utf8               summary
+   #14 = Utf8               Get consumer profile
+   #15 = Utf8               Lorg/springframework/web/bind/annotation/GetMapping;
+   #16 = Utf8               value
+   #17 = Utf8               /profile
+   #18 = Utf8               Code
+   #19 = Class              #20           // java/lang/Error
+   #20 = Utf8               java/lang/Error
+   #21 = String             #22           // Unresolved compilation problems: \n\tConsumerProfileResponse cannot be resolved to a type\n\tThe method getProfile() from the type ConsumerService refers to the missing type ConsumerProfileResponse\n
+   #22 = Utf8               Unresolved compilation problems: \n\tConsumerProfileResponse cannot be resolved to a type\n\tThe method getProfile() from the type ConsumerService refers to the missing type ConsumerProfileResponse\n
+   #23 = Methodref          #19.#24       // java/lang/Error."<init>":(Ljava/lang/String;)V
+   #24 = NameAndType        #25:#26       // "<init>":(Ljava/lang/String;)V
+   #25 = Utf8               <init>
+   #26 = Utf8               (Ljava/lang/String;)V
+   #27 = Utf8               LineNumberTable
+   #28 = Utf8               LocalVariableTable
+   #29 = Utf8               this
+   #30 = Utf8               Lcom/marketplace/controller/ConsumerController;
+   #31 = Utf8               updateProfile
+   #32 = Utf8               (LConsumerProfileUpdateRequest;)Lorg/springframework/http/ResponseEntity;
+   #33 = Utf8               (LConsumerProfileUpdateRequest;)Lorg/springframework/http/ResponseEntity<LConsumerProfileResponse;>;
+   #34 = Utf8               Update consumer profile
+   #35 = Utf8               Lorg/springframework/web/bind/annotation/PutMapping;
+   #36 = Utf8               RuntimeVisibleParameterAnnotations
+   #37 = Utf8               Ljakarta/validation/Valid;
+   #38 = Utf8               Lorg/springframework/web/bind/annotation/RequestBody;
+   #39 = String             #40           // Unresolved compilation problems: \n\tConsumerProfileResponse cannot be resolved to a type\n\tConsumerProfileUpdateRequest cannot be resolved to a type\n
+   #40 = Utf8               Unresolved compilation problems: \n\tConsumerProfileResponse cannot be resolved to a type\n\tConsumerProfileUpdateRequest cannot be resolved to a type\n
+   #41 = Utf8               RuntimeVisibleTypeAnnotations
+   #42 = Utf8               request
+   #43 = Utf8               MethodParameters
+   #44 = Utf8               uploadProfileImage
+   #45 = Utf8               (Lorg/springframework/web/multipart/MultipartFile;)Lorg/springframework/http/ResponseEntity;
+   #46 = Utf8               (Lorg/springframework/web/multipart/MultipartFile;)Lorg/springframework/http/ResponseEntity<Ljava/lang/String;>;
+   #47 = Utf8               Upload consumer profile picture
+   #48 = Utf8               Lorg/springframework/web/bind/annotation/PostMapping;
+   #49 = Utf8               /profile/upload
+   #50 = Utf8               consumes
+   #51 = Utf8               multipart/form-data
+   #52 = Utf8               Lorg/springframework/web/bind/annotation/RequestPart;
+   #53 = Utf8               file
+   #54 = Fieldref           #1.#55        // com/marketplace/controller/ConsumerController.consumerService:Lcom/marketplace/service/ConsumerService;
+   #55 = NameAndType        #5:#6         // consumerService:Lcom/marketplace/service/ConsumerService;
+   #56 = InterfaceMethodref #57.#59       // com/marketplace/service/ConsumerService.uploadProfileImage:(Lorg/springframework/web/multipart/MultipartFile;)Ljava/lang/String;
+   #57 = Class              #58           // com/marketplace/service/ConsumerService
+   #58 = Utf8               com/marketplace/service/ConsumerService
+   #59 = NameAndType        #44:#60       // uploadProfileImage:(Lorg/springframework/web/multipart/MultipartFile;)Ljava/lang/String;
+   #60 = Utf8               (Lorg/springframework/web/multipart/MultipartFile;)Ljava/lang/String;
+   #61 = Methodref          #62.#64       // org/springframework/http/ResponseEntity.ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #62 = Class              #63           // org/springframework/http/ResponseEntity
+   #63 = Utf8               org/springframework/http/ResponseEntity
+   #64 = NameAndType        #65:#66       // ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #65 = Utf8               ok
+   #66 = Utf8               (Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+   #67 = Utf8               Lorg/springframework/web/multipart/MultipartFile;
+   #68 = Utf8               browseMarketplace
+   #69 = Utf8               (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+   #70 = Utf8               (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LPagedResponse<LApiMarketplaceCardResponse;>;>;
+   #71 = Utf8               Browse marketplace APIs
+   #72 = Utf8               /marketplace/apis
+   #73 = Utf8               Lorg/springframework/web/bind/annotation/RequestParam;
+   #74 = Utf8               defaultValue
+   #75 = Utf8               0
+   #76 = Utf8               Ljakarta/validation/constraints/Min;
+   #77 = Long               0l
+   #79 = Utf8               12
+   #80 = Utf8               Ljakarta/validation/constraints/Positive;
+   #81 = Utf8               required
+   #82 = Integer            0
+   #83 = Utf8               NEWEST
+   #84 = String             #85           // Unresolved compilation problems: \n\tPagedResponse cannot be resolved to a type\n\tApiMarketplaceCardResponse cannot be resolved to a type\n\tThe method browseMarketplace(int, int, String, String, String, String) from the type ConsumerService refers to the missing type PagedResponse\n
+   #85 = Utf8               Unresolved compilation problems: \n\tPagedResponse cannot be resolved to a type\n\tApiMarketplaceCardResponse cannot be resolved to a type\n\tThe method browseMarketplace(int, int, String, String, String, String) from the type ConsumerService refers to the missing type PagedResponse\n
+   #86 = Utf8               page
+   #87 = Utf8               size
+   #88 = Utf8               search
+   #89 = Utf8               categoryId
+   #90 = Utf8               pricing
+   #91 = Utf8               sort
+   #92 = Utf8               getMarketplaceApi
+   #93 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+   #94 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LApiMarketplaceDetailsResponse;>;
+   #95 = Utf8               Get marketplace API details
+   #96 = Utf8               /marketplace/apis/{id}
+   #97 = Utf8               Lorg/springframework/web/bind/annotation/PathVariable;
+   #98 = String             #99           // Unresolved compilation problems: \n\tApiMarketplaceDetailsResponse cannot be resolved to a type\n\tThe method getMarketplaceApi(String) from the type ConsumerService refers to the missing type ApiMarketplaceDetailsResponse\n
+   #99 = Utf8               Unresolved compilation problems: \n\tApiMarketplaceDetailsResponse cannot be resolved to a type\n\tThe method getMarketplaceApi(String) from the type ConsumerService refers to the missing type ApiMarketplaceDetailsResponse\n
+  #100 = Utf8               id
+  #101 = Utf8               getApiPlans
+  #102 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Ljava/util/List<LSubscriptionPlanResponse;>;>;
+  #103 = Utf8               List subscription plans for a marketplace API
+  #104 = Utf8               /marketplace/apis/{apiId}/plans
+  #105 = String             #106          // Unresolved compilation problems: \n\tSubscriptionPlanResponse cannot be resolved to a type\n\tThe method getApiPlans(String) from the type ConsumerService refers to the missing type SubscriptionPlanResponse\n
+  #106 = Utf8               Unresolved compilation problems: \n\tSubscriptionPlanResponse cannot be resolved to a type\n\tThe method getApiPlans(String) from the type ConsumerService refers to the missing type SubscriptionPlanResponse\n
+  #107 = Utf8               apiId
+  #108 = Utf8               createSubscription
+  #109 = Utf8               (LCreateSubscriptionRequest;)Lorg/springframework/http/ResponseEntity;
+  #110 = Utf8               (LCreateSubscriptionRequest;)Lorg/springframework/http/ResponseEntity<LSubscriptionResponse;>;
+  #111 = Utf8               Create a subscription for a marketplace API
+  #112 = Utf8               /subscriptions
+  #113 = String             #114          // Unresolved compilation problems: \n\tSubscriptionResponse cannot be resolved to a type\n\tCreateSubscriptionRequest cannot be resolved to a type\n
+  #114 = Utf8               Unresolved compilation problems: \n\tSubscriptionResponse cannot be resolved to a type\n\tCreateSubscriptionRequest cannot be resolved to a type\n
+  #115 = Utf8               activateSubscription
+  #116 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LSubscriptionActivationResponse;>;
+  #117 = Utf8               Activate a subscription (development/testing path)
+  #118 = Utf8               /dev/subscriptions/{subscriptionId}/activate
+  #119 = Utf8               Lorg/springframework/security/access/prepost/PreAuthorize;
+  #120 = Utf8               hasRole(\'CONSUMER\')
+  #121 = String             #122          // Unresolved compilation problems: \n\tSubscriptionActivationResponse cannot be resolved to a type\n\tThe method activateSubscriptionDev(String) from the type ConsumerService refers to the missing type SubscriptionActivationResponse\n
+  #122 = Utf8               Unresolved compilation problems: \n\tSubscriptionActivationResponse cannot be resolved to a type\n\tThe method activateSubscriptionDev(String) from the type ConsumerService refers to the missing type SubscriptionActivationResponse\n
+  #123 = Utf8               subscriptionId
+  #124 = Utf8               getApiKeys
+  #125 = Utf8               ()Lorg/springframework/http/ResponseEntity<Ljava/util/List<LApiKeyResponse;>;>;
+  #126 = Utf8               List active consumer API keys
+  #127 = Utf8               /api-keys
+  #128 = String             #129          // Unresolved compilation problems: \n\tApiKeyResponse cannot be resolved to a type\n\tThe method getApiKeys() from the type ConsumerService refers to the missing type ApiKeyResponse\n
+  #129 = Utf8               Unresolved compilation problems: \n\tApiKeyResponse cannot be resolved to a type\n\tThe method getApiKeys() from the type ConsumerService refers to the missing type ApiKeyResponse\n
+  #130 = Utf8               regenerateApiKey
+  #131 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LApiKeyCreatedResponse;>;
+  #132 = Utf8               Regenerate an API key for a subscription
+  #133 = Utf8               /subscriptions/{subscriptionId}/api-key/regenerate
+  #134 = String             #135          // Unresolved compilation problems: \n\tApiKeyCreatedResponse cannot be resolved to a type\n\tThe method regenerateApiKey(String) from the type ConsumerService refers to the missing type ApiKeyCreatedResponse\n
+  #135 = Utf8               Unresolved compilation problems: \n\tApiKeyCreatedResponse cannot be resolved to a type\n\tThe method regenerateApiKey(String) from the type ConsumerService refers to the missing type ApiKeyCreatedResponse\n
+  #136 = Utf8               revokeApiKey
+  #137 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Ljava/lang/Void;>;
+  #138 = Utf8               Revoke a consumer API key
+  #139 = Utf8               Lorg/springframework/web/bind/annotation/DeleteMapping;
+  #140 = Utf8               /api-keys/{id}
+  #141 = InterfaceMethodref #57.#142      // com/marketplace/service/ConsumerService.revokeApiKey:(Ljava/lang/String;)V
+  #142 = NameAndType        #136:#26      // revokeApiKey:(Ljava/lang/String;)V
+  #143 = Methodref          #62.#144      // org/springframework/http/ResponseEntity.noContent:()Lorg/springframework/http/ResponseEntity$HeadersBuilder;
+  #144 = NameAndType        #145:#146     // noContent:()Lorg/springframework/http/ResponseEntity$HeadersBuilder;
+  #145 = Utf8               noContent
+  #146 = Utf8               ()Lorg/springframework/http/ResponseEntity$HeadersBuilder;
+  #147 = InterfaceMethodref #148.#150     // org/springframework/http/ResponseEntity$HeadersBuilder.build:()Lorg/springframework/http/ResponseEntity;
+  #148 = Class              #149          // org/springframework/http/ResponseEntity$HeadersBuilder
+  #149 = Utf8               org/springframework/http/ResponseEntity$HeadersBuilder
+  #150 = NameAndType        #151:#8       // build:()Lorg/springframework/http/ResponseEntity;
+  #151 = Utf8               build
+  #152 = Utf8               apiKeyId
+  #153 = Utf8               Ljava/lang/String;
+  #154 = Utf8               getSubscriptions
+  #155 = Utf8               (IILjava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+  #156 = Utf8               (IILjava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LPagedResponse<LSubscriptionResponse;>;>;
+  #157 = Utf8               List consumer subscriptions
+  #158 = String             #159          // Unresolved compilation problems: \n\tPagedResponse cannot be resolved to a type\n\tSubscriptionResponse cannot be resolved to a type\n\tThe method getSubscriptions(int, int, String, String) from the type ConsumerService refers to the missing type PagedResponse\n
+  #159 = Utf8               Unresolved compilation problems: \n\tPagedResponse cannot be resolved to a type\n\tSubscriptionResponse cannot be resolved to a type\n\tThe method getSubscriptions(int, int, String, String) from the type ConsumerService refers to the missing type PagedResponse\n
+  #160 = Utf8               status
+  #161 = Utf8               getSubscription
+  #162 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/SubscriptionDetailsResponse;>;
+  #163 = Utf8               Get a subscription detail
+  #164 = Utf8               /subscriptions/{id}
+  #165 = InterfaceMethodref #57.#166      // com/marketplace/service/ConsumerService.getSubscription:(Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionDetailsResponse;
+  #166 = NameAndType        #161:#167     // getSubscription:(Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionDetailsResponse;
+  #167 = Utf8               (Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionDetailsResponse;
+  #168 = Utf8               cancelSubscription
+  #169 = Utf8               Cancel an active subscription
+  #170 = Utf8               Lorg/springframework/web/bind/annotation/PatchMapping;
+  #171 = Utf8               /subscriptions/{id}/cancel
+  #172 = InterfaceMethodref #57.#173      // com/marketplace/service/ConsumerService.cancelSubscription:(Ljava/lang/String;)V
+  #173 = NameAndType        #168:#26      // cancelSubscription:(Ljava/lang/String;)V
+  #174 = Utf8               getSubscriptionDocumentation
+  #175 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LApiDocumentationResponse;>;
+  #176 = Utf8               Get API documentation for a subscription
+  #177 = Utf8               /subscriptions/{subscriptionId}/documentation
+  #178 = String             #179          // Unresolved compilation problems: \n\tApiDocumentationResponse cannot be resolved to a type\n\tThe method getSubscriptionDocumentation(String) from the type ConsumerService refers to the missing type ApiDocumentationResponse\n
+  #179 = Utf8               Unresolved compilation problems: \n\tApiDocumentationResponse cannot be resolved to a type\n\tThe method getSubscriptionDocumentation(String) from the type ConsumerService refers to the missing type ApiDocumentationResponse\n
+  #180 = Utf8               getUsage
+  #181 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+  #182 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/UsageSummaryResponse;>;
+  #183 = Utf8               View usage summary
+  #184 = Utf8               /usage
+  #185 = InterfaceMethodref #57.#186      // com/marketplace/service/ConsumerService.getUsageSummary:(Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/UsageSummaryResponse;
+  #186 = NameAndType        #187:#188     // getUsageSummary:(Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/UsageSummaryResponse;
+  #187 = Utf8               getUsageSummary
+  #188 = Utf8               (Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/UsageSummaryResponse;
+  #189 = Utf8               range
+  #190 = Utf8               getUsageLogs
+  #191 = Utf8               (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Ljava/util/List<LUsageLogResponse;>;>;
+  #192 = Utf8               Debug: list raw usage logs for subscription
+  #193 = Utf8               /debug/usage-logs
+  #194 = String             #195          // Unresolved compilation problems: \n\tUsageLogResponse cannot be resolved to a type\n\tThe method getUsageLogs(String) from the type ConsumerService refers to the missing type UsageLogResponse\n
+  #195 = Utf8               Unresolved compilation problems: \n\tUsageLogResponse cannot be resolved to a type\n\tThe method getUsageLogs(String) from the type ConsumerService refers to the missing type UsageLogResponse\n
+  #196 = Utf8               getDashboard
+  #197 = Utf8               ()Lorg/springframework/http/ResponseEntity<LConsumerDashboardResponse;>;
+  #198 = Utf8               Get the consumer dashboard summary
+  #199 = Utf8               /dashboard
+  #200 = String             #201          // Unresolved compilation problems: \n\tConsumerDashboardResponse cannot be resolved to a type\n\tThe method getDashboard() from the type ConsumerService refers to the missing type ConsumerDashboardResponse\n
+  #201 = Utf8               Unresolved compilation problems: \n\tConsumerDashboardResponse cannot be resolved to a type\n\tThe method getDashboard() from the type ConsumerService refers to the missing type ConsumerDashboardResponse\n
+  #202 = Utf8               (Lcom/marketplace/service/ConsumerService;)V
+  #203 = Utf8               RuntimeInvisibleAnnotations
+  #204 = Utf8               Llombok/Generated;
+  #205 = Methodref          #3.#206       // java/lang/Object."<init>":()V
+  #206 = NameAndType        #25:#207      // "<init>":()V
+  #207 = Utf8               ()V
+  #208 = Utf8               SourceFile
+  #209 = Utf8               ConsumerController.java
+  #210 = Utf8               Lorg/springframework/web/bind/annotation/RestController;
+  #211 = Utf8               Lorg/springframework/web/bind/annotation/RequestMapping;
+  #212 = Utf8               /api/consumer
+  #213 = Utf8               Lio/swagger/v3/oas/annotations/tags/Tag;
+  #214 = Utf8               name
+  #215 = Utf8               Consumer API
+  #216 = Utf8               description
+  #217 = Utf8               Consumer-facing endpoints for profile, marketplace browsing, subscriptions, API keys, usage, and dashboard
+  #218 = Utf8               InnerClasses
+  #219 = Utf8               HeadersBuilder
+  #220 = Class              #221          // ApiDocumentationResponse
+  #221 = Utf8               ApiDocumentationResponse
+  #222 = Class              #223          // ApiKeyCreatedResponse
+  #223 = Utf8               ApiKeyCreatedResponse
+  #224 = Class              #225          // ApiKeyResponse
+  #225 = Utf8               ApiKeyResponse
+  #226 = Class              #227          // ApiMarketplaceCardResponse
+  #227 = Utf8               ApiMarketplaceCardResponse
+  #228 = Class              #229          // ApiMarketplaceDetailsResponse
+  #229 = Utf8               ApiMarketplaceDetailsResponse
+  #230 = Class              #231          // ConsumerDashboardResponse
+  #231 = Utf8               ConsumerDashboardResponse
+  #232 = Class              #233          // ConsumerProfileResponse
+  #233 = Utf8               ConsumerProfileResponse
+  #234 = Class              #235          // ConsumerProfileUpdateRequest
+  #235 = Utf8               ConsumerProfileUpdateRequest
+  #236 = Class              #237          // CreateSubscriptionRequest
+  #237 = Utf8               CreateSubscriptionRequest
+  #238 = Class              #239          // PagedResponse
+  #239 = Utf8               PagedResponse
+  #240 = Class              #241          // SubscriptionActivationResponse
+  #241 = Utf8               SubscriptionActivationResponse
+  #242 = Class              #243          // SubscriptionPlanResponse
+  #243 = Utf8               SubscriptionPlanResponse
+  #244 = Class              #245          // SubscriptionResponse
+  #245 = Utf8               SubscriptionResponse
+  #246 = Class              #247          // UsageLogResponse
+  #247 = Utf8               UsageLogResponse
+  #248 = Utf8               MissingTypes
+{
+  public org.springframework.http.ResponseEntity<ConsumerProfileResponse> getProfile();
+    descriptor: ()Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #10                          // ()Lorg/springframework/http/ResponseEntity<LConsumerProfileResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#14)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Get consumer profile"
+        )
+      1: #15(#16=[s#17])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/profile"]
+        )
+    Code:
+      stack=3, locals=1, args_size=1
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #21                 // String Unresolved compilation problems: \n\tConsumerProfileResponse cannot be resolved to a type\n\tThe method getProfile() from the type ConsumerService refers to the missing type ConsumerProfileResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 55: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+
+  public org.springframework.http.ResponseEntity<ConsumerProfileResponse> updateProfile(ConsumerProfileUpdateRequest);
+    descriptor: (LConsumerProfileUpdateRequest;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #33                          // (LConsumerProfileUpdateRequest;)Lorg/springframework/http/ResponseEntity<LConsumerProfileResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#34)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Update consumer profile"
+        )
+      1: #35(#16=[s#17])
+        org.springframework.web.bind.annotation.PutMapping(
+          value=["/profile"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #37()
+          jakarta.validation.Valid
+        1: #38()
+          org.springframework.web.bind.annotation.RequestBody
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #39                 // String Unresolved compilation problems: \n\tConsumerProfileResponse cannot be resolved to a type\n\tConsumerProfileUpdateRequest cannot be resolved to a type\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 61: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    RuntimeVisibleTypeAnnotations:
+      0: #37(): METHOD_FORMAL_PARAMETER, param_index=0
+        jakarta.validation.Valid
+    MethodParameters:
+      Name                           Flags
+      request
+
+  public org.springframework.http.ResponseEntity<java.lang.String> uploadProfileImage(org.springframework.web.multipart.MultipartFile);
+    descriptor: (Lorg/springframework/web/multipart/MultipartFile;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #46                          // (Lorg/springframework/web/multipart/MultipartFile;)Lorg/springframework/http/ResponseEntity<Ljava/lang/String;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#47)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Upload consumer profile picture"
+        )
+      1: #48(#16=[s#49],#50=[s#51])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/profile/upload"]
+          consumes=["multipart/form-data"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #52(#16=s#53)
+          org.springframework.web.bind.annotation.RequestPart(
+            value="file"
+          )
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #54                 // Field consumerService:Lcom/marketplace/service/ConsumerService;
+         4: aload_1
+         5: invokeinterface #56,  2           // InterfaceMethod com/marketplace/service/ConsumerService.uploadProfileImage:(Lorg/springframework/web/multipart/MultipartFile;)Ljava/lang/String;
+        10: invokestatic  #61                 // Method org/springframework/http/ResponseEntity.ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+        13: areturn
+      LineNumberTable:
+        line 68: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  this   Lcom/marketplace/controller/ConsumerController;
+            0      14     1  file   Lorg/springframework/web/multipart/MultipartFile;
+    MethodParameters:
+      Name                           Flags
+      file
+
+  public org.springframework.http.ResponseEntity<PagedResponse<ApiMarketplaceCardResponse>> browseMarketplace(int, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String);
+    descriptor: (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #70                          // (IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LPagedResponse<LApiMarketplaceCardResponse;>;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#71)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Browse marketplace APIs"
+        )
+      1: #15(#16=[s#72])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/marketplace/apis"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #73(#74=s#75)
+          org.springframework.web.bind.annotation.RequestParam(
+            defaultValue="0"
+          )
+        1: #76(#16=J#77)
+          jakarta.validation.constraints.Min(
+            value=0l
+          )
+      parameter 1:
+        0: #73(#74=s#79)
+          org.springframework.web.bind.annotation.RequestParam(
+            defaultValue="12"
+          )
+        1: #80()
+          jakarta.validation.constraints.Positive
+      parameter 2:
+        0: #73(#81=Z#82)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+          )
+      parameter 3:
+        0: #73(#81=Z#82)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+          )
+      parameter 4:
+        0: #73(#81=Z#82)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+          )
+      parameter 5:
+        0: #73(#81=Z#82,#74=s#83)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+            defaultValue="NEWEST"
+          )
+    Code:
+      stack=3, locals=7, args_size=7
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #84                 // String Unresolved compilation problems: \n\tPagedResponse cannot be resolved to a type\n\tApiMarketplaceCardResponse cannot be resolved to a type\n\tThe method browseMarketplace(int, int, String, String, String, String) from the type ConsumerService refers to the missing type PagedResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 73: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    RuntimeVisibleTypeAnnotations:
+      0: #76(#16=J#77): METHOD_FORMAL_PARAMETER, param_index=0
+        jakarta.validation.constraints.Min(
+          value=0l
+        )
+      1: #80(): METHOD_FORMAL_PARAMETER, param_index=1
+        jakarta.validation.constraints.Positive
+    MethodParameters:
+      Name                           Flags
+      page
+      size
+      search
+      categoryId
+      pricing
+      sort
+
+  public org.springframework.http.ResponseEntity<ApiMarketplaceDetailsResponse> getMarketplaceApi(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #94                          // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LApiMarketplaceDetailsResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#95)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Get marketplace API details"
+        )
+      1: #15(#16=[s#96])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/marketplace/apis/{id}"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97()
+          org.springframework.web.bind.annotation.PathVariable
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #98                 // String Unresolved compilation problems: \n\tApiMarketplaceDetailsResponse cannot be resolved to a type\n\tThe method getMarketplaceApi(String) from the type ConsumerService refers to the missing type ApiMarketplaceDetailsResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 85: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    MethodParameters:
+      Name                           Flags
+      id
+
+  public org.springframework.http.ResponseEntity<java.util.List<SubscriptionPlanResponse>> getApiPlans(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #102                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Ljava/util/List<LSubscriptionPlanResponse;>;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#103)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="List subscription plans for a marketplace API"
+        )
+      1: #15(#16=[s#104])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/marketplace/apis/{apiId}/plans"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97()
+          org.springframework.web.bind.annotation.PathVariable
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #105                // String Unresolved compilation problems: \n\tSubscriptionPlanResponse cannot be resolved to a type\n\tThe method getApiPlans(String) from the type ConsumerService refers to the missing type SubscriptionPlanResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 91: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    MethodParameters:
+      Name                           Flags
+      apiId
+
+  public org.springframework.http.ResponseEntity<SubscriptionResponse> createSubscription(CreateSubscriptionRequest);
+    descriptor: (LCreateSubscriptionRequest;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #110                         // (LCreateSubscriptionRequest;)Lorg/springframework/http/ResponseEntity<LSubscriptionResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#111)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Create a subscription for a marketplace API"
+        )
+      1: #48(#16=[s#112])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/subscriptions"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #37()
+          jakarta.validation.Valid
+        1: #38()
+          org.springframework.web.bind.annotation.RequestBody
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #113                // String Unresolved compilation problems: \n\tSubscriptionResponse cannot be resolved to a type\n\tCreateSubscriptionRequest cannot be resolved to a type\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 97: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    RuntimeVisibleTypeAnnotations:
+      0: #37(): METHOD_FORMAL_PARAMETER, param_index=0
+        jakarta.validation.Valid
+    MethodParameters:
+      Name                           Flags
+      request
+
+  public org.springframework.http.ResponseEntity<SubscriptionActivationResponse> activateSubscription(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #116                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LSubscriptionActivationResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#117)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Activate a subscription (development/testing path)"
+        )
+      1: #48(#16=[s#118])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/dev/subscriptions/{subscriptionId}/activate"]
+        )
+      2: #119(#16=s#120)
+        org.springframework.security.access.prepost.PreAuthorize(
+          value="hasRole(\'CONSUMER\')"
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97()
+          org.springframework.web.bind.annotation.PathVariable
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #121                // String Unresolved compilation problems: \n\tSubscriptionActivationResponse cannot be resolved to a type\n\tThe method activateSubscriptionDev(String) from the type ConsumerService refers to the missing type SubscriptionActivationResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 104: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    MethodParameters:
+      Name                           Flags
+      subscriptionId
+
+  public org.springframework.http.ResponseEntity<java.util.List<ApiKeyResponse>> getApiKeys();
+    descriptor: ()Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #125                         // ()Lorg/springframework/http/ResponseEntity<Ljava/util/List<LApiKeyResponse;>;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#126)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="List active consumer API keys"
+        )
+      1: #15(#16=[s#127])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/api-keys"]
+        )
+    Code:
+      stack=3, locals=1, args_size=1
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #128                // String Unresolved compilation problems: \n\tApiKeyResponse cannot be resolved to a type\n\tThe method getApiKeys() from the type ConsumerService refers to the missing type ApiKeyResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 110: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+
+  public org.springframework.http.ResponseEntity<ApiKeyCreatedResponse> regenerateApiKey(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #131                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LApiKeyCreatedResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#132)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Regenerate an API key for a subscription"
+        )
+      1: #48(#16=[s#133])
+        org.springframework.web.bind.annotation.PostMapping(
+          value=["/subscriptions/{subscriptionId}/api-key/regenerate"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97()
+          org.springframework.web.bind.annotation.PathVariable
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #134                // String Unresolved compilation problems: \n\tApiKeyCreatedResponse cannot be resolved to a type\n\tThe method regenerateApiKey(String) from the type ConsumerService refers to the missing type ApiKeyCreatedResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 116: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    MethodParameters:
+      Name                           Flags
+      subscriptionId
+
+  public org.springframework.http.ResponseEntity<java.lang.Void> revokeApiKey(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #137                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Ljava/lang/Void;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#138)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Revoke a consumer API key"
+        )
+      1: #139(#16=[s#140])
+        org.springframework.web.bind.annotation.DeleteMapping(
+          value=["/api-keys/{id}"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97(#16=s#100)
+          org.springframework.web.bind.annotation.PathVariable(
+            value="id"
+          )
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #54                 // Field consumerService:Lcom/marketplace/service/ConsumerService;
+         4: aload_1
+         5: invokeinterface #141,  2          // InterfaceMethod com/marketplace/service/ConsumerService.revokeApiKey:(Ljava/lang/String;)V
+        10: invokestatic  #143                // Method org/springframework/http/ResponseEntity.noContent:()Lorg/springframework/http/ResponseEntity$HeadersBuilder;
+        13: invokeinterface #147,  1          // InterfaceMethod org/springframework/http/ResponseEntity$HeadersBuilder.build:()Lorg/springframework/http/ResponseEntity;
+        18: areturn
+      LineNumberTable:
+        line 123: 0
+        line 124: 10
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      19     0  this   Lcom/marketplace/controller/ConsumerController;
+            0      19     1 apiKeyId   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      apiKeyId
+
+  public org.springframework.http.ResponseEntity<PagedResponse<SubscriptionResponse>> getSubscriptions(int, int, java.lang.String, java.lang.String);
+    descriptor: (IILjava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #156                         // (IILjava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LPagedResponse<LSubscriptionResponse;>;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#157)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="List consumer subscriptions"
+        )
+      1: #15(#16=[s#112])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/subscriptions"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #73(#74=s#75)
+          org.springframework.web.bind.annotation.RequestParam(
+            defaultValue="0"
+          )
+        1: #76(#16=J#77)
+          jakarta.validation.constraints.Min(
+            value=0l
+          )
+      parameter 1:
+        0: #73(#74=s#79)
+          org.springframework.web.bind.annotation.RequestParam(
+            defaultValue="12"
+          )
+        1: #80()
+          jakarta.validation.constraints.Positive
+      parameter 2:
+        0: #73(#81=Z#82)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+          )
+      parameter 3:
+        0: #73(#81=Z#82)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+          )
+    Code:
+      stack=3, locals=5, args_size=5
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #158                // String Unresolved compilation problems: \n\tPagedResponse cannot be resolved to a type\n\tSubscriptionResponse cannot be resolved to a type\n\tThe method getSubscriptions(int, int, String, String) from the type ConsumerService refers to the missing type PagedResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 129: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    RuntimeVisibleTypeAnnotations:
+      0: #76(#16=J#77): METHOD_FORMAL_PARAMETER, param_index=0
+        jakarta.validation.constraints.Min(
+          value=0l
+        )
+      1: #80(): METHOD_FORMAL_PARAMETER, param_index=1
+        jakarta.validation.constraints.Positive
+    MethodParameters:
+      Name                           Flags
+      page
+      size
+      status
+      search
+
+  public org.springframework.http.ResponseEntity<com.marketplace.dto.SubscriptionDetailsResponse> getSubscription(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #162                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/SubscriptionDetailsResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#163)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Get a subscription detail"
+        )
+      1: #15(#16=[s#164])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/subscriptions/{id}"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97()
+          org.springframework.web.bind.annotation.PathVariable
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #54                 // Field consumerService:Lcom/marketplace/service/ConsumerService;
+         4: aload_1
+         5: invokeinterface #165,  2          // InterfaceMethod com/marketplace/service/ConsumerService.getSubscription:(Ljava/lang/String;)Lcom/marketplace/dto/SubscriptionDetailsResponse;
+        10: invokestatic  #61                 // Method org/springframework/http/ResponseEntity.ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+        13: areturn
+      LineNumberTable:
+        line 140: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  this   Lcom/marketplace/controller/ConsumerController;
+            0      14     1    id   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      id
+
+  public org.springframework.http.ResponseEntity<java.lang.Void> cancelSubscription(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #137                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Ljava/lang/Void;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#169)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Cancel an active subscription"
+        )
+      1: #170(#16=[s#171])
+        org.springframework.web.bind.annotation.PatchMapping(
+          value=["/subscriptions/{id}/cancel"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97()
+          org.springframework.web.bind.annotation.PathVariable
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: getfield      #54                 // Field consumerService:Lcom/marketplace/service/ConsumerService;
+         4: aload_1
+         5: invokeinterface #172,  2          // InterfaceMethod com/marketplace/service/ConsumerService.cancelSubscription:(Ljava/lang/String;)V
+        10: invokestatic  #143                // Method org/springframework/http/ResponseEntity.noContent:()Lorg/springframework/http/ResponseEntity$HeadersBuilder;
+        13: invokeinterface #147,  1          // InterfaceMethod org/springframework/http/ResponseEntity$HeadersBuilder.build:()Lorg/springframework/http/ResponseEntity;
+        18: areturn
+      LineNumberTable:
+        line 146: 0
+        line 147: 10
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      19     0  this   Lcom/marketplace/controller/ConsumerController;
+            0      19     1    id   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      id
+
+  public org.springframework.http.ResponseEntity<ApiDocumentationResponse> getSubscriptionDocumentation(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #175                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<LApiDocumentationResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#176)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Get API documentation for a subscription"
+        )
+      1: #15(#16=[s#177])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/subscriptions/{subscriptionId}/documentation"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #97()
+          org.springframework.web.bind.annotation.PathVariable
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #178                // String Unresolved compilation problems: \n\tApiDocumentationResponse cannot be resolved to a type\n\tThe method getSubscriptionDocumentation(String) from the type ConsumerService refers to the missing type ApiDocumentationResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 152: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    MethodParameters:
+      Name                           Flags
+      subscriptionId
+
+  public org.springframework.http.ResponseEntity<com.marketplace.dto.UsageSummaryResponse> getUsage(java.lang.String, java.lang.String);
+    descriptor: (Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #182                         // (Ljava/lang/String;Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Lcom/marketplace/dto/UsageSummaryResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#183)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="View usage summary"
+        )
+      1: #15(#16=[s#184])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/usage"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #73(#81=Z#82)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+          )
+      parameter 1:
+        0: #73(#81=Z#82)
+          org.springframework.web.bind.annotation.RequestParam(
+            required=false
+          )
+    Code:
+      stack=3, locals=3, args_size=3
+         0: aload_0
+         1: getfield      #54                 // Field consumerService:Lcom/marketplace/service/ConsumerService;
+         4: aload_1
+         5: aload_2
+         6: invokeinterface #185,  3          // InterfaceMethod com/marketplace/service/ConsumerService.getUsageSummary:(Ljava/lang/String;Ljava/lang/String;)Lcom/marketplace/dto/UsageSummaryResponse;
+        11: invokestatic  #61                 // Method org/springframework/http/ResponseEntity.ok:(Ljava/lang/Object;)Lorg/springframework/http/ResponseEntity;
+        14: areturn
+      LineNumberTable:
+        line 161: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      15     0  this   Lcom/marketplace/controller/ConsumerController;
+            0      15     1 subscriptionId   Ljava/lang/String;
+            0      15     2 range   Ljava/lang/String;
+    MethodParameters:
+      Name                           Flags
+      subscriptionId
+      range
+
+  public org.springframework.http.ResponseEntity<java.util.List<UsageLogResponse>> getUsageLogs(java.lang.String);
+    descriptor: (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #191                         // (Ljava/lang/String;)Lorg/springframework/http/ResponseEntity<Ljava/util/List<LUsageLogResponse;>;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#192)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Debug: list raw usage logs for subscription"
+        )
+      1: #15(#16=[s#193])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/debug/usage-logs"]
+        )
+    RuntimeVisibleParameterAnnotations:
+      parameter 0:
+        0: #73()
+          org.springframework.web.bind.annotation.RequestParam
+    Code:
+      stack=3, locals=2, args_size=2
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #194                // String Unresolved compilation problems: \n\tUsageLogResponse cannot be resolved to a type\n\tThe method getUsageLogs(String) from the type ConsumerService refers to the missing type UsageLogResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 167: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+    MethodParameters:
+      Name                           Flags
+      subscriptionId
+
+  public org.springframework.http.ResponseEntity<ConsumerDashboardResponse> getDashboard();
+    descriptor: ()Lorg/springframework/http/ResponseEntity;
+    flags: (0x0001) ACC_PUBLIC
+    Signature: #197                         // ()Lorg/springframework/http/ResponseEntity<LConsumerDashboardResponse;>;
+    RuntimeVisibleAnnotations:
+      0: #12(#13=s#198)
+        io.swagger.v3.oas.annotations.Operation(
+          summary="Get the consumer dashboard summary"
+        )
+      1: #15(#16=[s#199])
+        org.springframework.web.bind.annotation.GetMapping(
+          value=["/dashboard"]
+        )
+    Code:
+      stack=3, locals=1, args_size=1
+         0: new           #19                 // class java/lang/Error
+         3: dup
+         4: ldc           #200                // String Unresolved compilation problems: \n\tConsumerDashboardResponse cannot be resolved to a type\n\tThe method getDashboard() from the type ConsumerService refers to the missing type ConsumerDashboardResponse\n
+         6: invokespecial #23                 // Method java/lang/Error."<init>":(Ljava/lang/String;)V
+         9: athrow
+      LineNumberTable:
+        line 173: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+
+  public com.marketplace.controller.ConsumerController(com.marketplace.service.ConsumerService);
+    descriptor: (Lcom/marketplace/service/ConsumerService;)V
+    flags: (0x0001) ACC_PUBLIC
+    RuntimeInvisibleAnnotations:
+      0: #204()
+        lombok.Generated
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: invokespecial #205                // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: aload_1
+         6: putfield      #54                 // Field consumerService:Lcom/marketplace/service/ConsumerService;
+         9: return
+      LineNumberTable:
+        line 47: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      10     0  this   Lcom/marketplace/controller/ConsumerController;
+            0      10     1 consumerService   Lcom/marketplace/service/ConsumerService;
+    MethodParameters:
+      Name                           Flags
+      consumerService                final
+}
+SourceFile: "ConsumerController.java"
+RuntimeVisibleAnnotations:
+  0: #210()
+    org.springframework.web.bind.annotation.RestController
+  1: #211(#16=[s#212])
+    org.springframework.web.bind.annotation.RequestMapping(
+      value=["/api/consumer"]
+    )
+  2: #119(#16=s#120)
+    org.springframework.security.access.prepost.PreAuthorize(
+      value="hasRole(\'CONSUMER\')"
+    )
+  3: #213(#214=s#215,#216=s#217)
+    io.swagger.v3.oas.annotations.tags.Tag(
+      name="Consumer API"
+      description="Consumer-facing endpoints for profile, marketplace browsing, subscriptions, API keys, usage, and dashboard"
+    )
+InnerClasses:
+  public static #219= #148 of #62;        // HeadersBuilder=class org/springframework/http/ResponseEntity$HeadersBuilder of class org/springframework/http/ResponseEntity
+  MissingTypes: length = 0x1E (unknown attribute)
+   00 0E 00 DC 00 DE 00 E0 00 E2 00 E4 00 E6 00 E8
+   00 EA 00 EC 00 EE 00 F0 00 F2 00 F4 00 F6

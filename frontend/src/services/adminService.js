@@ -36,6 +36,7 @@ export const adminService = {
   getApiForReview: (id) => request(() => apiClient.get(`/admin/apis/${encodeURIComponent(id)}`)),
   approveApi: (id) => request(() => apiClient.put(`/admin/apis/${encodeURIComponent(id)}/approve`)),
   rejectApi: (id) => request(() => apiClient.put(`/admin/apis/${encodeURIComponent(id)}/reject`)),
+  changeApiStatus: (id, newStatus, reason) => request(() => apiClient.put(`/admin/apis/${encodeURIComponent(id)}/status`, { newStatus, reason })),
   getCategories: () => request(() => apiClient.get('/admin/categories')),
   getCategoryById: (id) => request(() => apiClient.get(`/admin/categories/${encodeURIComponent(id)}`)),
   createCategory: (category) => request(() => apiClient.post('/admin/categories', category)),

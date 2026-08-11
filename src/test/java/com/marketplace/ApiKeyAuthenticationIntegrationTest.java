@@ -132,6 +132,87 @@ class ApiKeyAuthenticationIntegrationTest {
     }
 
     @Test
+    void adminCannotDeleteSelfWhenCallingAdminDeleteEndpoint() throws Exception {
+        String adminEmail = "admin-self@example.com";
+        String adminToken = registerAndGetToken(adminEmail, "Admin Self", "ADMIN");
+        String adminId = userRepository.findByEmail(adminEmail).orElseThrow().getId();
+
+        mockMvc.perform(delete("/api/admin/users/{id}", adminId)
+                        .header("Authorization", "Bearer " + adminToken))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message").value("Administrators cannot disable or delete their own account."));
+    }
+
+    @Test
+    void deletingProviderDisablesProviderApisAndRejectsExistingApiKeyExecution() throws Exception {
+        String providerEmail = "provider-delete@example.com";
+        String providerToken = registerAndGetToken(providerEmail, "Provider Delete", "PROVIDER");
+        String providerId = userRepository.findByEmail(providerEmail).orElseThrow().getId();
+
+        String adminToken = registerAndGetToken("admin-delete@example.com", "Admin Delete", "ADMIN");
+
+        Api api = apiRepository.save(Api.builder()
+                .id("provider-api-1")
+                .providerId(providerId)
+                .name("Deleted Provider API")
+                .description("Should be disabled after provider deletion")
+                .baseUrl("https://example.com/disabled")
+                .categoryId("cat-1")
+                .logo("/logos/disabled.png")
+                .version("v1")
+                .authenticationType("API_KEY")
+                .rateLimit(100)
+                .status(ApiStatus.APPROVED)
+                .deleted(false)
+                .build());
+
+        SubscriptionPlan plan = subscriptionPlanRepository.save(SubscriptionPlan.builder()
+                .id("provider-plan-1")
+                .apiId(api.getId())
+                .planName("Provider Plan")
+                .price(BigDecimal.valueOf(5))
+                .billingCycle(BillingCycle.MONTHLY)
+                .requestLimit(5)
+                .active(true)
+                .build());
+
+        String consumerToken = registerAndGetToken("consumer-delete@example.com", "Consumer Delete", "CONSUMER");
+        String subscriptionResponse = mockMvc.perform(post("/api/consumer/subscriptions")
+                        .header("Authorization", "Bearer " + consumerToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(new CreateSubscriptionRequest(api.getId(), plan.getId()))))
+                .andExpect(status().isCreated())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        String subscriptionId = objectMapper.readTree(subscriptionResponse).get("subscriptionId").asText();
+        String activationResponse = mockMvc.perform(post("/api/consumer/dev/subscriptions/{subscriptionId}/activate", subscriptionId)
+                        .header("Authorization", "Bearer " + consumerToken))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        String apiKey = objectMapper.readTree(activationResponse).get("apiKey").asText();
+
+        mockMvc.perform(delete("/api/admin/users/{id}", providerId)
+                        .header("Authorization", "Bearer " + adminToken))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/consumer/marketplace/apis")
+                        .header("Authorization", "Bearer " + consumerToken))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content").isEmpty());
+
+        mockMvc.perform(get("/api/marketplace/apis/{apiId}/execute", api.getId())
+                        .header("Authorization", "Bearer " + apiKey))
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message").value("This API is no longer available because its provider account has been deactivated."));
+    }
+
+    @Test
     void revokedApiKeyShouldBeRejectedAndNotExecute() throws Exception {
         String consumerToken = registerAndGetToken("consumer-b@example.com", "Consumer Two", "CONSUMER");
 

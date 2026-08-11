@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Box, Button, Drawer, List, ListItemButton, ListItemText, Stack, Typography, Grid, Paper, IconButton, MenuItem, Select, useTheme } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Button, Drawer, List, ListItemButton, ListItemText, Stack, Typography, Grid, Paper } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import DashboardLayout from '../layouts/DashboardLayout';
 import PageHeader from '../components/PageHeader';
-import AppCard from '../components/AppCard';
 import LoadingState from '../components/LoadingState';
 import ErrorState from '../components/ErrorState';
 import EmptyState from '../components/EmptyState';
@@ -13,13 +11,15 @@ import { consumerService } from '../services/consumerService';
 
 const sections = [
   { id: 'overview', label: 'Overview' },
+  { id: 'how-it-works', label: 'How it works' },
   { id: 'authentication', label: 'Authentication' },
-  { id: 'base-url', label: 'Base URL' },
+  { id: 'apihub-execute', label: 'APIHub execute' },
+  { id: 'provider-endpoint', label: 'Provider endpoint' },
   { id: 'headers', label: 'Headers' },
-  { id: 'endpoints', label: 'Endpoints' },
+  { id: 'request', label: 'Request' },
   { id: 'response', label: 'Response' },
   { id: 'errors', label: 'Errors' },
-  { id: 'rate-limits', label: 'Rate Limits' }
+  { id: 'rate-limits', label: 'Rate limits' }
 ];
 
 const DocumentationPage = () => {
@@ -30,7 +30,6 @@ const DocumentationPage = () => {
   const [error, setError] = useState('');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
-  const theme = useTheme();
 
   const loadDocumentation = async () => {
     try {
@@ -72,13 +71,19 @@ const DocumentationPage = () => {
   if (error) return <DashboardLayout role="CONSUMER" title="Documentation" subtitle="Developer guides for your active subscriptions."><ErrorState message={error} retryLabel="Try again" onRetry={loadDocumentation} /></DashboardLayout>;
   if (!doc) return <DashboardLayout role="CONSUMER" title="Documentation" subtitle="Developer guides for your active subscriptions."><EmptyState title="Documentation unavailable" description="This subscription does not currently expose docs." actionLabel="Back to subscriptions" actionTo="/consumer/subscriptions" /></DashboardLayout>;
 
+  const apiHubExecutePathPlaceholder = '/api/marketplace/apis/{apiId}/execute';
+  const apiHubExecuteUrlPlaceholder = `${window.location.origin}${apiHubExecutePathPlaceholder}`;
+  const supportedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
+
   // Helper to check availability of sections
   const has = {
     overview: Boolean(doc.markdown),
-    authentication: Boolean(doc.authenticationGuide),
-    'base-url': Boolean(doc.baseEndpoint),
+    'how-it-works': Boolean(doc.markdown || doc.authenticationGuide || doc.baseEndpoint),
+    authentication: Boolean(doc.authenticationGuide || doc.headers),
+    'apihub-execute': Boolean(doc.apiId || doc.baseEndpoint),
+    'provider-endpoint': Boolean(doc.baseEndpoint),
     headers: Boolean(doc.headers),
-    endpoints: Array.isArray(doc.endpoints) && doc.endpoints.length > 0,
+    request: Boolean(doc.requestExample),
     response: Boolean(doc.responseExample),
     errors: Boolean(doc.errorCodes),
     'rate-limits': subscription?.requestLimit != null
@@ -125,52 +130,47 @@ const DocumentationPage = () => {
 
               <Grid item xs={12} md={9}>
                 <Box sx={{ maxWidth: 900 }}>
-                  {has.overview && <Box id="overview" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Overview</Typography><Typography color="text.secondary" sx={{ mt: 1, whiteSpace: 'pre-line' }}>{doc.markdown}</Typography></Box>}
+                  {has.overview && <Box id="overview" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Overview</Typography><Typography color="text.secondary" sx={{ mt: 1, whiteSpace: 'pre-line' }}>{doc.markdown || 'Use the APIHub gateway to invoke this API from a single developer endpoint. APIHub handles API key authentication, request forwarding, and response delivery from the provider.'}</Typography></Box>}
 
-                  {has.authentication && <Box id="authentication" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Authentication</Typography><Typography color="text.secondary" sx={{ mt: 1 }}>{doc.authenticationGuide}</Typography></Box>}
+                  {has['how-it-works'] && <Box id="how-it-works" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>How it works</Typography><Typography color="text.secondary" sx={{ mt: 1, whiteSpace: 'pre-line' }}>APIHub exposes this API through a managed gateway endpoint. Your client calls APIHub, and APIHub forwards the request to the provider backend URL listed below. Your subscription and API key are validated before the request is forwarded.</Typography></Box>}
 
-                  {has['base-url'] && <Box id="base-url" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Base URL</Typography><Box sx={{ mt: 1 }}><CodeBlock language="text" title="Base URL" code={doc.baseEndpoint} /></Box></Box>}
+                  {has.authentication && <Box id="authentication" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Authentication</Typography><Typography color="text.secondary" sx={{ mt: 1, whiteSpace: 'pre-line' }}>All requests to APIHub must include your consumer API key in the <code>X-API-Key</code> header. Do not send provider credentials directly to the provider endpoint. APIHub uses the key to authenticate your subscription and authorize the request.</Typography>{doc.authenticationGuide ? <Typography color="text.secondary" sx={{ mt: 2, whiteSpace: 'pre-line' }}>{doc.authenticationGuide}</Typography> : null}</Box>}
 
-                  {has.headers && <Box id="headers" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Headers</Typography>{typeof doc.headers === 'string' ? <Box sx={{ mt: 1 }}><CodeBlock language="text" title="Headers" code={doc.headers} /></Box> : null}</Box>}
-
-                  {has.endpoints && <Box id="endpoints" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Endpoints</Typography>
+                  {has['apihub-execute'] && <Box id="apihub-execute" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>APIHub execute endpoint</Typography>
+                    <Typography color="text.secondary" sx={{ mt: 1 }}>Use the APIHub gateway URL below as the developer-facing access point for this API. APIHub will forward the request to the provider’s base endpoint.</Typography>
+                    <Box sx={{ mt: 2 }}><CodeBlock language="text" title="APIHub Execute URL" code={apiHubExecuteUrlPlaceholder} /></Box>
+                    <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+                      <Button variant="outlined" size="small" onClick={() => navigator.clipboard.writeText(apiHubExecuteUrlPlaceholder)}>Copy execute URL</Button>
+                      <Button variant="outlined" size="small" onClick={() => navigator.clipboard.writeText(apiHubExecutePathPlaceholder)}>Copy relative path</Button>
+                    </Stack>
                     <Box sx={{ mt: 2 }}>
-                      {doc.endpoints.map((ep, idx) => (
-                        <Paper key={idx} variant="outlined" sx={{ p: 2, mb: 2, borderRadius: 1 }}>
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                            <Box sx={{ px: 1, py: 0.5, bgcolor: (ep.method === 'GET' ? 'success.light' : ep.method === 'POST' ? 'primary.light' : 'warning.light'), borderRadius: 0.5, fontWeight: 700 }}>{ep.method}</Box>
-                            <Typography fontFamily="monospace">{ep.path}</Typography>
-                            <Box sx={{ ml: 'auto' }}>
-                              {ep.example && <Button variant="text" size="small" onClick={() => navigator.clipboard.writeText(ep.example)}>Copy</Button>}
-                            </Box>
-                          </Box>
-                          {ep.description && <Typography color="text.secondary" sx={{ mt: 1 }}>{ep.description}</Typography>}
-                          {ep.parameters && ep.parameters.length > 0 && (
-                            <Box sx={{ mt: 1 }}>
-                              <Typography variant="subtitle2">Parameters</Typography>
-                              <Box component="table" sx={{ width: '100%', mt: 1, borderCollapse: 'collapse', fontSize: 13 }}>
-                                <thead>
-                                  <tr><th style={{ textAlign: 'left', padding: 6 }}>Name</th><th style={{ textAlign: 'left', padding: 6 }}>Type</th><th style={{ textAlign: 'left', padding: 6 }}>Required</th></tr>
-                                </thead>
-                                <tbody>
-                                  {ep.parameters.map((p, i) => (
-                                    <tr key={i}><td style={{ padding: 6 }}>{p.name}</td><td style={{ padding: 6 }}>{p.type}</td><td style={{ padding: 6 }}>{p.required ? 'Yes' : 'No'}</td></tr>
-                                  ))}
-                                </tbody>
-                              </Box>
-                            </Box>
-                          )}
-                          {ep.response && <Box sx={{ mt: 2 }}><Typography variant="subtitle2">Response</Typography><Box sx={{ mt: 1 }}><CodeBlock language="json" title="Response" code={ep.response} /></Box></Box>}
-                        </Paper>
-                      ))}
+                      <Typography variant="subtitle2">Supported request methods</Typography>
+                      <Typography color="text.secondary" sx={{ mt: 0.5 }}>{supportedMethods.join(', ')}</Typography>
+                    </Box>
+                    <Box sx={{ mt: 2 }}>
+                      <Typography variant="subtitle2">Example request</Typography>
+                      <CodeBlock language="bash" title="Curl example" code={`curl -X POST "${apiHubExecuteUrlPlaceholder}" \
+  -H "X-API-Key: YOUR_API_KEY_HERE" \
+  -H "Content-Type: application/json" \
+  -d '{"example": "payload"}'`} />
                     </Box>
                   </Box>}
 
-                  {has.response && <Box id="response" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Response Example</Typography><Box sx={{ mt: 1 }}><CodeBlock language="json" title="Response" code={doc.responseExample} /></Box></Box>}
+                  {has['provider-endpoint'] && <Box id="provider-endpoint" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Provider endpoint</Typography><Typography color="text.secondary" sx={{ mt: 1 }}>This is the provider backend base endpoint that APIHub forwards requests to internally. Consumers should not call this URL directly unless explicitly instructed by the provider.</Typography><Box sx={{ mt: 2 }}><CodeBlock language="text" title="Provider base endpoint" code={doc.baseEndpoint} /></Box></Box>}
+
+                  {has.headers && <Box id="headers" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Headers</Typography>
+                    <Box sx={{ mt: 1 }}>
+                      <CodeBlock language="text" title="Required headers" code={`X-API-Key: YOUR_API_KEY_HERE${doc.headers ? `\n${doc.headers}` : ''}`} />
+                    </Box>
+                  </Box>}
+
+                  {has.request && <Box id="request" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Request example</Typography><Box sx={{ mt: 1 }}><CodeBlock language="json" title="Request payload" code={doc.requestExample} /></Box></Box>}
+
+                  {has.response && <Box id="response" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Response example</Typography><Box sx={{ mt: 1 }}><CodeBlock language="json" title="Response" code={doc.responseExample} /></Box></Box>}
 
                   {has.errors && <Box id="errors" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Errors</Typography><Typography color="text.secondary" sx={{ mt: 1, whiteSpace: 'pre-line' }}>{doc.errorCodes}</Typography></Box>}
 
-                  {has['rate-limits'] && <Box id="rate-limits" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Rate Limits</Typography><Typography color="text.secondary" sx={{ mt: 1 }}>{subscription.requestLimit} requests per minute</Typography></Box>}
+                  {has['rate-limits'] && <Box id="rate-limits" sx={{ mb: 6 }}><Typography variant="h6" fontWeight={700}>Rate limits</Typography><Typography color="text.secondary" sx={{ mt: 1 }}>{subscription.requestLimit} requests per minute</Typography></Box>}
                 </Box>
               </Grid>
             </Grid>
